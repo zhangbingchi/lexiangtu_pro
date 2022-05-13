@@ -40,7 +40,7 @@
                                 </a>
                                 <h2>
                                     <a class="layui-badge"><?php echo $value['column_title'] ?></a>
-                                    <a href="<?php echo url('/thread/' . $value['id']) ?>"><?php echo $value['title'] ?></a>
+                                    <a href="<?php echo url('/thread_views/' . $value['id']) ?>"><?php echo $value['title'] ?></a>
                                 </h2>
                                 <div class="fly-list-info">
                                     <a href="<?php echo url('/portal/' . $value['member_id']) ?>" link>

@@ -42,19 +42,18 @@ class Member extends Admin {
 
 
         builder('list')
-                ->addItem('id', '#')
-                ->addItem('email', '账号')
-                ->addItem('nickname', '昵称')
-                ->addItem('avatar', '头像', 'image')
-                ->addItem('sex', '性别')
-                ->addItem('vip', 'VIP')
-                ->addItem('identification', '认证信息')
-                ->addItem('create_time', '注册')
-                ->addItem('update_time', '更新')
-                ->addAction('删除', 'delete', '<i class="layui-icon layui-icon-delete"></i>', 'ajax-get confirm layui-btn-danger')
-                ->addAction('认证', 'ident', '<i class="layui-icon layui-icon-vercode"></i>', 'openbox layui-btn-success')
-                ->build();
-
+            ->addItem('id', '#')
+            ->addItem('email', '账号')
+            ->addItem('nickname', '昵称')
+            ->addItem('avatar', '头像', 'image')
+            ->addItem('sex', '性别')
+            ->addItem('vip', 'VIP')
+            ->addItem('identification', '认证信息')
+            ->addItem('create_time', '注册')
+            ->addItem('update_time', '更新')
+            ->addAction('删除', 'delete', '<i class="layui-icon layui-icon-delete"></i>', 'ajax-get confirm layui-btn-danger')
+            ->addAction('认证', 'ident', '<i class="layui-icon layui-icon-vercode"></i>', 'openbox layui-btn-success')
+            ->build();
 
         return view();
     }
