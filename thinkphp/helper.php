@@ -724,3 +724,13 @@ if (!function_exists('yaconf')) {
         return Config::yaconf($name, $default);
     }
 }
+
+if (!function_exists('redis')) {
+    /**
+     * @return \Redis
+     */
+    function redis()
+    {
+        return \module\Redis::redis();
+    }
+}

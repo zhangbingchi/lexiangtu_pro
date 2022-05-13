@@ -5,9 +5,13 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
             <div class="fly-panel detail-box">
-                <h1><?php echo $title ?></h1>
+                <h1 style="font-size: 18px;line-height: 30px;color: indigo;"><?php echo $title ?></h1>
                 <div class="fly-detail-info">
-                    <span class="layui-badge layui-bg-green fly-detail-column"><?php echo $column_title ?></span>
+                    <?php foreach ($thread_tags as $tag) { ?>
+                        <a href="<?php echo 'thread/search?keyword='.$tag ?>" class="layui-badge layui-bg-green fly-detail-column">
+                            <?php echo $tag; ?>
+                        </a>
+                    <?php } ?>
                     {eq name="top" value="1"}
                     <span class="layui-badge layui-bg-black">置顶</span>
                     {/eq}
@@ -19,21 +23,83 @@
                         <i class="iconfont" title="人气">&#xe60b;</i> <?php echo $hits ?>
                     </span>
                 </div>
-                <div class="detail-about" style="line-height: 16px;">
+                <span>更新日志：</span><hr />
+                <div class="detail-about" style="padding: 15px 15px 15px 30px;font-size: 15px;">
                     <?php foreach ($thread_ingredients as $value) { ?>
-                        <p><?php echo $value['name'] . $value['dosage']; ?></p>
+                        <p style="padding:5px"><?php echo $value['name'] . $value['dosage']; ?></p>
                     <?php } ?>
                 </div>
-                <div class="layui-btn-container fly-detail-admin" id="LAY_jieAdmin" data-id="<?php echo $id ?>"></div>
-                <div class="detail-body photos">
+
+                <span>原版资源下载：</span><hr>
+                <p>
+                    <?php if ($level_auth['member_id']) { ?>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="width: auto;"><b>用户等级：</b></label>
+                            <div class="layui-input-block">
+                                <span class="downimgp show_text"> <?php echo $level_auth['user_level'] ?></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="width: auto;"><b>权限说明：</b></label>
+                            <div class="layui-input-block">
+                                今日剩余下载：<span class="downimgp show_text"><?php echo $level_auth['allow_count'] ?></span>次
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="width: auto;"><b>下载链接：</b></label>
+                            <?php if ($levelAuth['is_down_auth'] ) { ?>
+                                <?php if(!empty($pay_url)) { ?>
+                                    <div class="layui-input-block">
+                                        <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                           href="/food/down_detail/<?php echo $article_id ?>/" target="_blank">进入下载页面</a>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="layui-input-block">
+                                        <p><span class="downimgp show_text"> 原版资源未上传，请耐心等待！</span>
+                                        </p>
+                                    </div>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <?php if ($source_type == 1) { ?>
+                                    <div class="layui-input-block">
+                                        <p><span class="show_text">视频资源</span>仅支持限<span class="show_text">年费会员</span>以上权限下载，
+                                            您可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                                 href="/order/purchase/3?article_id=<?php echo $article_id ?>" target="_blank">点击此处</a>
+                                            升级会员
+                                        </p>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="layui-input-block">
+                                        <p>可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                               href="/order/vip_center" target="_blank">升级会员</a>或<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                                href="/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank">购买图集</a>下载
+                                        </p>
+                                    </div>
+                                <?php } ?>
+                            <?php } ?>
+                        </div>
+                    <?php } else { ?>
+                        <div class="layui-input-block" style="margin-left: 10px;">
+                            <p>可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                   href="/user/register/" target="_blank">注册</a> 或 <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                                                                      href="/user/login/" target="_blank">登录</a>直接下载
+                            </p>
+                        </div>
+                    <?php } ?>
+                </p>
+                <span>预览效果：</span><hr>
+                <div class="detail-body" style="min-height:30px;">
                     <?php echo $content; ?>
                 </div>
+
+
                 <div class="photos">
                     <?php foreach ($thread_images as $value) { ?>
                         <img src="<?php echo $value['image']; ?>">
                     <?php } ?>
                 </div>
             </div>
+
             <div class="fly-panel detail-box" id="flyReply">
                 <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
                     <legend>回帖</legend>

@@ -3,6 +3,7 @@
 namespace app\index\controller;
 
 use app\common\controller\Base;
+use think\cache\driver\Redis;
 use utils\Page;
 
 class Index extends Base {
@@ -152,19 +153,14 @@ class Index extends Base {
      * @title 帖子详情查看
      */
     public function thread_views() {
-
-
         $id = input('param.id');
         if (!$id) exit;
 
         $wheres = [['a.id', '=', $id],['a.is_delete', '=', 0]];
         $one = model('thread')->model_where($wheres)->find();
-
-        // 浏览权限        
-//        if ($msg = $this->_thread_access($one['cid'])) {
-//            return view('user/access_denied', ['msg' => $msg]);
-//            exit;
-//        }
+        if(!$one) {
+            $this->error('文章已删除～', 'thread/all');
+        }
 
         // 删除 置顶 加精 是否能显示
         $one['display_top'] = 0;
@@ -176,15 +172,53 @@ class Index extends Base {
         if (!empty($member)) {
             $member_id = $member['id'];
         } else {
-            $member_id = -1;
+            $member_id = 0;
         }
 
         // 文章详情
         $ingredients = model('thread_ingredients')->where('article_id', '=', $one['article_id'])->select();
         $this->assign('thread_ingredients', $ingredients);
+
+        // 文章标签
+        $tags = model('thread_tags')->alias('tt')->field('name')
+            ->leftJoin('tags t', 'tt.tags_id=t.id')
+            ->where('article_id', '=', $one['id'])
+            ->select()->toArray();
+        $tags = array_column($tags, 'name');
+        $tags = ['ad洒大地', '阿萨说', 'sd收到'];
+        $this->assign('thread_tags', $tags);
+
         // 图片列表
         $threadImages = model('thread_images')->where('article_id', '=', $one['article_id'])->select();
         $this->assign('thread_images', $threadImages);
+
+        // 下载权限
+        $levelAuth['member_id'] = $member_id;
+        $levelAuth['is_down_auth'] = 0;
+        $levelAuth['user_level'] = '未注册';
+        if ($member_id) {
+            $levelAuth['is_down_auth'] = !!(redis()->get("user_preview:{$member_id}:{$id}"));
+            // 用户等级
+            $levelAuth['user_level'] = '普通会员';
+
+            if ($member['user_level'] >= 2 && !empty($memner['level_expire']) && $memner['level_expire'] > time()) {
+                $goodsInfo = model('goods')->where('id', '=', $member['user_level'])->get()->select();
+                $levelAuth['user_level'] = $goodsInfo['goods_name'];
+                $count = redis()->hlen("user_download:{$member_id}:" . date('Ymd'));
+                $allowCount = $goodsInfo['day_down_count'] - $count;
+                if ($allowCount > 0) {
+                    $levelAuth['is_down_auth'] = 1;
+                }
+
+                // 视频累年费会员可下载
+                if ($one['source_type'] == 1 && $member['user_level'] < 3) {
+                    $levelAuth['is_down_auth'] = 0;
+                }
+
+            }
+        }
+        $this->assign('level_auth', $levelAuth);
+
         // 回复的列表      
         $where = [
             ['a.thread_id', '=', $id]
