@@ -29,7 +29,7 @@
                         <p style="padding:5px"><?php echo $value['name'] . $value['dosage']; ?></p>
                     <?php } ?>
                 </div>
-
+                <br />
                 <span>原版资源下载：</span><hr>
                 <p>
                     <?php if ($level_auth['member_id']) { ?>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label" style="width: auto;"><b>下载链接：</b></label>
-                            <?php if ($levelAuth['is_down_auth'] ) { ?>
+                            <?php if ($level_auth['is_down_auth'] ) { ?>
                                 <?php if(!empty($pay_url)) { ?>
                                     <div class="layui-input-block">
                                         <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
@@ -63,7 +63,7 @@
                                 <?php if ($source_type == 1) { ?>
                                     <div class="layui-input-block">
                                         <p><span class="show_text">视频资源</span>仅支持限<span class="show_text">年费会员</span>以上权限下载，
-                                            您可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                            您可 <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
                                                  href="/order/purchase/3?article_id=<?php echo $article_id ?>" target="_blank">点击此处</a>
                                             升级会员
                                         </p>
@@ -71,8 +71,8 @@
                                 <?php } else { ?>
                                     <div class="layui-input-block">
                                         <p>可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                               href="/order/vip_center" target="_blank">升级会员</a>或<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                                href="/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank">购买图集</a>下载
+                                               href="http://show.lexiangtu.top/order/vip_center" target="_blank">升级会员</a>或<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                                href="http://show.lexiangtu.top/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank">购买图集</a>下载
                                         </p>
                                     </div>
                                 <?php } ?>
@@ -87,15 +87,14 @@
                         </div>
                     <?php } ?>
                 </p>
+                <br />
                 <span>预览效果：</span><hr>
                 <div class="detail-body" style="min-height:30px;">
                     <?php echo $content; ?>
                 </div>
-
-
                 <div class="photos">
                     <?php foreach ($thread_images as $value) { ?>
-                        <img src="<?php echo $value['image']; ?>">
+                            <img style="max-width: 45%;max-height:45%" src="<?php echo 'http://show.lexiangtu.top/media/' . $value['image']; ?>">
                     <?php } ?>
                 </div>
             </div>

@@ -154,10 +154,7 @@ class User extends Base {
      * @return type
      */
     public function login() {
-
-
         if (request()->isPost()) {
-
             //  后端验证
             $post = request()->post();
             foreach ($post as $key => $value) {
@@ -192,23 +189,16 @@ class User extends Base {
      * @title 注册 
      */
     public function reg() {
-
-
-
         if (request()->isPost()) {
-
-
             //  后端验证
             $post = request()->post();
             foreach ($post as $key => $value) {
                 $post[$key] = trim($value);
             }
-
             // 验证码
             if (!captcha_check($post['vercode'])) {
                 $this->error('验证码输错了');
             }
-
             //
             $email_count = db('member')->where('email', $post['email'])->count();
             if ($email_count) {
@@ -218,9 +208,8 @@ class User extends Base {
             if ($nickname_count) {
                 $this->error('你填写的昵称已经被其他人使用了');
             }
-
-
-            //            
+            //
+            $post['avatar'] = '/media/avatar/logo.png'; // 头像默认
             $msg = model('member')->reg($post);
             if (is_numeric($msg)) {
                 $this->success('注册成功', url('index/user/login'));

@@ -9,15 +9,15 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
-});
-
-Route::get('hello/:name', 'index/hello');
-
 // 完整域名绑定到admin模块
+Route::domain('admin.lexiangtu.top', 'admin');
+
 Route::domain('test.lexiangtu.top', 'index');
+
 
 Route::get('thread/:alias', 'index/thread');
 
 Route::get('thread_views/:id', 'index/thread_views');
+
+// 标签列表
+Route::get('tags', 'index/tags');

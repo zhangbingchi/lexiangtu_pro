@@ -7,7 +7,9 @@ class Redis extends \Redis
 {
     public static function redis() {
         $con = new \Redis();
-        $con->connect(config('redis.host'), config('redis.port'), 5);
+        $config = config('redis.');
+        $con->connect($config['host'], $config['port'], 5);
+        $con->auth($config['auth']);
         return $con;
     }
 }

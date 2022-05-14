@@ -128,3 +128,16 @@ function get_nav($cid = 0) {
     }
     return $result;
 }
+
+function get_tree($array, $pid=0, $list=[]) {
+    foreach ($array as $key => $item) {
+        if ($item['pid'] == $pid) {
+            unset($array[$key]);
+            $item['children'] = get_tree($array, $item['id']);
+            $list[] = $item;
+        }
+    }
+
+    return array_values($list);
+}
+

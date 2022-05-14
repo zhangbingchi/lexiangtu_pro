@@ -76,7 +76,7 @@
                                 options.error && options.error();
                             }
                         }, error: function (e) {
-                            layer.msg('请求异常，请重试', {shift: 6});
+                            //layer.msg('请求异常，请重试', {shift: 6});
                             options.error && options.error(e);
                         }
                     });

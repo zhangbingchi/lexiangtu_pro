@@ -64,6 +64,13 @@ class Index extends Base {
         return view();
     }
 
+    public function tags() {
+        $tags = model('tags')->whereIn('tag_type', [1,2,3])->select()->toArray();
+        $tags = get_tree($tags);
+        return json(['code' => 0, 'data' => $tags]);
+
+    }
+
     /**
      * @title 论坛栏目查看权限
      * cid 栏目的id
@@ -126,12 +133,11 @@ class Index extends Base {
         if ($type == 'wonderful') {
             $wheres[] = ['a.status', '=', 1];
         }
-
+        // 推荐
         $lists = model('thread')->model_where($wheres)->paginate(10, false, ['query' => request()->get()]);
         $this->assign('lists', $lists);
 
         $count = model('thread')->model_where($wheres)->count();
-
         $pager = new Page();
         if ($type) {
             $url = url('/column/' . $alias . '/' . $type) . '/page/{page}/';
@@ -153,10 +159,10 @@ class Index extends Base {
      * @title 帖子详情查看
      */
     public function thread_views() {
-        $id = input('param.id');
-        if (!$id) exit;
+        $articleId = input('param.id');
+        if (!$articleId) exit;
 
-        $wheres = [['a.id', '=', $id],['a.is_delete', '=', 0]];
+        $wheres = [['a.article_id', '=', $articleId],['a.is_delete', '=', 0]];
         $one = model('thread')->model_where($wheres)->find();
         if(!$one) {
             $this->error('文章已删除～', 'thread/all');
@@ -167,12 +173,15 @@ class Index extends Base {
         $one['display_status'] = 0;
 
         $this->assign($one);
-
+        // 登录状态
         $member = member_is_login();
         if (!empty($member)) {
             $member_id = $member['id'];
+            // 用户详情
+            $member = model('member')->get($member_id);
         } else {
             $member_id = 0;
+            $member = [];
         }
 
         // 文章详情
@@ -196,11 +205,11 @@ class Index extends Base {
         $levelAuth['member_id'] = $member_id;
         $levelAuth['is_down_auth'] = 0;
         $levelAuth['user_level'] = '未注册';
+        $allowCount = 0;
         if ($member_id) {
-            $levelAuth['is_down_auth'] = !!(redis()->get("user_preview:{$member_id}:{$id}"));
+            $levelAuth['is_down_auth'] = !!(redis()->get("user_preview:{$member_id}:{$articleId}"));
             // 用户等级
             $levelAuth['user_level'] = '普通会员';
-
             if ($member['user_level'] >= 2 && !empty($memner['level_expire']) && $memner['level_expire'] > time()) {
                 $goodsInfo = model('goods')->where('id', '=', $member['user_level'])->get()->select();
                 $levelAuth['user_level'] = $goodsInfo['goods_name'];
@@ -217,11 +226,12 @@ class Index extends Base {
 
             }
         }
+        $levelAuth['allow_count'] = $allowCount; // 剩余下载次数
         $this->assign('level_auth', $levelAuth);
 
         // 回复的列表      
         $where = [
-            ['a.thread_id', '=', $id]
+            ['a.thread_id', '=', $one['id']]
         ];
         $lists_comment = model('thread_comment')->model_where($where)->paginate(10, false, ['query' => request()->get()])->toArray();
         if (!empty($lists_comment['data'])) {
