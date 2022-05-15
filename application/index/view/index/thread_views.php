@@ -23,14 +23,16 @@
                         <i class="iconfont" title="人气">&#xe60b;</i> <?php echo $hits ?>
                     </span>
                 </div>
-                <span>更新日志：</span><hr />
+                <span>更新日志：</span>
+                <hr class="layui-border-red">
                 <div class="detail-about" style="padding: 15px 15px 15px 30px;font-size: 15px;">
                     <?php foreach ($thread_ingredients as $value) { ?>
                         <p style="padding:5px"><?php echo $value['name'] . $value['dosage']; ?></p>
                     <?php } ?>
                 </div>
                 <br />
-                <span>原版资源下载：</span><hr>
+                <span>原版资源下载：</span>
+                <hr class="layui-border-red">
                 <p>
                     <?php if ($level_auth['member_id']) { ?>
                         <div class="layui-form-item">
@@ -88,7 +90,8 @@
                     <?php } ?>
                 </p>
                 <br />
-                <span>预览效果：</span><hr>
+                <span>预览效果：</span>
+                <hr class="layui-border-red">
                 <div class="detail-body" style="min-height:30px;">
                     <?php echo $content; ?>
                 </div>

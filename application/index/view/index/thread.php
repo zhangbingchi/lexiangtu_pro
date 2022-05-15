@@ -22,42 +22,29 @@
                        }
                        ?>>精华</a>
                 </div>
-                <?php
-                if ($count) {
-                    ?>
-                    <ul class="fly-list">         
+                <?php if ($count) { ?>
+                    <ul class="fly-list">
                         <?php
                         foreach ($lists as $key => $value) {
                             ?>
                             <li>
-                                <a href="<?php echo url('/portal/' . $value['member_id']) ?>" class="fly-avatar">
-                                    <img src="<?php
-                                    if ($value['avatar'])
-                                        echo res_http($value['avatar']);
-                                    else
-                                        echo res_http('sex' . $value['sex'] . '.png');
-                                    ?>" alt="贤心">
+                                <a href="<?php echo url('/thread_views/' . $value['id']) ?>" class="fly-avatar">
+                                    <img style="width:75px;height:110px" src="__MEDIA_URL__<?php echo $value['image']; ?>">
                                 </a>
                                 <h2>
-                                    <a class="layui-badge"><?php echo $value['column_title'] ?></a>
-                                    <a href="<?php echo url('/thread_views/' . $value['article_id']) ?>"><?php echo $value['title'] ?></a>
+                                    <a href="<?php echo url('/thread_views/' . $value['id']) ?>"><?php echo $value['title'] ?></a>
                                 </h2>
                                 <div class="fly-list-info">
-                                    <a href="<?php echo url('/portal/' . $value['member_id']) ?>" link>
-                                        <cite><?php echo $value['nickname'] ?></cite>
-                                        <?php if ($value['identification']) { ?>
-                                            <i class="iconfont icon-renzheng" title="认证信息：{$value['identification']}"></i>
-                                        <?php } ?>
-                                        <?php if ($value['vip']) { ?>
-                                            <i class="layui-badge fly-badge-vip">VIP{$value['vip']}</i>
-                                        <?php } ?>
-                                    </a>
-                                    <span><?php echo substr($value['update_time'], 0, 10) ?></span>
-                                    <span class="fly-list-kiss layui-hide-xs" title="悬赏积分"><i class="layui-icon layui-icon-snowflake"></i> <?php echo $value['points'] ?></span>
-                                    <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-                                    <span class="fly-list-nums"> 
-                                        <i class="iconfont icon-pinglun1" title="回答"></i> <?php echo $value['comment'] ?>
-                                    </span>
+                                    标签：<span><?php echo $value['ingredient_list'] ?></span>
+                                </div>
+                                <span class="fly-list-info">
+                                <i class="layui-icon layui-icon-read" title="查看"></i> <?php echo $value['hits'] ?>
+                                <i class="iconfont icon-zan" style="padding:0px 10px" title="点赞"></i> <?php echo $value['like'] ?>
+                                <i class="iconfont icon-pinglun1" style="padding:0px 10px" title="评论"></i> <?php echo $value['comment'] ?>
+                                <i class="layui-icon layui-icon-star-fill" style="padding:0px 10px" title="收藏"></i> <?php echo $value['fav'] ?>
+                            </span>
+                                <div class="fly-list-info">
+                                    发布日期：<span><?php echo $value['publish_date'] ?></span>
                                 </div>
                                 <div class="fly-list-badge">
                                     {eq name="$value.top" value="1"}
@@ -71,9 +58,7 @@
                         <?php } ?>
                     </ul>
                     <div style="text-align: center;padding: 30px 0;">
-                        <?php
-                        echo $pager;
-                        ?>
+                        <?php echo $pager; ?>
                     </div>
                 <?php } else { ?>
                     <div class="fly-none">没有相关数据</div>  

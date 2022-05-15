@@ -27,24 +27,24 @@ function getSignTip($member_id = -1) {
         $sign_yesterday_info = db("member_sign")->where('member_id', $member_id)->where('sign_time', $yesterday)->field("num")->find();
 
         if ($sign_yesterday_info['num'] >= 30) {
-            $sign_tip = "可获得 <cite>20</cite> 积分";
+            $sign_tip = "可获得 20 积分";
         } elseif ($sign_yesterday_info['num'] >= 15) {
-            $sign_tip = "可获得 <cite>15</cite> 积分";
+            $sign_tip = "可获得 15 积分";
         } elseif ($sign_yesterday_info['num'] >= 5) {
-            $sign_tip = "可获得 <cite>10</cite> 积分";
+            $sign_tip = "可获得 10 积分";
         } else {
-            $sign_tip = "可获得 <cite>5</cite> 积分";
+            $sign_tip = "可获得 5 积分";
         }
     } else {
         //今天已签到
         if ($sign_info['num'] >= 29) {
-            $sign_tip = "明日签到可领 <cite>20</cite> 积分";
+            $sign_tip = "明日签到可领 20 积分";
         } elseif ($sign_info['num'] >= 14) {
-            $sign_tip = "明日签到可领 <cite>15</cite> 积分";
+            $sign_tip = "明日签到可领 15 积分";
         } elseif ($sign_info['num'] >= 4) {
-            $sign_tip = "明日签到可领 <cite>10</cite> 积分";
+            $sign_tip = "明日签到可领 10 积分";
         } else {
-            $sign_tip = "明日签到可领 <cite>5</cite> 积分";
+            $sign_tip = "明日签到可领 5 积分";
         }
     }
 
@@ -113,20 +113,12 @@ function getCanlendar() {
 }
 
 /**
- * @title 分类的导航
- * @param type $cid
+ * 分类的导航
+ * @param int $limit
+ * @return mixed
  */
-function get_nav($cid = 0) {
-
-    $result = db("nav")->where('cid', $cid)->order("listorder asc, id asc")->select();
-
-    if ($result) {
-        foreach ($result as $key => $value) {
-            // 处理href
-            $result[$key]['href'] = my_url($result[$key]['href']);
-        }
-    }
-    return $result;
+function get_nav($limit = 5) {
+    return db("thread")->orderRand()->limit($limit)->select();
 }
 
 function get_tree($array, $pid=0, $list=[]) {
