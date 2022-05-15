@@ -2,10 +2,10 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>基于 layui 的极简社区页面模版</title>
+        <title>乐享图 lexiangtu——最新最全的丽人写真视频馆</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta name="keywords" content="fly,layui,前端社区">
-        <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
+        <meta name="keywords" content="乐享图,写真,丽人,最新,女神,杨晨晨,陆萱萱">
+        <meta name="description" content="首页｜乐享图 lexiangtu——最新最全的丽人写真视频馆">
         <link rel="stylesheet" href="__PUBLIC__/libs/layui/2.4.5/css/layui.css">
         <link rel="stylesheet" href="__THEME__/css/global.css">
     </head>

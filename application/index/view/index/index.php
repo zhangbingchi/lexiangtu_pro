@@ -14,11 +14,11 @@
                     foreach ($lists_top4 as $key => $value) {
                         ?>
                         <li>
-                            <a href="<?php echo url('/thread_views/' . $value['id']) ?>" class="fly-avatar">
+                            <a href="<?php echo url('/thread_views/' . $value['article_id']) ?>" class="fly-avatar">
                                 <img style="width:75px;height:110px" src="__MEDIA_URL__<?php echo $value['image']; ?>">
                             </a>
                             <h2>
-                                <a href="<?php echo url('/thread_views/' . $value['id']) ?>"><?php echo $value['title'] ?></a>
+                                <a href="<?php echo url('/thread_views/' . $value['article_id']) ?>"><?php echo $value['title'] ?></a>
                             </h2>
                             <div class="fly-list-info">
                                 标签：<span><?php echo $value['ingredient_list'] ?></span>
@@ -67,11 +67,11 @@
                     foreach ($lists_thread20 as $key => $value) {
                         ?>
                         <li>
-                            <a href="<?php echo url('/thread_views/' . $value['id']) ?>" class="fly-avatar">
+                            <a href="<?php echo url('/thread_views/' . $value['article_id']) ?>" class="fly-avatar">
                                 <img style="width:75px;height:110px" src="__MEDIA_URL__<?php echo $value['image']; ?>">
                             </a>
                             <h2>
-                                <a href="<?php echo url('/thread_views/' . $value['id']) ?>"><?php echo $value['title'] ?></a>
+                                <a href="<?php echo url('/thread_views/' . $value['article_id']) ?>"><?php echo $value['title'] ?></a>
                             </h2>
                             <div class="fly-list-info">
                                 标签：<span><?php echo $value['ingredient_list'] ?></span>
@@ -110,7 +110,7 @@
                     <?php
                     foreach (get_nav(5) as $key => $value) {
                         ?>
-                        <li><a href="<?php echo url('/thread_views/' . $value['id']) ?>" target="<?php echo $value['title'] ?>"><?php echo $value['title'] ?></a></li>
+                        <li><a href="<?php echo url('/thread_views/' . $value['article_id']) ?>" target="<?php echo $value['title'] ?>"><?php echo $value['title'] ?></a></li>
                     <?php } ?>
                 </ul>
             </div>

@@ -15,7 +15,8 @@ class Index extends Base {
     public function index() {
         // 推荐4条
         $wheres = [
-                ['a.recommend', '=', 1]
+            ['a.recommend', '=', 1],
+            ['a.is_delete', '=', 0]
         ];
         $lists_top4 = model('thread')->model_where($wheres)->limit(4)->select();
         $this->assign('lists_top4', $lists_top4);
@@ -33,7 +34,7 @@ class Index extends Base {
         $this->assign('lists_member12', $lists_member12);
 
         // 综合10条帖子
-        $lists_thread20 = model('thread')->model_where()->limit(10)->select();
+        $lists_thread20 = model('thread')->model_where([['a.is_delete', '=', 0]])->limit(10)->select();
         $this->assign('lists_thread20', $lists_thread20);
 
         // 加载签到的初始化状态
@@ -125,7 +126,7 @@ class Index extends Base {
             exit;
         }
 
-        $wheres = [];
+        $wheres = [['a.is_delete', '=', 0]];
         if ($cid) {
             $wheres[] = ['a.cid', '=', $cid];
         }
@@ -189,11 +190,11 @@ class Index extends Base {
         $this->assign('thread_ingredients', $ingredients);
 
         // 文章标签
-        $tags = model('thread_tags')->alias('tt')->field('name')
+        $tags = model('thread_tags')->alias('tt')->field('title')
             ->leftJoin('tags t', 'tt.tags_id=t.id')
             ->where('article_id', '=', $one['id'])
             ->select()->toArray();
-        $tags = array_column($tags, 'name');
+        $tags = array_column($tags, 'title');
         $tags = ['ad洒大地', '阿萨说', 'sd收到'];
         $this->assign('thread_tags', $tags);
 

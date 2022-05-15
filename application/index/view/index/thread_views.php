@@ -5,10 +5,10 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
             <div class="fly-panel detail-box">
-                <h1 style="font-size: 18px;line-height: 30px;color: indigo;"><?php echo $title ?></h1>
+                <h1 style="font-size: 18px;line-height: 30px;color: red;"><?php echo $title ?></h1>
                 <div class="fly-detail-info">
                     <?php foreach ($thread_tags as $tag) { ?>
-                        <a href="<?php echo 'thread/search?keyword='.$tag ?>" class="layui-badge layui-bg-green fly-detail-column">
+                        <a href="<?php echo 'thread/search?keyword='.$tag ?>" class="layui-badge layui-bg-gree fly-detail-column">
                             <?php echo $tag; ?>
                         </a>
                     <?php } ?>
