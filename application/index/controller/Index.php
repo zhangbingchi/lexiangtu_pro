@@ -32,8 +32,8 @@ class Index extends Base {
                 ->select()->toArray();
         $this->assign('lists_member12', $lists_member12);
 
-        // 综合20条帖子
-        $lists_thread20 = model('thread')->model_where()->limit(20)->select();
+        // 综合10条帖子
+        $lists_thread20 = model('thread')->model_where()->limit(10)->select();
         $this->assign('lists_thread20', $lists_thread20);
 
         // 加载签到的初始化状态

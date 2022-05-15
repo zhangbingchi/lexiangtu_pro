@@ -79,13 +79,22 @@
                         ?>
                         <li>
                             <a href="<?php echo url('/thread_views/' . $value['id']) ?>" class="fly-avatar">
-                                <img src="<?php echo res_http($value['image']); ?>">
+                                <img style="width:75px;height:110px" src="__MEDIA_URL__<?php echo $value['image']; ?>">
                             </a>
                             <h2>
                                 <a href="<?php echo url('/thread_views/' . $value['id']) ?>"><?php echo $value['title'] ?></a>
                             </h2>
                             <div class="fly-list-info">
-                                <span><?php echo $value['ingredient_list'] ?></span>
+                                标签：<span><?php echo $value['ingredient_list'] ?></span>
+                            </div>
+                            <span class="fly-list-info">
+                                <i class="layui-icon layui-icon-read" title="查看"></i> <?php echo $value['hits'] ?>
+                                <i class="iconfont icon-zan" style="padding:0px 10px" title="点赞"></i> <?php echo $value['like'] ?>
+                                <i class="iconfont icon-pinglun1" style="padding:0px 10px" title="评论"></i> <?php echo $value['comment'] ?>
+                                <i class="layui-icon layui-icon-star-fill" style="padding:0px 10px" title="收藏"></i> <?php echo $value['fav'] ?>
+                            </span>
+                            <div class="fly-list-info">
+                                发布日期：<span><?php echo $value['publish_date'] ?></span>
                             </div>
                             <div class="fly-list-badge">
                                 {eq name="$value.top" value="1"}
