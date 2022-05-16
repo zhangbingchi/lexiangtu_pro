@@ -15,5 +15,6 @@ define('APP_THEME', 'phpfly');
 define('APP_RESPONSIVE', true);
 
 define('APP_PATH', __DIR__ . '/../application/');
+define('VENDOR_PATH', __DIR__ . '/../vendor/');
 
 require __DIR__ . '/../thinkphp/base.php';

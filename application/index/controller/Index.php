@@ -3,7 +3,6 @@
 namespace app\index\controller;
 
 use app\common\controller\Base;
-use think\cache\driver\Redis;
 use utils\Page;
 
 class Index extends Base {
