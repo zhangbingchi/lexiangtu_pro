@@ -271,7 +271,6 @@ class Index extends Base {
                 $this->error($msg);
             }
         } else {
-
             $this->error('请登录后进行操作');
         }
     }

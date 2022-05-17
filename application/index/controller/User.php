@@ -84,9 +84,6 @@ class User extends Base {
      * @title 个人主页
      */
     public function portal($id) {
-
-
-
         $member = member_is_login();
         if (is_array($member)) {
             $member_id = $member['id'];

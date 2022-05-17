@@ -4,48 +4,124 @@ namespace app\index\controller;
 
 use app\common\controller\Base;
 
-require_once VENDOR_PATH . 'alipay/AopClient.php';
-require_once VENDOR_PATH . 'alipay/AopCertification.php';
-require_once VENDOR_PATH . 'alipay/request/AlipayTradeQueryRequest.php';
-require_once VENDOR_PATH . 'alipay/request/AlipayTradeWapPayRequest.php';
-require_once VENDOR_PATH . 'alipay/request/AlipayTradeAppPayRequest.php';
-
 class Order extends Base {
+
     public function index()
     {
-        $aliConfig = config('alipay.');
-        //1、execute 使用
-        $aop = new \AopClient();
 
-        $aop->gatewayUrl = $aliConfig['gatewayUrl'];
-        $aop->appId = $aliConfig['app_id'];
-        $aop->rsaPrivateKey = $aliConfig['merchant_private_key'];
-        $aop->alipayrsaPublicKey = $aliConfig['alipay_public_key'];
-        $aop->signType = $aliConfig['sign_type'];
-        $aop->postCharset = $aliConfig['charset'];
-        $aop->format = 'json';
-        $aop->apiVersion = '1.0';
+        if ( !$member = member_is_login() ) {
+            $this->error('请先登录～', 'user/login');
+        }
+        $member_id = $member['id'];
 
-        $request = new \AlipayTradeQueryRequest ();
-        $params = [
-            'out_trade_no' => '20150320010343101001',
-            'total_amount' => '10.00',
-            'subject' => '测试',
-            'product_code' => 'FACE_TO_FACE_PAYMENT'
-        ];
-        $request->setBizContent(json_encode($params));
-        $result = $aop->execute($request);
-        var_dump($result);
-    }
-
-    public function notify()
-    {
-        $post = input();
-        if ($post['trade_status'] == "TRADE_SUCCESS") {
-            Db::name('order')->where('out_trade_no',$post['out_trade_no'])->update(array('pay_status'=>'success'));
-            //操作数据库 修改状态
-            echo "SUCCESS";
+        // 获取商品信息
+        $goodId = input('param.id');
+        if ( !$goodId ) {
+            $this->error('请求异常，请重试～');
+        }
+        $goodInfo = model('goods')->where('id', '=', $goodId)->find();
+        if ( !$goodInfo ) {
+            $this->error('请求异常，请重试～');
         }
 
+        //生成订单号
+        $uuid = uniqid(date('YmdHis'));
+        // 额外参数回调验证
+        $orderHash = md5($member_id . time());
+
+        // 生成订单信息
+        $inserts = [
+            'user_id' => $member_id,
+            'order_number' => $uuid,
+            'order_hash' => $orderHash,
+            'goods_id' => $goodId,
+            'article_id' => input('param.article_id') ?: 0,
+            'create_time' => time()
+        ];
+        model('order')->insert($inserts);
+
+        $params = [
+            'out_trade_no' => $uuid,
+            'total_amount' => $goodInfo['price'],
+            'subject' => $goodInfo['name'],
+            'extend_params' => [
+                'order_hash' => $orderHash
+            ],
+        ];
+
+        $result = controller('common/AliPay')->pay($params);
+        if ( !empty($result['code']) && $result['code'] == 10000 ) {
+            $expireTime = time() + 300;
+            $data       = [
+                'qr_code' => $result['qr_code'],
+                'order_number' => $uuid,
+                'good_info' => $goodInfo,
+                'expire_date' => date('Y-m-d H:i:s', $expireTime),
+                'expire_time' => $expireTime
+
+            ];
+            $this->assign($data);
+            return view();
+        } else {
+            $this->redirect('/');
+        }
+
+    }
+
+    public function pay_order_callback() {
+        $callback = input('post.');
+        if (!$callback) exit();
+
+        $fields = ['out_trade_no', 'buyer_logon_id', 'receipt_amount', 'trade_status', 'trade_no'];
+        foreach ($fields as $field) {
+            if (empty($callback[$field])) exit;
+        }
+
+        // 获取订单信息
+        $where = [
+            ['order_number', '=', $callback['out_trade_no']],
+            ['order_hash', '=', $callback['order_hash']],
+        ];
+        $orderInfo = model('order')->where($where)->find();
+
+        $tradeStatus = [
+            "WAIT_BUYER_PAY" => 0,#交易创建，等待买家付款
+            "TRADE_CLOSED" => 1,#未付款交易超时关闭，或支付完成后全额退款
+            "TRADE_SUCCESS" => 2,#交易支付成功
+            "TRADE_FINISHED" => 3,
+        ];
+
+        // 更新订单
+        $update = [
+            'buyer_logon_id' => $callback['buyer_logon_id'],
+            'receipt_amount' => $callback['receipt_amount'],
+            'trade_status' => $callback['trade_status'],
+            'trade_no' => $callback['trade_no'],
+            'trade_status' => $tradeStatus[$callback['trade_status']]?:0,
+        ];
+        model('order')->where($where)->save($update);
+
+        if ($callback['trade_status'] == 'TRADE_SUCCESS') {
+            $goodsId = $orderInfo['goods_id'];
+            $goodsInfo = model('goods')->where('id', '=', $goodsId)->find();
+            $userId = $orderInfo['user_id'];
+            if($goodsId == 1) {
+                redis()->set("user_preview:{$userId}:{$orderInfo[article_id]}",1, 86400);
+            } else {
+                if ($userInfo = model()->where('id', '=', $userId)->find()) {
+                    // 计算有效期
+                    if (!empty($userInfo['level_expire']) && $userInfo['level_expire'] >= time()) {
+                        $update['level_expire'] = $userInfo['expire_time'] + $goodsInfo['add_expire_day'] * 86400;
+                    } else {
+                        $update['level_expire'] = time() + $goodsInfo['add_expire_day'] * 86400;
+                    }
+                    $update['user_level'] = $goodsId;
+
+                    model('member')->where('id', '=', $userId)->save();
+                }
+            }
+        }
+
+        return "success";
     }
 }
