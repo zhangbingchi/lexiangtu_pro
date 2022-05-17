@@ -33,15 +33,4 @@ class Alipay {
         $responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
         return json_decode(json_encode($result->$responseNode), true);
     }
-
-    public function notify()
-    {
-        $post = input();
-        if ($post['trade_status'] == "TRADE_SUCCESS") {
-            Db::name('order')->where('out_trade_no',$post['out_trade_no'])->update(array('pay_status'=>'success'));
-            //操作数据库 修改状态
-            echo "SUCCESS";
-        }
-
-    }
 }

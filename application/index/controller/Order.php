@@ -44,7 +44,7 @@ class Order extends Base {
             'out_trade_no' => $uuid,
             'total_amount' => $goodInfo['price'],
             'subject' => $goodInfo['name'],
-            'extend_params' => [
+            'body' => [
                 'order_hash' => $orderHash
             ],
         ];
@@ -72,15 +72,19 @@ class Order extends Base {
         $callback = input('post.');
         if (!$callback) exit();
 
-        $fields = ['out_trade_no', 'buyer_logon_id', 'receipt_amount', 'trade_status', 'trade_no'];
+        $fields = ['out_trade_no', 'buyer_logon_id', 'receipt_amount', 'trade_status', 'trade_no', 'body'];
         foreach ($fields as $field) {
             if (empty($callback[$field])) exit;
         }
 
+        // hash 缺失异常
+        if (empty($callback['body']['order_hash']))exit;
+        $orderHash = $callback['body']['order_hash'];
+
         // 获取订单信息
         $where = [
             ['order_number', '=', $callback['out_trade_no']],
-            ['order_hash', '=', $callback['order_hash']],
+            ['order_hash', '=', $orderHash],
         ];
         $orderInfo = model('order')->where($where)->find();
 
@@ -98,9 +102,11 @@ class Order extends Base {
             'trade_status' => $callback['trade_status'],
             'trade_no' => $callback['trade_no'],
             'trade_status' => $tradeStatus[$callback['trade_status']]?:0,
+            'update_time' => time(),
         ];
         model('order')->where($where)->save($update);
 
+        // 支付成功处理
         if ($callback['trade_status'] == 'TRADE_SUCCESS') {
             $goodsId = $orderInfo['goods_id'];
             $goodsInfo = model('goods')->where('id', '=', $goodsId)->find();
