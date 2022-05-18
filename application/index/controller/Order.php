@@ -68,6 +68,7 @@ class Order extends Base {
 
     }
 
+    // 支付回调
     public function pay_order_callback() {
         $callback = input('post.');
         if (!$callback) exit();
@@ -87,6 +88,9 @@ class Order extends Base {
             ['order_hash', '=', $orderHash],
         ];
         $orderInfo = model('order')->where($where)->find();
+        if ($orderInfo['trade_status'] == 2) {
+            return 'success';
+        }
 
         $tradeStatus = [
             "WAIT_BUYER_PAY" => 0,#交易创建，等待买家付款
@@ -129,5 +133,31 @@ class Order extends Base {
         }
 
         return "success";
+    }
+
+    // 检查订单
+    public function checkOrder() {
+        $orderNum = input('get.');
+        if (!$orderNum) return json(['code' => 1, 'message' => '请求异常～']);
+
+        $orderInfo = model('order')->where('order_number', '=', $orderNum)->find();
+        if (!empty($orderInfo['trade_status']) && $orderInfo['trade_status'] == 2) {
+            if (!empty($orderInfo['article_id'])) {
+                return $this->success('支付成功', "thread_view/{$orderInfo['article_id']}");
+            } else {
+                return $this->success('支付成功', '/');
+            }
+        } else {
+            return json(['code' => 1, 'message' => '支付未完成']);
+        }
+
+    }
+
+    // 商品列表
+    public function getGoodsList() {
+        $goods = model('goods')->where('id', '>', 1)->select();
+        $this->assign('goods', $goods);
+
+        return view();
     }
 }

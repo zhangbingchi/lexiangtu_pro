@@ -3,6 +3,7 @@
 namespace app\index\controller;
 
 use app\common\controller\Base;
+use think\Request;
 use utils\Page;
 
 class Index extends Base {
@@ -245,6 +246,76 @@ class Index extends Base {
         $this->assign('lists_comment', $lists_comment);
 
         return view();
+    }
+
+    // 资源下载
+    public function thread_down() {
+        if (Request::isGet()) {
+            $params = input('get.');
+            if (empty($params['article_id'])) {
+                return $this->redirect('/');
+            }
+            $article_id = $params['article_id'];
+
+            // 用户信息
+            if (!$member = member_is_login()) {
+                $this->redirect('user/login');
+            }
+            $member_id = $member['id'];
+            $member_info = model()->where('id', '=', $member_id)->find();
+
+            // 预览权限
+            $is_down_auth = 0;
+            if ($article_id) {
+                if (redis()->get("user_preview:{$member_id}:{$article_id}")) {
+                    $is_down_auth = 1;
+                }
+            }
+
+            // 检查权限
+            $user_level = '普通会员';
+            if ($member_info['user_level'] >= 2) {
+                if ($member_info['level_expire'] > time()) {
+                    $goods_info = model('goods')->where('id', '=', $member_info['user_level'])->find();
+                    if (!empty($goods_info)) {
+                        $user_level = $goods_info['name'];
+                        $day_down_count = $goods_info['day_down_count'];
+
+                        $key = "user_download:{$member_id}:" . date('Ymd');
+                        $allow_down_count = $day_down_count - intval(redis()->hLen($key));
+                        if ($allow_down_count > 0) {
+                            $is_down_auth = true;
+                            redis()->hSet($key, $article_id, 1);
+                            redis()->expire($key, 86400);
+                        }
+                    }
+                }
+            }
+
+            if ($is_down_auth) {
+                $thread = model()->where('article_id', '=', $article_id)->find();
+                $data = [
+                    'article_name' => $thread['name'],
+                    'article_id' => $thread['article_id'],
+                    'baidu_url' => $thread['baidu_url'],
+                    'baidu_code' => $thread['baidu_code'],
+                    'unzip_password' => $thread['unzip_password'],
+                    'is_down_auth' => $is_down_auth,
+                    'user_level' => $user_level
+                ];
+            } else {
+                $data = [
+                    'is_down_auth' => $is_down_auth,
+                    "desc" => "您的每日下载次数已经用完，升级会员或者购买图集，下载更多原版图集哦！",
+                ];
+            }
+
+            $this->assign($data);
+
+            return view();
+        } else {
+            return $this->redirect("thread_view/{$articleId}");
+        }
     }
 
     /**
