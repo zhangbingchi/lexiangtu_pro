@@ -6,6 +6,7 @@ use app\common\controller\Base;
 
 class Order extends Base {
 
+    // 发起订单
     public function index()
     {
 
@@ -154,10 +155,10 @@ class Order extends Base {
     }
 
     // 商品列表
-    public function getGoodsList() {
+    public function vip_center() {
         $goods = model('goods')->where('id', '>', 1)->select();
         $this->assign('goods', $goods);
-
         return view();
     }
+
 }
