@@ -1,6 +1,11 @@
 {extend name="base:base" /}
 {block name="body"}
-{include file="index/column_nav" /}
+<!--导航 tap-->
+<div style="display: flex;justify-content: space-between;padding:0 20px;height: 40px;background: #F0F2F5;line-height: 40px;border-bottom:1px solid #D8D8D8;">
+    <div>
+        <a href="/" style="color: #55a532">首页</a>
+    </div>
+</div>
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
@@ -53,7 +58,7 @@
                                 <?php if(!empty($pay_url)) { ?>
                                     <div class="layui-input-block">
                                         <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                           href="/food/down_detail/<?php echo $article_id ?>/" target="_blank">进入下载页面</a>
+                                           href="/thread_down/<?php echo $article_id ?>/" target="_blank">进入下载页面</a>
                                     </div>
                                 <?php } else { ?>
                                     <div class="layui-input-block">
@@ -101,7 +106,7 @@
                     <?php } ?>
                 </div>
             </div>
-
+            <!--回复区-->
             <div class="fly-panel detail-box" id="flyReply">
                 <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
                     <legend>回帖</legend>

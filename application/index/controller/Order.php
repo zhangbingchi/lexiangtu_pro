@@ -7,7 +7,7 @@ use app\common\controller\Base;
 class Order extends Base {
 
     // 发起订单
-    public function index()
+    public function purchase()
     {
 
         if ( !$member = member_is_login() ) {

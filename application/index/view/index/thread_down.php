@@ -1,10 +1,17 @@
 {extend name="base:base" /}
 {block name="body"}
-{include file="index/column_nav" /}
+
+<!--导航 tap-->
+<div style="display: flex;justify-content: space-between;padding:0 20px;height: 40px;background: #F0F2F5;line-height: 40px;border-bottom:1px solid #D8D8D8;">
+    <div>
+        <a href="/" style="color: blue">首页</a>->
+        <a href="thread_view/<?php echo $article_id; ?>"  style="color: blue" target="_self"><?php echo $article_name ?></a>
+    </div>
+</div>
 <div class="layui-container">
     <center>
         <span style="padding: 10px 0;line-height: 30px;">
-            <a href="thread_view/<?php echo $article_id; ?>" style="color: red;"><?php echo $article_name ?></a>
+            <a href="thread_view/<?php echo $article_id; ?>" target="_self" style="color: red;"><?php echo $article_name ?></a>
         </span>
     </center>
     <div class="page-content">
@@ -17,7 +24,7 @@
             <div style=" padding-bottom: 10px; " class="msg">
                 <p>百度云地址：
                     <button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">
-                        <a href="<?php echo $baidu_url . '?code='. $baidu_code; ?>" target="_blank">点击下载</a>
+                        <a href="<?php echo $baidu_url . '?pwd='. $baidu_code; ?>" target="_blank">点击下载</a>
                     </button>
                 </p>
                 <br>

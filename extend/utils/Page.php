@@ -60,19 +60,6 @@ class Page {
         //去重        
         $this->parameter = array_filter($this->parameter);
 
-        /*
-          if (strpos($this->url, '?') !== false) {
-          $this->url = $this->url . '&' . http_build_query($this->parameter);
-          } else {
-          $this->url = $this->url . '?' . http_build_query($this->parameter);
-          }
-          $this->url = str_replace('%7Bpage%7D', '{page}', $this->url);
-
-         */
-
-        // $this->url = url($this->url, $this->parameter);
-
-
         $total = $this->total;
         if ($this->page < 1) {
             $page = 1;

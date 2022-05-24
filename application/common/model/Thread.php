@@ -55,9 +55,6 @@ class Thread extends Base {
         return $insert_id;
     }
 
-    
-    
-    
     public function model_where($wheres = []) {
         $db = db('thread');
         foreach ($wheres as $key => $value) {
@@ -69,13 +66,13 @@ class Thread extends Base {
 
         $db->join('member m', 'm.id = a.member_id', 'LEFT');
         $db->join('member_ident mi', 'mi.member_id = m.id', 'LEFT');
-        $db->join('thread_column tc', 'tc.id = a.cid', 'LEFT');
+        $db->join('thread_tags t', 't.article_id = a.id', 'LEFT');
 
         $db->alias('a');
 
         $db->order('a.top desc,a.id desc');
 
-        $db->field('a.*,m.id as member_id,m.nickname,m.avatar,m.sex,m.vip,m.ident,mi.identification,tc.title as column_title');
+        $db->field('a.*,m.id as member_id,m.nickname,m.avatar,m.sex,m.vip,m.ident,mi.identification');
 
         return $db;
     }

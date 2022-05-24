@@ -3,12 +3,10 @@
 {include file="index/column_nav" /}
 <div class="layui-container">
     <div class="layui-carousel" id="vip_cneter">
-        <div carousel-item>
+        <div carousel-item style="background-color: blue">
             <?php foreach ($goods as $item) { ?>
-                <div>
-                    <a href="order/vip_center/<?php echo $item['id']; ?>">
-                        <img src="__THEME__/images/vip_center/<?php echo $item['id']; ?>.png" />
-                    </a>
+                <div style="text-align: center">
+                    <?php echo $item['name']; ?>
                 </div>
             <?php } ?>
         </div>

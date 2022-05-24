@@ -110,41 +110,29 @@ class Index extends Base {
 
         // 栏目别名
         $alias = input('param.alias');
-        $type = input('param.type');
+        $k_id = input('param.k_id')?:0;
         $page = input('param.page', 1);
 
-
-        if ($alias && $alias != 'all') {
-            $cid = db('thread_column')->where('alias', $alias)->value('id');
-        } else {
-            $cid = 0;
-        }
-
-        // 浏览权限        
-        if ($msg = $this->_thread_access($cid)) {
-            return view('user/access_denied', ['msg' => $msg]);
-            exit;
-        }
-
         $wheres = [['a.is_delete', '=', 0]];
-        if ($cid) {
-            $wheres[] = ['a.cid', '=', $cid];
+        switch ($alias) {
+            // 精华
+            case 'wonderful':
+                $wheres[] = ['a.status', '=', 1];
+                break;
+            // 标签筛选
+            case 'tags':
+                if ($k_id) {
+                    $wheres[] = ['t.tags_id', '=', $k_id];
+                }
+                break;
         }
-        // 精华
-        if ($type == 'wonderful') {
-            $wheres[] = ['a.status', '=', 1];
-        }
-        // 推荐
+
         $lists = model('thread')->model_where($wheres)->paginate(10, false, ['query' => request()->get()]);
         $this->assign('lists', $lists);
 
         $count = model('thread')->model_where($wheres)->count();
         $pager = new Page();
-        if ($type) {
-            $url = url('/column/' . $alias . '/' . $type) . '/page/{page}/';
-        } else {
-            $url = url('/column/' . $alias) . '/page/{page}/';
-        }
+        $url = url('/thread/' . $alias) . '/page/{page}/';
 
         $pager->setUrl($url);
         $pager->setTotal($count);
@@ -195,7 +183,6 @@ class Index extends Base {
             ->where('article_id', '=', $one['id'])
             ->select()->toArray();
         $tags = array_column($tags, 'title');
-        $tags = ['ad洒大地', '阿萨说', 'sd收到'];
         $this->assign('thread_tags', $tags);
 
         // 图片列表
@@ -211,9 +198,9 @@ class Index extends Base {
             $levelAuth['is_down_auth'] = !!(redis()->get("user_preview:{$member_id}:{$articleId}"));
             // 用户等级
             $levelAuth['user_level'] = '普通会员';
-            if ($member['user_level'] >= 2 && !empty($memner['level_expire']) && $memner['level_expire'] > time()) {
-                $goodsInfo = model('goods')->where('id', '=', $member['user_level'])->get()->select();
-                $levelAuth['user_level'] = $goodsInfo['goods_name'];
+            if ($member['user_level'] >= 2 && !empty($member['level_expire']) && $member['level_expire'] > time()) {
+                $goodsInfo = model('goods')->where('id', '=', $member['user_level'])->find();
+                $levelAuth['user_level'] = $goodsInfo['name'];
                 $count = redis()->hlen("user_download:{$member_id}:" . date('Ymd'));
                 $allowCount = $goodsInfo['day_down_count'] - $count;
                 if ($allowCount > 0) {
@@ -250,72 +237,68 @@ class Index extends Base {
 
     // 资源下载
     public function thread_down() {
-        if (Request::isGet()) {
-            $params = input('get.');
-            if (empty($params['article_id'])) {
-                return $this->redirect('/');
+        $params = input('param.');
+        if (empty($params['id'])) {
+            return $this->redirect('/');
+        }
+        $article_id = $params['id'];
+
+        // 用户信息
+        if (!$member = member_is_login()) {
+            $this->redirect('user/login');
+        }
+        $member_id = $member['id'];
+        $member_info = model('member')->where('id', '=', $member_id)->find();
+
+        // 预览权限
+        $is_down_auth = 0;
+        if ($article_id) {
+            if (redis()->get("user_preview:{$member_id}:{$article_id}")) {
+                $is_down_auth = 1;
             }
-            $article_id = $params['article_id'];
+        }
 
-            // 用户信息
-            if (!$member = member_is_login()) {
-                $this->redirect('user/login');
-            }
-            $member_id = $member['id'];
-            $member_info = model()->where('id', '=', $member_id)->find();
+        // 检查权限
+        $user_level = '普通会员';
+        if ($member_info['user_level'] >= 2) {
+            if ($member_info['level_expire'] > time()) {
+                $goods_info = model('goods')->where('id', '=', $member_info['user_level'])->find();
+                if (!empty($goods_info)) {
+                    $user_level = $goods_info['name'];
+                    $day_down_count = $goods_info['day_down_count'];
 
-            // 预览权限
-            $is_down_auth = 0;
-            if ($article_id) {
-                if (redis()->get("user_preview:{$member_id}:{$article_id}")) {
-                    $is_down_auth = 1;
-                }
-            }
-
-            // 检查权限
-            $user_level = '普通会员';
-            if ($member_info['user_level'] >= 2) {
-                if ($member_info['level_expire'] > time()) {
-                    $goods_info = model('goods')->where('id', '=', $member_info['user_level'])->find();
-                    if (!empty($goods_info)) {
-                        $user_level = $goods_info['name'];
-                        $day_down_count = $goods_info['day_down_count'];
-
-                        $key = "user_download:{$member_id}:" . date('Ymd');
-                        $allow_down_count = $day_down_count - intval(redis()->hLen($key));
-                        if ($allow_down_count > 0) {
-                            $is_down_auth = true;
-                            redis()->hSet($key, $article_id, 1);
-                            redis()->expire($key, 86400);
-                        }
+                    $key = "user_download:{$member_id}:" . date('Ymd');
+                    $allow_down_count = $day_down_count - intval(redis()->hLen($key));
+                    if ($allow_down_count > 0) {
+                        $is_down_auth = true;
+                        redis()->hSet($key, $article_id, 1);
+                        redis()->expire($key, 86400);
                     }
                 }
             }
-
-            if ($is_down_auth) {
-                $thread = model()->where('article_id', '=', $article_id)->find();
-                $data = [
-                    'article_name' => $thread['name'],
-                    'article_id' => $thread['article_id'],
-                    'baidu_url' => $thread['baidu_url'],
-                    'baidu_code' => $thread['baidu_code'],
-                    'unzip_password' => $thread['unzip_password'],
-                    'is_down_auth' => $is_down_auth,
-                    'user_level' => $user_level
-                ];
-            } else {
-                $data = [
-                    'is_down_auth' => $is_down_auth,
-                    "desc" => "您的每日下载次数已经用完，升级会员或者购买图集，下载更多原版图集哦！",
-                ];
-            }
-
-            $this->assign($data);
-
-            return view();
-        } else {
-            return $this->redirect("thread_view/{$articleId}");
         }
+
+        if ($is_down_auth) {
+            $thread = model('thread')->where('article_id', '=', $article_id)->find();
+            $data = [
+                'article_name' => $thread['title'],
+                'article_id' => $thread['article_id'],
+                'baidu_url' => $thread['baidu_url'],
+                'baidu_code' => $thread['baidu_code'],
+                'unzip_password' => $thread['unzip_password'],
+                'is_down_auth' => $is_down_auth,
+                'user_level' => $user_level
+            ];
+        } else {
+            $data = [
+                'is_down_auth' => $is_down_auth,
+                "desc" => "您的每日下载次数已经用完，升级会员或者购买图集，下载更多原版图集哦！",
+            ];
+        }
+
+        $this->assign($data);
+
+        return view();
     }
 
     /**

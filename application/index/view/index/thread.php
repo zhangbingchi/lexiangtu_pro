@@ -84,7 +84,7 @@
                         ?>
                         <dd><a href="http://www.layui.com/" target="_blank"><?php echo $value['title'] ?></a><dd>
                         <?php } ?>
-                    <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：bjphper@qq.com<br> 邮件标题为：申请phpFly社区友链', {title: '申请友链'});" class="fly-link">申请友链</a><dd>
+                    <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：1301976431@qq.com<br> 邮件标题为：申请乐享图友链', {title: '申请友链'});" class="fly-link">申请友链</a><dd>
                 </dl>
             </div>
         </div>

@@ -1,9 +1,15 @@
+<style>
+    /*点击tab页背景色改变，以显眼当前在哪个标签页的主体页面*/
+    .layadmin-pagetabs .layui-tab-title li:hover, .layadmin-pagetabs .layui-tab-title li.layui-this{
+        background-color: #2F9688;
+    }
+</style>
 <div class="layui-container fly-panel">
     <div class="layui-tab">
         <ul class="layui-clear layui-tab-title">
             <li ><a href="<?php echo url('thread/new')?>" target="_blank">最新动态</a></li>
             <li class="layui-this"><a href="#">秀人摄影</a></li>
-            <l><a href="#">精品影集</a></l>
+            <li><a href="#">精品影集</a></li>
             <li><a href="#">次元少女</a></li>
             <li><a href="<?php echo url('thread/shipin')?>" target="_blank">精彩视频</a></li>
             <li class="layui-show-md-inline-block"><span class="fly-mid"></span></li>
@@ -25,7 +31,8 @@
             </div>
             <!--        精品影集-->
             <div class="layui-tab-item layui-btn-container"><?php
-                $columns = db('tags')->where('pid', '=', 18)->select();
+                $where = [['pid', '=', 0], ['tag_type', '=', 1]];
+                $columns = db('tags')->where($where)->select();
                 foreach ($columns as $key => $value) { ?>
                     <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" href="<?php echo url('/thread/tags/' . $value['id']) ?>"><?php echo $value['title'] ?></a>
                 <?php } ?>
