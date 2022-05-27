@@ -8,6 +8,7 @@
         <meta name="description" content="首页｜乐享图 lexiangtu——最新最全的丽人写真视频馆">
         <link rel="stylesheet" href="__PUBLIC__/libs/layui/2.4.5/css/layui.css">
         <link rel="stylesheet" href="__THEME__/css/global.css">
+        {block name="head"}{/block}
     </head>
     <body>
         {include file="base/header" /} 

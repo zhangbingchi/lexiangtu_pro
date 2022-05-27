@@ -42,17 +42,12 @@
                                 <div class="layui-input-inline">
                                     <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input">
                                 </div>
-                                <div class="layui-form-mid" style="padding: 0!important;">
+                                <div class="layui-form-mid" style="padding: 0!important;margin-left:30px;">
                                   <img src="{:captcha_src()}" alt="验证码，点击图片可更换" style="cursor: pointer" onclick="this.src='{:captcha_src()}?r='+Math.random() " />
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <button class="layui-btn" lay-filter="myform" lay-submit>立即注册</button>
-                            </div>
-                            <div class="layui-form-item fly-form-app layui-hide">
-                                <span>或者直接使用社交账号快捷注册</span>
-                                <a href="" onclick="layer.msg('正在通过QQ登入', {icon: 16, shade: 0.1, time: 0})" class="iconfont icon-qq" title="QQ登入"></a>
-                                <a href="" onclick="layer.msg('正在通过微博登入', {icon: 16, shade: 0.1, time: 0})" class="iconfont icon-weibo" title="微博登入"></a>
                             </div>
                         </form>
                     </div>

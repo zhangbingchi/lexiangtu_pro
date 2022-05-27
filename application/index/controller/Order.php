@@ -9,7 +9,6 @@ class Order extends Base {
     // 发起订单
     public function purchase()
     {
-
         if ( !$member = member_is_login() ) {
             $this->error('请先登录～', 'user/login');
         }
@@ -156,8 +155,12 @@ class Order extends Base {
 
     // 商品列表
     public function vip_center() {
-        $goods = model('goods')->where('id', '>', 1)->select();
-        $this->assign('goods', $goods);
+        $memberInfo = ['user_level' => 0];
+        if ( $member = member_is_login() ) {
+            $member_id = $member['id'];
+            $memberInfo = model('member')->where('id', '=', $member_id)->find();
+        }
+        $this->assign($memberInfo);
         return view();
     }
 
