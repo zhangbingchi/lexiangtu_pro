@@ -132,7 +132,7 @@ class Index extends Base {
 
         $count = model('thread')->model_where($wheres)->count();
         $pager = new Page();
-        $url = url('/thread/' . $alias) . '/page/{page}/';
+        $url = url("/thread/{$alias}/{$k_id}/page/{page}");
 
         $pager->setUrl($url);
         $pager->setTotal($count);

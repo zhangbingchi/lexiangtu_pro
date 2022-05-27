@@ -66,7 +66,9 @@ class Thread extends Base {
 
         $db->join('member m', 'm.id = a.member_id', 'LEFT');
         $db->join('member_ident mi', 'mi.member_id = m.id', 'LEFT');
-        $db->join('thread_tags t', 't.article_id = a.id', 'LEFT');
+        if (isset($wheres['t.tags_id'])) {
+            $db->join('thread_tags t', 't.article_id = a.id', 'LEFT');
+        }
 
         $db->alias('a');
 

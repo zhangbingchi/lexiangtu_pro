@@ -1,22 +1,21 @@
 {extend name="base:base" /}
 {block name="body"}
 <!--导航 tap-->
-<div style="display: flex;justify-content: space-between;padding:0 20px;height: 40px;background: #F0F2F5;line-height: 40px;border-bottom:1px solid #D8D8D8;">
-    <div>
-        <a href="/" style="color: #55a532">首页</a>
-    </div>
-</div>
-<div class="layui-container">
+<div class="layui-container" style="padding-top: 30px">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
             <div class="fly-panel detail-box">
                 <h1 style="font-size: 18px;line-height: 30px;color: red;"><?php echo $title ?></h1>
                 <div class="fly-detail-info">
-                    <?php foreach ($thread_tags as $tag) { ?>
-                        <a href="<?php echo 'thread/search?keyword='.$tag ?>" class="layui-badge layui-bg-gree fly-detail-column">
-                            <?php echo $tag; ?>
-                        </a>
-                    <?php } ?>
+                    <div class="layui-btn-container">
+                        <?php foreach ($thread_tags as $tag) { ?>
+                            <a href="<?php echo 'thread/search?keyword='.$tag ?>"
+                            <button type="button" class="layui-btn layui-btn-xs layui-btn-normal layui-btn-radius">
+                                <?php echo $tag; ?>
+                            </button>
+                            </a>
+                        <?php } ?>
+                    </div>
                     {eq name="top" value="1"}
                     <span class="layui-badge layui-bg-black">置顶</span>
                     {/eq}
@@ -88,8 +87,9 @@
                     <?php } else { ?>
                         <div class="layui-input-block" style="margin-left: 10px;">
                             <p>可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                   href="/user/register/" target="_blank">注册</a> 或 <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                                                                      href="/user/login/" target="_blank">登录</a>直接下载
+                                   href="/user/reg" target="_blank">注册</a> 或
+                                <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                   href="/user/login" target="_blank">登录</a>直接下载
                             </p>
                         </div>
                     <?php } ?>
@@ -102,7 +102,9 @@
                 </div>
                 <div class="photos">
                     <?php foreach ($thread_images as $value) { ?>
-                            <img style="max-width: 45%;max-height:45%" src="<?php echo 'http://show.lexiangtu.top/media/' . $value['image']; ?>">
+                        <div class="layui-layer-phimg" style="padding: auto auto">
+                            <img style="max-width: 90%;max-height:90%;padding-top: 10px" src="<?php echo 'http://show.lexiangtu.top/media/' . $value['image']; ?>">
+                        </div>
                     <?php } ?>
                 </div>
             </div>

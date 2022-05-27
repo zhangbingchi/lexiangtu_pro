@@ -1,14 +1,18 @@
 <div class="fly-header layui-bg-black">
     <div class="layui-container">
-        <a class="fly-logo" href="<?php echo APP_URL.'/' ?>">
-            <img src="__THEME__/images/logo.png" alt="layui">
-        </a>
-        <ul class="layui-nav fly-nav layui-hide-xs">
-            <li class="layui-nav-item layui-this layui-hide">
-                <a href="<?php echo APP_URL.'/' ?>"><i class="iconfont icon-jiaoliu"></i>交流</a>
+        <ul class="layui-nav">
+            <li class="layui-nav-item">
+                <a href="/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:red;">乐享图</a>
             </li>
-            <li class="layui-nav-item layui-hide">
-                <a href="#"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
+            <li class="layui-nav-item">
+                <a href="/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:yellow;">
+                    <i class="iconfont icon-iconmingxinganli"></i>会员中心
+                </a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs">
+                <a href="/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:yellow;">
+                    <i class="iconfont icon-jiaoliu"></i>APP下载
+                </a>
             </li>
         </ul>
         <ul class="layui-nav fly-nav-user">
