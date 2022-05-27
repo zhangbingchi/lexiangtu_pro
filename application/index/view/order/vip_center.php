@@ -20,7 +20,7 @@
                     <div class="pricing-flow">每日可下载数：5 个</div>
                 </div>
                 <?php if($user_level < 2) { ?>
-                    <a target="_blank" href="/order/purchase?id=2">
+                    <a target="_self" href="/order/purchase?id=2">
                         <div class="pricing-btn pricing-btn-4 btn-effects4">选择升级</div>
                     </a>
                 <?php } else { ?>
@@ -44,7 +44,7 @@
                     <div class="pricing-flow">每日可下载数：20 个</div>
                 </div>
                 <?php if($user_level < 3) { ?>
-                    <a target="_blank" href="/order/purchase?id=3">
+                    <a target="_self" href="/order/purchase?id=3">
                         <div class="pricing-btn pricing-btn-4 btn-effects4">选择升级</div>
                     </a>
                 <?php } else { ?>
@@ -68,7 +68,7 @@
                     <div class="pricing-flow">每日可下载数：30 个</div>
                 </div>
                 <?php if($user_level < 4) { ?>
-                    <a target="_blank" href="/order/purchase?id=4">
+                    <a target="_self" href="/order/purchase/4">
                         <div class="pricing-btn pricing-btn-4 btn-effects4">选择升级</div>
                     </a>
                 <?php } else { ?>
@@ -91,7 +91,7 @@
                     <div class="pricing-flow">每日可下载数：50 个</div>
                 </div>
                 <?php if($user_level < 5) { ?>
-                    <a target="_blank" href="/order/purchase?id=5">
+                    <a target="_self" href="/order/purchase?id=5">
                         <div class="pricing-btn pricing-btn-4 btn-effects4">选择升级</div>
                     </a>
                 <?php } else { ?>

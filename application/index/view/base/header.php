@@ -5,7 +5,7 @@
                 <a href="/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:red;">乐享图</a>
             </li>
             <li class="layui-nav-item">
-                <a href="/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:yellow;">
+                <a href="/vip_center" style="color:yellow;">
                     <i class="iconfont icon-iconmingxinganli"></i>会员中心
                 </a>
             </li>
@@ -18,23 +18,19 @@
         <ul class="layui-nav fly-nav-user">
             <?php
             if (is_array($member = member_is_login())) {
+                $memberInfo = model('member')->where('id', '=', $member['id'])->find();
                 ?>
                 <!-- 登入后的状态 -->            
                 <li class="layui-nav-item">
                     <a class="fly-nav-avatar" href="javascript:;">
-                        <cite class="layui-hide-xs"><?php echo $member['nickname'] ?></cite>
+                        <cite class="layui-hide-xs"><?php echo $memberInfo['nickname'] ?></cite>
                         {notempty name="$member.identification"}
                         <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：{$member.identification}"></i>
                         {/notempty}
                         {gt name="$member.vip" value="0"}
                         <i class="layui-badge fly-badge-vip layui-hide-xs">VIP{$member.vip}</i>
                         {/gt}
-                        <img src="<?php
-            if ($member['avatar'])
-                echo res_http($member['avatar']);
-            else
-                echo res_http('sex' . $member['sex'] . '.png');
-                ?>">
+                        <img src="__THEME__/images/avatar/default.png">
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="<?php echo url('index/member/setting') ?>"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
@@ -44,7 +40,7 @@
                         <dd><a href="<?php echo url('index/user/logout') ?>" style="text-align: center;">退出</a></dd>
                     </dl>
                 </li>
-<?php } else { ?>
+    <?php } else { ?>
                 <!-- 未登入的状态 -->
                 <li class="layui-nav-item">
                     <a class="iconfont icon-touxiang layui-hide-xs" href="<?php echo url('index/user/login') ?>"></a>
@@ -61,7 +57,7 @@
                 <li class="layui-nav-item layui-hide-xs layui-hide">
                     <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon: 16, shade: 0.1, time: 0})" title="微博登入" class="iconfont icon-weibo"></a>
                 </li>
-<?php } ?>
+    <?php } ?>
         </ul>
     </div>
 </div>

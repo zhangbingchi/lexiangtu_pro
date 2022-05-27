@@ -44,12 +44,14 @@ class Order extends Base {
             'out_trade_no' => $uuid,
             'total_amount' => $goodInfo['price'],
             'subject' => $goodInfo['name'],
-            'body' => [
+            'extend_params' => [
                 'order_hash' => $orderHash
             ],
         ];
 
+
         $result = controller('common/AliPay')->pay($params);
+        echo var_dump($result);die;
         if ( !empty($result['code']) && $result['code'] == 10000 ) {
             $expireTime = time() + 300;
             $data       = [
@@ -158,7 +160,7 @@ class Order extends Base {
         $memberInfo = ['user_level' => 0];
         if ( $member = member_is_login() ) {
             $member_id = $member['id'];
-            $memberInfo = model('member')->where('id', '=', $member_id)->find();
+            $memberInfo = model('member')->where('id', '=', $member_id)->find()->toArray();
         }
         $this->assign($memberInfo);
         return view();

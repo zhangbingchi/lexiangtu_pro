@@ -23,3 +23,5 @@ Route::get('thread_down/:id', 'index/thread_down');
 Route::get('tags', 'index/tags');
 // 会员中心
 Route::get('vip_center', 'order/vip_center');
+
+Route::get('order/purchase/:id', 'order/purchase');
