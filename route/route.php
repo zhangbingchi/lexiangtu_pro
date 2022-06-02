@@ -15,6 +15,7 @@ Route::domain('test.lexiangtu.top', 'index');
 
 // 文章列表
 Route::get('thread/:alias/:k_id', 'index/thread');
+Route::get('thread/:alias', 'index/thread');
 // 文章详情
 Route::get('thread_views/:id', 'index/thread_views');
 // 文章下载

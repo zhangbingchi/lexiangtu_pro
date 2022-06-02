@@ -36,8 +36,6 @@ class Thread extends Base {
     }
 
     public function thread_add($post) {
-
-
         $data['cid'] = $post['cid'] ?? '';
         $data['title'] = $post['title'] ?? '';
         $data['content'] = $post['content'] ?? '';
@@ -66,10 +64,9 @@ class Thread extends Base {
 
         $db->join('member m', 'm.id = a.member_id', 'LEFT');
         $db->join('member_ident mi', 'mi.member_id = m.id', 'LEFT');
-        if (isset($wheres['t.tags_id'])) {
+        if (isset($wheres['thread_tags'])) {
             $db->join('thread_tags t', 't.article_id = a.id', 'LEFT');
         }
-
         $db->alias('a');
 
         $db->order('a.top desc,a.id desc');

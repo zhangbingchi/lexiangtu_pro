@@ -508,9 +508,7 @@
                     type: 1
                     , title: false
                     , closeBtn: false
-                            //,shade: [0.1, '#fff']
                     , shadeClose: true
-                    , maxWidth: 10000
                     , skin: 'fly-layer-search'
                     , content: ['<form action="/thread/search">'
                                 , '<input autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="keyword">'
@@ -664,11 +662,11 @@
 
             //固定Bar
             util.fixbar({
-                bar1: '&#xe642;'
+                bar1: '&#xe68e;'
                 , bgcolor: '#009688'
                 , click: function (type) {
                     if (type === 'bar1') {
-                        location.href = layui.baseUrl() + '/member/thread_add';
+                        location.href = layui.baseUrl();
                     }
                 }
             });

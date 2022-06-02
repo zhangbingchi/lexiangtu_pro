@@ -2,18 +2,25 @@
     <div class="layui-container">
         <ul class="layui-nav">
             <li class="layui-nav-item">
-                <a href="/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:red;">乐享图</a>
+                <a href="/" style="color:red;">乐享图</a>
             </li>
             <li class="layui-nav-item">
-                <a href="/vip_center" style="color:yellow;">
-                    <i class="iconfont icon-iconmingxinganli"></i>会员中心
-                </a>
-            </li>
-            <li class="layui-nav-item layui-hide-xs">
-                <a href="/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:yellow;">
+                <a href="__PUBLIC__/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:yellow;padding:0 10px">
                     <i class="iconfont icon-jiaoliu"></i>APP下载
                 </a>
             </li>
+            <?php if (member_is_login()) { ?>
+                <li class="layui-nav-item">
+                    <a href="/vip_center" style="color:yellow;padding:0 10px">
+                        <i class="iconfont icon-iconmingxinganli"></i>会员中心
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <div class="layui-show-md-inline-block fly-search">
+                        <i class="layui-icon"></i>
+                    </div>
+                </li>
+            <?php } ?>
         </ul>
         <ul class="layui-nav fly-nav-user">
             <?php

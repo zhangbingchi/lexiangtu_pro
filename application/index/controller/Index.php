@@ -122,9 +122,11 @@ class Index extends Base {
             // 标签筛选
             case 'tags':
                 if ($k_id) {
-                    $wheres[] = ['t.tags_id', '=', $k_id];
+                    $wheres['thread_tags'] = ['t.tags_id', '=', $k_id];
                 }
                 break;
+            case 'shipin':
+                $wheres[] = ['a.source_type', '=', 1];
         }
 
         $lists = model('thread')->model_where($wheres)->paginate(10, false, ['query' => request()->get()]);

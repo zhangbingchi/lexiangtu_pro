@@ -51,15 +51,18 @@ class Order extends Base {
 
 
         $result = controller('common/AliPay')->pay($params);
-        echo var_dump($result);die;
         if ( !empty($result['code']) && $result['code'] == 10000 ) {
             $expireTime = time() + 300;
+            $expireDate = date('Y-m-d H:i:s', $expireTime);
+            $qr_code = $result['qr_code'];
             $data       = [
-                'qr_code' => $result['qr_code'],
+                'qr_code' => $qr_code,
                 'order_number' => $uuid,
                 'good_info' => $goodInfo,
-                'expire_date' => date('Y-m-d H:i:s', $expireTime),
-                'expire_time' => $expireTime
+                'expire_date' => $expireDate,
+                'expire_time' => $expireTime,
+                'alipay_url' => "alipays://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode={$qr_code}&_t={$expireTime}",
+                'qr_code_url' => "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={$qr_code}&show_expire_time={$expireDate}",
 
             ];
             $this->assign($data);
