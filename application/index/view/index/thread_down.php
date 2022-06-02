@@ -2,12 +2,6 @@
 {block name="body"}
 
 <!--导航 tap-->
-<div style="display: flex;justify-content: space-between;padding:0 20px;height: 40px;background: #F0F2F5;line-height: 40px;border-bottom:1px solid #D8D8D8;">
-    <div>
-        <a href="/" style="color: blue">首页</a>->
-        <a href="thread_view/<?php echo $article_id; ?>"  style="color: blue" target="_self"><?php echo $article_name ?></a>
-    </div>
-</div>
 <div class="layui-container">
     <center>
         <span style="padding: 10px 0;line-height: 30px;">

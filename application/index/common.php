@@ -118,7 +118,7 @@ function getCanlendar() {
  * @return mixed
  */
 function get_nav($limit = 5) {
-    return db("thread")->orderRand()->limit($limit)->select();
+    return db("thread")->where('is_delete', '=', 0)->orderRand()->limit($limit)->select();
 }
 
 function get_tree($array, $pid=0, $list=[]) {

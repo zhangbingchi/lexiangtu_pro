@@ -54,7 +54,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label" style="width: auto;"><b>下载链接：</b></label>
                             <?php if ($level_auth['is_down_auth'] ) { ?>
-                                <?php if(!empty($pay_url)) { ?>
+                                <?php if(!empty($baidu_url)) { ?>
                                     <div class="layui-input-block">
                                         <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
                                            href="/thread_down/<?php echo $article_id ?>/" target="_blank">进入下载页面</a>
@@ -103,7 +103,7 @@
                 <div class="photos">
                     <?php foreach ($thread_images as $value) { ?>
                         <div class="layui-layer-phimg" style="padding: auto auto">
-                            <img style="max-width: 90%;max-height:90%;padding-top: 10px" src="<?php echo 'http://show.lexiangtu.top/media/' . $value['image']; ?>">
+                            <img style="max-width: 90%;max-height:90%;padding-top: 10px" src="__MEDIA_URL__/<?php echo $value['image']; ?>">
                         </div>
                     <?php } ?>
                 </div>
