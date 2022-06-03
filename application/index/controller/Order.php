@@ -50,7 +50,7 @@ class Order extends Base {
         ];
 
 
-        $result = controller('common/AliPay')->pay($params);
+        $result = controller('common/Alipay')->pay($params);
         if ( !empty($result['code']) && $result['code'] == 10000 ) {
             $expireTime = time() + 300;
             $expireDate = date('Y-m-d H:i:s', $expireTime);
