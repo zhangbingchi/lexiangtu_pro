@@ -143,8 +143,8 @@
                     foreach ($lists_member12 as $key => $value) {
                         ?>
                         <dd>
-                            <a href="<?php echo url('/thread/' . $value['id']) ?>">
-                                <img src="<?php echo res_http($value['image']); ?>">
+                            <a href="<?php echo url('/portal/' . $value['member_id']) ?>" class="fly-link">
+                                <img src="<?php echo $value['avatar']; ?>">
                                 <cite><?php echo $value['nickname'] ?></cite>
                                 <i><?php echo $value['count'] ?>次评论</i>
                             </a>
