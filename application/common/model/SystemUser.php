@@ -54,12 +54,13 @@ class SystemUser extends Base {
     }
 
     public function model_where() {
+        $db = db('system_user');
         if (request()->get('keyword'))
-            $this->where('nickname', 'like', '%' . request()->get('keyword') . '%');
+            $db->where('nickname', 'like', '%' . request()->get('keyword') . '%');
 
-        $this->order('id desc');
+        $db->order('id desc');
 
-        return $this;
+        return $db;
     }
 
 }

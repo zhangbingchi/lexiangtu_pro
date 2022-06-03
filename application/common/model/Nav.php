@@ -13,18 +13,19 @@ class Nav extends Base {
     }
 
     public function model_where() {
+        $db = db('nav');
 
         if (request()->get('keyword'))
-            $this->where('title', 'like', '%' . request()->get('keyword') . '%');
+            $db->where('title', 'like', '%' . request()->get('keyword') . '%');
 
 
         if (request()->get('category'))
-            $this->where('cid', request()->get('category'));
+            $db->where('cid', request()->get('category'));
 
 
-        $this->order('listorder asc,id desc');
+        $db->order('listorder asc,id desc');
         
-        return $this;
+        return $db;
     }
 
 }

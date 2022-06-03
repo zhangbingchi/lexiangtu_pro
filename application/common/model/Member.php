@@ -249,30 +249,30 @@ class Member extends Base {
     }
 
     public function model_where($wheres = []) {
-
+        $db = db('member');
         foreach ($wheres as $value) {
-            $this->where($value[0], $value[1], $value[2]);
+            $db->where($value[0], $value[1], $value[2]);
         }
 
         if (request()->get('start'))
-            $this->where('a.create_time', '>', strtotime(request()->get('start')));
+            $db->where('a.create_time', '>', strtotime(request()->get('start')));
 
         if (request()->get('end'))
-            $this->where('a.create_time', '<', strtotime(request()->get('end')));
+            $db->where('a.create_time', '<', strtotime(request()->get('end')));
 
         if (request()->get('keyword'))
-            $this->where('a.email|a.nickname', 'like', '%' . request()->get('keyword') . '%');
+            $db->where('a.email|a.nickname', 'like', '%' . request()->get('keyword') . '%');
 
 
-        $this->join('member_ident mi', 'mi.member_id = a.id', 'LEFT');
+        $db->join('member_ident mi', 'mi.member_id = a.id', 'LEFT');
 
-        $this->alias('a');
+        $db->alias('a');
 
-        $this->field('a.*,mi.identification');
+        $db->field('a.*,mi.identification');
 
-        $this->order('a.id desc');
+        $db->order('a.id desc');
 
-        return $this;
+        return $db;
     }
 
 }

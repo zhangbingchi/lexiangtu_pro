@@ -15,21 +15,22 @@ class ThreadColumnMember extends Base {
 
     public function model_where() {
 
+        $db = db('thread_column_member');
 
         if (request()->get('keyword'))
-            $this->where('m.nickname', 'like', '%' . request()->get('keyword') . '%');
+            $db->where('m.nickname', 'like', '%' . request()->get('keyword') . '%');
 
 
-        $this->join('member m', 'm.id = a.member_id');
+        $db->join('member m', 'm.id = a.member_id');
 
-        $this->alias('a');
+        $db->alias('a');
 
-        $this->order('a.id desc');
+        $db->order('a.id desc');
 
-        $this->field('a.*,m.nickname');
+        $db->field('a.*,m.nickname');
 
 
-        return $this;
+        return $db;
     }
 
 }

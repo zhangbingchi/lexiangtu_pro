@@ -14,20 +14,19 @@ use think\Db;
 class MemberWishThread extends Base {
 
     public function model_where($wheres = []) {
-
-
+        $db = db('member_wish_thread');
 
         foreach ($wheres as $value) {
-            $this->where($value[0], $value[1], $value[2]);
+            $db->where($value[0], $value[1], $value[2]);
         }
 
-        $this->join('thread t', 't.id = a.thread_id');
+        $db->join('thread t', 't.id = a.thread_id');
 
-        $this->field('a.*,t.title');
+        $db->field('a.*,t.title');
 
-        $this->alias('a');
+        $db->alias('a');
 
-        return $this;
+        return $db;
     }
 
 }

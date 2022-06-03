@@ -3,11 +3,19 @@
 namespace app\index\controller;
 
 use app\common\controller\Base;
-use think\Session;
+use think\App;
 
 class Member extends Base {
 
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+
+        $this->_initialize();
+    }
+
     protected function _initialize() {
+
         parent::_initialize();
 
         // 前台登录的判断         
@@ -18,7 +26,7 @@ class Member extends Base {
         if (MID < 0) {
             $server = request()->server();
             $redirect = $server['PATH_INFO'] ?? '';
-            $this->error('请登录', url('index/user/login', ['redirect' => $redirect]));
+            $this->error('请登录', url('/user/login', ['redirect' => $redirect]));
             exit;
         }
     }
@@ -27,16 +35,83 @@ class Member extends Base {
      * @title 邮箱激活
      */
     public function activate() {
-
-        $member = db('member')->where('id', MID)->find();
+        $member = db('member')->where('id', MID)->find()->toArray();
 
         $this->assign($member);
 
         return view();
     }
 
-    public function index() {
-        $this->redirect('index/member/setting');
+    public function setting() {
+
+        $member = model('member')->where('id', MID)->find()->toArray();
+        $this->assign($member);
+        return view();
+    }
+
+    /**
+     * @title 关注/粉丝
+     */
+    public function follow($type = 0) {
+
+        empty($type) && exit();
+
+        if ($type == 1) {
+
+            $lists = model('member_follow')->follows_where(MID)->paginate(10, false, ['query' => request()->get()]);
+            $count = model('member_follow')->follows_where(MID)->count();
+
+            // 附加 关注的状态字段
+            foreach ($lists as $key => $value) {
+                $lists[$key]['follow_type'] = model('member_follow')->follow_type($value['id'], MID);
+            }
+
+            $this->assign('lists', $lists);
+            $this->assign('count', $count);
+        } elseif ($type == 2) {
+            $lists = model('member_follow')->fans_where(MID)->paginate(10, false, ['query' => request()->get()]);
+            $count = model('member_follow')->fans_where(MID)->count();
+
+            // 附加 关注的状态字段
+            foreach ($lists as $key => $value) {
+                $lists[$key]['follow_type'] = model('member_follow')->follow_type($value['id'], MID);
+            }
+
+            $this->assign('lists', $lists);
+            $this->assign('count', $count);
+        }
+
+        return view();
+    }
+
+    /**
+     * @title 加关注
+     * @method post
+     * @params id 1 偶像的ID
+     * 自己不能关注自己
+     * 关注一个有效的用户
+     * 已关注了再次搜索是取消关注
+     */
+    public function follow_add() {
+
+        $member_id = request()->post('member_id');
+
+        $check_user = model('member')->where('id', $member_id)->find();
+        if (empty($check_user)) {
+            return ['code' => 1, 'msg' => '关注的用户不存在'];
+        }
+
+        if ($member_id != MID) {
+
+            $msg = model('member')->follow_add($member_id, MID);
+            if (is_numeric($msg)) {
+                return ['code' => 0, 'msg' => 'success', 'data' => $msg];
+            } else {
+                return ['code' => 1, 'msg' => $msg];
+            }
+        } else {
+            return ['code' => 1, 'msg' => '不能关注自己'];
+        }
     }
 
     /**
@@ -153,18 +228,13 @@ class Member extends Base {
      * @title 发贴管理  
      */
     public function thread() {
-
-
         // 我发布的帖子
         $lists = model('thread')->where('member_id', MID)->order('top desc,recommend desc, id desc')->paginate(100, false, ['query' => request()->get()]);
         $count = model('thread')->where('member_id', MID)->count();
 
         $this->assign('pager', $lists->render());
-
         $this->assign('lists', $lists);
         $this->assign('count', $count);
-
-
 
         // 我收藏的帖子
         $wheres = [
@@ -174,7 +244,6 @@ class Member extends Base {
         $count2 = model('member_wish_thread')->model_where($wheres)->count();
 
         $this->assign('pager2', $lists2->render());
-
         $this->assign('lists2', $lists2);
         $this->assign('count2', $count2);
 
@@ -239,7 +308,6 @@ class Member extends Base {
     }
 
     public function password_reset() {
-
         if (request()->isPost()) {
 
 
@@ -254,4 +322,5 @@ class Member extends Base {
             }
         }
     }
+
 }

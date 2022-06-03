@@ -17,12 +17,14 @@ class ThreadColumn extends Base {
 
     public function model_where() {
 
+        $db = db('thread_column');
+
         if (request()->get('keyword'))
-            $this->where('title', 'like', '%' . request()->get('keyword') . '%');
+            $db->where('title', 'like', '%' . request()->get('keyword') . '%');
 
-        $this->order('id desc');
+        $db->order('id desc');
 
-        return $this;
+        return $db;
     }
 
 }
