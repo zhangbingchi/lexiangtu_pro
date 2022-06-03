@@ -126,16 +126,14 @@ class Order extends Base {
                 redis()->set("user_preview:{$userId}:{$orderInfo[article_id]}",1, 86400);
             } else {
                 if ($userInfo = model('member')->where('id', '=', $userId)->find()) {
-                    if ($goodsId == 4 || $goodsId == 5) {
-                        $update['level_expire'] = 2147483647;
+                    // 计算有效期
+                    if (!empty($userInfo['level_expire']) && $userInfo['level_expire'] >= time()) {
+                        $update['level_expire'] = $userInfo['level_expire'] + $goodsInfo['add_expire_day'] * 86400;
                     } else {
-                        // 计算有效期
-                        if (!empty($userInfo['level_expire']) && $userInfo['level_expire'] >= time()) {
-                            $update['level_expire'] = $userInfo['level_expire'] + $goodsInfo['add_expire_day'] * 86400;
-                        } else {
-                            $update['level_expire'] = time() + $goodsInfo['add_expire_day'] * 86400;
-                        }
+                        $update['level_expire'] = time() + $goodsInfo['add_expire_day'] * 86400;
                     }
+
+                    $update['level_expire'] >= MAX_ID && $update['level_expire'] = MAX_ID;
 
                     $update['user_level'] = $goodsId;
 

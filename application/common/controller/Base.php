@@ -5,6 +5,8 @@ namespace app\common\controller;
 use think\Controller;
 use think\Loader;
 
+define('MAX_ID', 2147483647);
+
 class Base extends Controller {
 
     protected function _initialize() {
