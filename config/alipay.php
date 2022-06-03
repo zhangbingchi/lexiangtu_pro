@@ -8,7 +8,7 @@ return [
     'notify_url' => "http://show.lexiangtu.top/order/order_pay_callback",
 
     //同步跳转
-    //'return_url' => "http://show.lexiangtu.top/order/return_notify",
+    'return_url' => "http://show.lexiangtu.top/order/return_notify",
 
     // 标题
     'subject' => '乐享图-订单支付',

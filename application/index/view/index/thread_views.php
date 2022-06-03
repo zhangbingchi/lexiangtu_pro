@@ -81,8 +81,8 @@
                                 <?php } else { ?>
                                     <div class="layui-input-block">
                                         <p>可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                               href="http://show.lexiangtu.top/order/vip_center" target="_blank">升级会员</a>或<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                                href="http://show.lexiangtu.top/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank">购买图集</a>下载
+                                               href="/order/vip_center" target="_blank">升级会员</a>或<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                                href="/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank">购买图集</a>下载
                                         </p>
                                     </div>
                                 <?php } ?>
