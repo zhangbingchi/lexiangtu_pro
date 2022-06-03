@@ -497,15 +497,6 @@
                     , anim: -1
                 });
             } else {
-                // $('body').on('click', '.photos img', function () {
-                //     window.open(this.src);
-                // });
-                layer.photos({
-                    full:true,
-                    photos: '.photos'
-                    , zIndex: 9999999999
-                    , anim: -1
-                });
             }
 
             //搜索
