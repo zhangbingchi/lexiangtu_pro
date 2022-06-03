@@ -16,15 +16,19 @@
                             </a>
                         <?php } ?>
                     </div>
+                </div>
+                <div class="fly-detail-info">
                     {eq name="top" value="1"}
                     <span class="layui-badge layui-bg-black">置顶</span>
                     {/eq}
                     {eq name="status" value="1"}
                     <span class="layui-badge layui-bg-red">精帖</span>
                     {/eq}
-                    <span class="fly-list-nums"> 
-                        <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> <?php echo $comment ?></a>
-                        <i class="iconfont" title="人气">&#xe60b;</i> <?php echo $hits ?>
+                    <span class="fly-list-nums">
+                        <i style="padding: 0 3px 0 10px;" class="layui-icon" title="人气">&#xe705;</i> <?php echo $hits ?>
+                        <a href="#comment"><i style="padding: 0 3px 0 10px;" class="iconfont" title="回复">&#xe60c;</i> <?php echo $comment ?></a>
+                        <a href="#add_zan"><i style="padding: 0 3px 0 10px;" class="layui-icon" title="点赞">&#xe6c6;</i> <?php echo $comment ?></a>
+                        <a href="#add_like"><i style="padding: 0 3px 0 10px;" class="layui-icon" title="收藏">&#xe67a;</i> <?php echo $comment ?></a>
                     </span>
                 </div>
                 <span>更新日志：</span>
@@ -173,7 +177,8 @@
                         <div class="layui-form-item layui-form-text">
                             <a name="comment"></a>
                             <div class="layui-input-block">
-                                <textarea id="L_content" name="content" required lay-verify="required" placeholder="请输入内容"  class="layui-textarea fly-editor" style="height: 150px;"></textarea>
+<!--                                <textarea id="L_content" name="content" required lay-verify="required" placeholder="请输入内容"  class="layui-textarea fly-editor" style="height: 150px;"></textarea>-->
+                                <textarea id="L_content" name="content" required lay-verify="required" placeholder="请输入内容"  class="layui-textarea" style="height: 150px;"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">

@@ -5,17 +5,7 @@ namespace app\index\controller;
 use app\common\controller\Base;
 
 class User extends Base {
-    
-    
-    public function test(){
-        
-        $lists = db('member')->select();
-        
-        foreach ($lists as $key => $value) {
-            db('member')->where('id',$value['id'])->setField('password', my_md5($value['password']));
-        }
-        echo 'ok';
-    }
+
     
 
     /**

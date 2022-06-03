@@ -316,13 +316,14 @@ class Index extends Base {
             if (empty($post['thread_id'])) {
                 $this->error('找不到帖子');
             }
+            $id = $post['thread_id'];
+            $wheres = [['a.id', '=', $id],['a.is_delete', '=', 0]];
+            $one = model('thread')->model_where($wheres)->find();
 
-            //
-            //print_r($member_id);
             $msg = model('thread_comment')->thread_comment_add($post);
             if (is_numeric($msg) || empty($msg)) {
                 // 发布成功 ，跳转到所属的帖子
-                $this->success('发布成功', url('/thread/' . $post['thread_id']));
+                $this->success('发布成功', url('/thread_views/' . $one['article_id']));
             } else {
                 $this->error($msg);
             }

@@ -6,8 +6,8 @@
         <div class="layui-col-md8">
             <div class="fly-panel" style="margin-bottom: 0;">
                 <div class="fly-panel-title fly-filter">
-                    <a href="/thread" <?php
-                       if (empty(request()->param('alisa'))) {
+                    <a href="/thread/all" <?php
+                       if (empty(request()->param('alisa')) || request()->param('alisa') == 'all') {
                            echo ' class="layui-this" ';
                        }
                        ?>>最新</a>
@@ -40,11 +40,11 @@
                                     标签：<span><?php echo $value['ingredient_list'] ?></span>
                                 </div>
                                 <span class="fly-list-info">
-                                <i class="layui-icon layui-icon-read" title="查看"></i> <?php echo $value['hits'] ?>
-                                <i class="iconfont icon-zan" style="padding:0px 10px" title="点赞"></i> <?php echo $value['like'] ?>
-                                <i class="iconfont icon-pinglun1" style="padding:0px 10px" title="评论"></i> <?php echo $value['comment'] ?>
-                                <i class="layui-icon layui-icon-star-fill" style="padding:0px 10px" title="收藏"></i> <?php echo $value['fav'] ?>
-                            </span>
+                                    <i class="layui-icon layui-icon-read" title="查看"></i> <?php echo $value['hits'] ?>
+                                    <i class="iconfont icon-zan" style="padding:0px 10px" title="点赞"></i> <?php echo $value['like'] ?>
+                                    <i class="iconfont icon-pinglun1" style="padding:0px 10px" title="评论"></i> <?php echo $value['comment'] ?>
+                                    <i class="layui-icon layui-icon-star-fill" style="padding:0px 10px" title="收藏"></i> <?php echo $value['fav'] ?>
+                                </span>
                                 <div class="fly-list-info">
                                     发布日期：<span><?php echo $value['publish_date'] ?></span>
                                 </div>
