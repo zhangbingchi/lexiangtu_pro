@@ -74,9 +74,10 @@ class Order extends Base {
     }
 
     // 支付回调
-    public function pay_order_callback() {
+    public function order_pay_callback() {
         $callback = input('post.');
-        if (!$callback) exit();
+        file_put_contents('pay.log', json_encode($callback) . PHP_EOL, FILE_APPEND);
+        if (!$callback) exit;
 
         $fields = ['out_trade_no', 'buyer_logon_id', 'receipt_amount', 'trade_status', 'trade_no', 'body'];
         foreach ($fields as $field) {
@@ -113,9 +114,10 @@ class Order extends Base {
             'trade_status' => $tradeStatus[$callback['trade_status']]?:0,
             'update_time' => time(),
         ];
-        model('order')->where($where)->save($update);
+        model('order')->save($update, $where);
 
         // 支付成功处理
+        $update = [];
         if ($callback['trade_status'] == 'TRADE_SUCCESS') {
             $goodsId = $orderInfo['goods_id'];
             $goodsInfo = model('goods')->where('id', '=', $goodsId)->find();
@@ -123,16 +125,21 @@ class Order extends Base {
             if($goodsId == 1) {
                 redis()->set("user_preview:{$userId}:{$orderInfo[article_id]}",1, 86400);
             } else {
-                if ($userInfo = model()->where('id', '=', $userId)->find()) {
-                    // 计算有效期
-                    if (!empty($userInfo['level_expire']) && $userInfo['level_expire'] >= time()) {
-                        $update['level_expire'] = $userInfo['expire_time'] + $goodsInfo['add_expire_day'] * 86400;
+                if ($userInfo = model('member')->where('id', '=', $userId)->find()) {
+                    if ($goodsId == 4 || $goodsId == 5) {
+                        $update['level_expire'] = 2147483647;
                     } else {
-                        $update['level_expire'] = time() + $goodsInfo['add_expire_day'] * 86400;
+                        // 计算有效期
+                        if (!empty($userInfo['level_expire']) && $userInfo['level_expire'] >= time()) {
+                            $update['level_expire'] = $userInfo['level_expire'] + $goodsInfo['add_expire_day'] * 86400;
+                        } else {
+                            $update['level_expire'] = time() + $goodsInfo['add_expire_day'] * 86400;
+                        }
                     }
+
                     $update['user_level'] = $goodsId;
 
-                    model('member')->where('id', '=', $userId)->save();
+                    model('member')->save($update, ['id' => $userId]);
                 }
             }
         }
