@@ -101,7 +101,7 @@
                 <br />
                 <span>预览效果：</span>
                 <hr class="layui-border-red">
-                <div class="detail-body" style="min-height:30px;">
+                <div class="detail-body" style="min-height:15px; text-align:center">
                     <?php echo $content; ?>
                 </div>
                 <div class="photos">
@@ -118,9 +118,20 @@
                     <legend>回帖</legend>
                 </fieldset>
                 <ul class="reply" id="reply">
-                    <?php
-                    if (!empty($lists_comment['total'])) {
-                        ?>
+                    <li>
+                        <a name="item-1111111111"></a>
+                        <div class="detail-about detail-about-reply">
+                            <a class="fly-avatar" href="#">
+                                <img src="/static/phpfly/images/avatar/root.jpg" alt=" ">
+                            </a>
+                            <div class="fly-detail-user"><cite>管理员</cite></div>
+                            <div class="detail-hits">
+                                <span>2000-01-01</span>
+                            </div>
+                        </div>
+                        <div class="detail-body reply-body photos" style="color: red">新注册用户7日内首次回复后可免费下载</div>
+                    </li>
+                    <?php if (!empty($lists_comment['total'])) { ?>
                         <?php
                         foreach ($lists_comment['data'] as $key => $value) {
                             ?>
@@ -128,12 +139,7 @@
                                 <a name="item-1111111111"></a>
                                 <div class="detail-about detail-about-reply">
                                     <a class="fly-avatar" href="<?php echo url('/portal/' . $value['member_id']) ?>">
-                                        <img src="<?php
-                                        if ($value['avatar'])
-                                            echo res_http($value['avatar']);
-                                        else
-                                            echo res_http('sex' . $value['sex'] . '.png');
-                                        ?>" alt=" ">
+                                        <img src="<?php echo $value['avatar'] ?>" alt=" ">
                                     </a>
                                     <div class="fly-detail-user">
                                         <a href="<?php echo url('/portal/' . $value['member_id']) ?>" class="fly-link">
@@ -166,10 +172,7 @@
                                 </div>
                             </li>
                         <?php } ?>
-                    <?php } else { ?>
-                        <!-- 无数据时 -->
-                        <li class="fly-none">消灭零回复</li>
-                    <?php } ?>
+                    <?php }?>
                 </ul>
                 <div class="layui-form layui-form-pane">
                     <form action="<?php echo url('index/index/thread_comment_add') ?>" method="post">
@@ -199,9 +202,13 @@
                     <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
                 </div>
             </div>
-            <div class="fly-panel" style="padding: 20px 0; text-align: center;">
-                <img src="__THEME__/images/lexiangtu_app.jpg" style="max-width: 100%;" alt="lexiangtu ">
-                <p style="position: relative; color: #666;">微信扫码下载APP</p>
+            <div class="fly-panel" >
+                <div class="fly-panel-title">
+                    扫码下载APP
+                </div>
+                <div class="fly-panel-main" style="padding: 20px 0; text-align: center;">
+                    <img src="__THEME__/images/erweima.png" style="max-width: 100%;" alt="乐享图">
+                </div>
             </div>
         </div>
     </div>

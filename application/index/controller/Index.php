@@ -232,6 +232,7 @@ class Index extends Base {
                 $value['display_comment_accept'] = ($member_id == $one['member_id']) ? 1 : 0;
             }
         }
+
         $this->assign('lists_comment', $lists_comment);
 
         return view();

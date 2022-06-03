@@ -68,8 +68,6 @@ class Member extends Base {
 
     // 
     public function follow_add($member_id, $member_id_who) {
-
-
         //检查是否已经关注过，如果已关注，再次操作为 取关            
         $wheres = [
             'follow_who' => ['=', $member_id],
@@ -196,6 +194,7 @@ class Member extends Base {
         $data['email'] = $post['email'];
         $data['nickname'] = $post['nickname'];
         $data['password'] = my_md5($post['password']);
+        $post['avatar'] = '/static/phpfly/images/avatar/' . mt_rand(0,9) . '.jpg'; // 头像默认
         $data['create_time'] = time();
         $data['update_time'] = time();
 

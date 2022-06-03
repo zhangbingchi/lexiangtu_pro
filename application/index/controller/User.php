@@ -195,8 +195,6 @@ class User extends Base {
             if ($nickname_count) {
                 $this->error('你填写的昵称已经被其他人使用了');
             }
-            //
-            $post['avatar'] = '/media/avatar/logo.png'; // 头像默认
             $msg = model('member')->reg($post);
             if (is_numeric($msg)) {
                 $this->success('注册成功', url('index/user/login'));
