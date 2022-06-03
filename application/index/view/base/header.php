@@ -4,11 +4,6 @@
             <li class="layui-nav-item">
                 <a href="/" style="color:red;">乐享图</a>
             </li>
-            <li class="layui-nav-item">
-                <a href="__PUBLIC__/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:yellow;padding:0 10px">
-                    <i class="iconfont icon-jiaoliu"></i>APP下载
-                </a>
-            </li>
             <?php if (member_is_login()) { ?>
                 <li class="layui-nav-item">
                     <a href="/vip_center" style="color:yellow;padding:0 10px">
@@ -19,6 +14,12 @@
                     <div class="layui-show-md-inline-block fly-search">
                         <i class="layui-icon"></i>
                     </div>
+                </li>
+            <?php } else { ?>
+                <li class="layui-nav-item">
+                    <a href="__PUBLIC__/media/download/lexiangtu/lexiangtu_v1.0.apk" style="color:yellow;padding:0 10px">
+                        <i class="iconfont icon-jiaoliu"></i>APP下载
+                    </a>
                 </li>
             <?php } ?>
         </ul>
