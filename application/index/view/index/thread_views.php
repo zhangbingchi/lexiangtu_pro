@@ -9,7 +9,7 @@
                 <div class="fly-detail-info">
                     <div class="layui-btn-container">
                         <?php foreach ($thread_tags as $tag) { ?>
-                            <a href="<?php echo 'thread/search?keyword='.$tag ?>"
+                            <a href="<?php echo '/thread/search?keyword='.$tag ?>"
                             <button type="button" class="layui-btn layui-btn-xs layui-btn-normal layui-btn-radius">
                                 <?php echo $tag; ?>
                             </button>
@@ -188,15 +188,15 @@
             {include file="index/inc_week_hot" /}
             <div class="fly-panel">
                 <div class="fly-panel-title">
-                    这里可作为广告区域
+                    诚邀入住
                 </div>
                 <div class="fly-panel-main">
-                    <a href="http://layim.layui.com/?from=fly" target="_blank" class="fly-zanzhu" time-limit="2017.09.25-2099.01.01" style="background-color: #5FB878;">LayIM 3.0 - layui 旗舰之作</a>
+                    <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
                 </div>
             </div>
             <div class="fly-panel" style="padding: 20px 0; text-align: center;">
-                <img src="__THEME__/images/weixin.jpg" style="max-width: 100%;" alt="layui">
-                <p style="position: relative; color: #666;">微信扫码关注 layui 公众号</p>
+                <img src="__THEME__/images/lexiangtu_app.jpg" style="max-width: 100%;" alt="lexiangtu ">
+                <p style="position: relative; color: #666;">微信扫码下载APP</p>
             </div>
         </div>
     </div>

@@ -6,21 +6,23 @@
         <div class="layui-col-md8">
             <div class="fly-panel" style="margin-bottom: 0;">
                 <div class="fly-panel-title fly-filter">
-                    <a href="<?php
-                    echo url('/thread/' . request()->param('alias'));
-                    ?>" <?php
-                       if (empty(request()->param('type'))) {
+                    <a href="/thread" <?php
+                       if (empty(request()->param('alisa'))) {
                            echo ' class="layui-this" ';
                        }
-                       ?>>综合</a>                    
+                       ?>>最新</a>
                     <span class="fly-mid"></span>
-                    <a href="<?php
-                    echo url('/thread/' . request()->param('alias') . '/wonderful');
-                    ?>" <?php
-                       if (request()->param('type') == 'wonderful') {
+                    <a href="/thread/wonderful" <?php
+                       if (request()->param('alisa') == 'wonderful') {
                            echo ' class="layui-this" ';
                        }
                        ?>>精华</a>
+                    <span class="fly-mid"></span>
+                    <a href="/thread/recommend" <?php
+                    if (request()->param('alisa') == 'recommend') {
+                        echo ' class="layui-this" ';
+                    }
+                    ?>>推荐</a>
                 </div>
                 <?php if ($count) { ?>
                     <ul class="fly-list">
@@ -69,7 +71,7 @@
             {include file="index/inc_week_hot" /}
             <div class="fly-panel">
                 <div class="fly-panel-title">
-                    这里可作为广告区域
+                    诚邀入住
                 </div>
                 <div class="fly-panel-main">
                     <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
@@ -82,7 +84,7 @@
                     $friendlists = get_nav(3);
                     foreach ($friendlists as $key => $value) {
                         ?>
-                        <dd><a href="http://www.layui.com/" target="_blank"><?php echo $value['title'] ?></a><dd>
+                        <dd><a href="http://www.baidu.com/" target="_blank">百度</a><dd>
                         <?php } ?>
                     <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：1301976431@qq.com<br> 邮件标题为：申请乐享图友链', {title: '申请友链'});" class="fly-link">申请友链</a><dd>
                 </dl>
