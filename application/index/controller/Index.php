@@ -227,9 +227,9 @@ class Index extends Base {
         if (!empty($lists_comment['data'])) {
             foreach ($lists_comment['data'] as &$value) {
                 // 评论的 编辑 删除 采纳 是否能显示
-                $value['display_comment_edit'] = ($member_id == $one['member_id'] || $member_id == $value['member_id']) ? 1 : 0;
-                $value['display_comment_del'] = ($member_id == $one['member_id'] || $member_id == $value['member_id']) ? 1 : 0;
-                $value['display_comment_accept'] = ($member_id == $one['member_id']) ? 1 : 0;
+                $value['display_comment_edit'] = ($member_id == 1 || $member_id == $value['member_id']) ? 1 : 0;
+                $value['display_comment_del'] = ($member_id == 1 || $member_id == $value['member_id']) ? 1 : 0;
+                $value['display_comment_accept'] = ($member_id == 1) ? 1 : 0;
             }
         }
 
