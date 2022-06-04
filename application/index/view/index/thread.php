@@ -85,7 +85,7 @@
                     $friendlists = get_nav(3);
                     foreach ($friendlists as $key => $value) {
                         ?>
-                        <dd><a href="http://www.baidu.com/" target="_blank">百度</a><dd>
+                        <dd><a href="http://www.baidu.com/">百度</a><dd>
                         <?php } ?>
                     <dd><a href="javascript:;" onclick="layer.alert('发送邮件至：1301976431@qq.com<br> 邮件标题为：申请乐享图友链', {title: '申请友链'});" class="fly-link">申请友链</a><dd>
                 </dl>
