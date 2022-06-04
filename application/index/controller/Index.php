@@ -33,8 +33,8 @@ class Index extends Base {
                 ->select()->toArray();
         $this->assign('lists_member12', $lists_member12);
 
-        // 综合10条帖子
-        $lists_thread20 = model('thread')->model_where([['a.is_delete', '=', 0]])->limit(10)->select();
+        // 综合15条帖子
+        $lists_thread20 = model('thread')->model_where([['a.is_delete', '=', 0]])->limit(15)->select();
         $this->assign('lists_thread20', $lists_thread20);
 
         // 加载签到的初始化状态
@@ -129,7 +129,7 @@ class Index extends Base {
                 $wheres[] = ['a.source_type', '=', 1];
         }
 
-        $lists = model('thread')->model_where($wheres)->paginate(10, false, ['query' => request()->get()]);
+        $lists = model('thread')->model_where($wheres)->paginate(15, false, ['query' => request()->get()]);
         $this->assign('lists', $lists);
 
         $count = model('thread')->model_where($wheres)->count();
@@ -138,7 +138,7 @@ class Index extends Base {
 
         $pager->setUrl($url);
         $pager->setTotal($count);
-        $pager->setLimit(10);
+        $pager->setLimit(15);
         $pager->setPage($page);
 
         $this->assign('count', $count);
