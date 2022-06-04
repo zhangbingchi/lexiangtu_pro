@@ -5,10 +5,10 @@ return [
     'app_id' => "2021001159685803",
 
     //异步通知地址
-    'notify_url' => "http://show.lexiangtu.top/order/order_pay_callback",
+    'notify_url' => "http://49.233.40.81:2000/order/order_pay_callback",
 
     //同步跳转
-    'return_url' => "http://show.lexiangtu.top/order/return_notify",
+    'return_url' => "http://49.233.40.81:2000/order/return_notify",
 
     // 标题
     'subject' => '乐享图-订单支付',
