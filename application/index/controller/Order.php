@@ -78,20 +78,17 @@ class Order extends Base {
         $callback = input('post.');
         file_put_contents('pay.log', json_encode($callback) . PHP_EOL, FILE_APPEND);
         if (!$callback) exit;
+        // 验证签名
+        if(!controller('common/Alipay')->check_rsa_sign($callback)) exit;
 
-        $fields = ['out_trade_no', 'buyer_logon_id', 'receipt_amount', 'trade_status', 'trade_no', 'body'];
+        $fields = ['out_trade_no', 'buyer_logon_id', 'receipt_amount', 'trade_status', 'trade_no'];
         foreach ($fields as $field) {
             if (empty($callback[$field])) exit;
         }
 
-        // hash 缺失异常
-        if (empty($callback['body']['order_hash']))exit;
-        $orderHash = $callback['body']['order_hash'];
-
         // 获取订单信息
         $where = [
             ['order_number', '=', $callback['out_trade_no']],
-            ['order_hash', '=', $orderHash],
         ];
         $orderInfo = model('order')->where($where)->find();
         if ($orderInfo['trade_status'] == 2) {
@@ -123,7 +120,9 @@ class Order extends Base {
             $goodsInfo = model('goods')->where('id', '=', $goodsId)->find();
             $userId = $orderInfo['user_id'];
             if($goodsId == 1) {
-                redis()->set("user_preview:{$userId}:{$orderInfo[article_id]}",1, 86400);
+                redis()->set("user_preview:{$userId}:{$orderInfo['article_id']}",1, 86400);
+                // 付费权重增加10000
+                model('thread')->where('article_id', $orderInfo['article_id'])->setInc('weight', 10000);
             } else {
                 if ($userInfo = model('member')->where('id', '=', $userId)->find()) {
                     // 计算有效期

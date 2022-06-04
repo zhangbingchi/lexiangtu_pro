@@ -235,6 +235,10 @@ class Index extends Base {
 
         $this->assign('lists_comment', $lists_comment);
 
+        // 浏览数权重增加
+        model('thread')->where('article_id', $articleId)->setInc('hits');
+        model('thread')->where('article_id', $articleId)->setInc('weight', 100);
+
         return view();
     }
 
@@ -299,6 +303,10 @@ class Index extends Base {
             ];
         }
 
+        // 浏览数权重增加
+        model('thread')->where('article_id', $article_id)->setInc('down_count');
+        model('thread')->where('article_id', $article_id)->setInc('weight', 100);
+
         $this->assign($data);
 
         return view();
@@ -312,7 +320,6 @@ class Index extends Base {
 
         if (is_array($member = member_is_login())) {
 
-            //
             $post = request()->post();
             if (empty($post['thread_id'])) {
                 $this->error('找不到帖子');
@@ -323,6 +330,8 @@ class Index extends Base {
 
             $msg = model('thread_comment')->thread_comment_add($post);
             if (is_numeric($msg) || empty($msg)) {
+                // 增加权重
+                model('thread')->where('id', $id)->setInc('weight', 200);
                 // 发布成功 ，跳转到所属的帖子
                 $this->success('发布成功', url('/thread_views/' . $one['article_id']));
             } else {

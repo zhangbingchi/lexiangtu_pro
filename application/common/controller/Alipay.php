@@ -33,4 +33,20 @@ class Alipay {
         $responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
         return json_decode(json_encode($result->$responseNode), true);
     }
+
+    public function check_rsa_sign($params) {
+        $aliConfig = config('alipay.');
+        $aop = new \AopClient ();
+        //编码格式
+        $aop->postCharset="UTF-8";
+        //支付宝公钥赋值
+        $aop->alipayrsaPublicKey=$aliConfig['alipay_public_key'];
+        //签名方式
+        $sign_type="RSA2";
+
+        //验签代码
+        $flag = $aop->rsaCheckV1($params, null, $sign_type);
+
+        return !!$flag;
+    }
 }

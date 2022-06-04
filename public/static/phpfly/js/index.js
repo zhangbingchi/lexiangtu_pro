@@ -658,15 +658,15 @@
             });
 
             //固定Bar
-            util.fixbar({
-                bar1: '&#xe68e;'
-                , bgcolor: '#009688'
-                , click: function (type) {
-                    if (type === 'bar1') {
-                        location.href = layui.baseUrl();
-                    }
-                }
-            });
+            // util.fixbar({
+            //     bar1: '&#xe68e;'
+            //     , bgcolor: '#009688'
+            //     , click: function (type) {
+            //         if (type === 'bar1') {
+            //             location.href = layui.baseUrl();
+            //         }
+            //     }
+            // });
 
             exports('fly', fly);
 
