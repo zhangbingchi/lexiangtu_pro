@@ -75,7 +75,7 @@
                     诚邀入住
                 </div>
                 <div class="fly-panel-main">
-                    <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
+                    <a href="#" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
                 </div>
             </div>
             <div class="fly-panel fly-link">
