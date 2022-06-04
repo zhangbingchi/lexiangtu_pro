@@ -342,4 +342,46 @@ class Index extends Base {
         }
     }
 
+
+    public function echoHtml() {
+
+        $content = '';
+        $lists = model('thread')->where('is_delete', 0)->order('id', 'desc')->limit(5)->select();
+        foreach ($lists as $article) {
+            $articleId = $article['article_id'];
+            $title = $article['title'];
+
+            $content .= "{$title}[5P]--原版5400*3600图集" . PHP_EOL . PHP_EOL;
+            $content .= "[size=5][color=Red]{$title}[/color][/size]" . PHP_EOL . PHP_EOL. PHP_EOL;
+
+            // 文章详情
+            $ingredients = model('thread_ingredients')->where('article_id', $articleId)->select();
+            foreach ($ingredients as $item) {
+                $content .= $item['name'] . '    ' . $item['dosage'] . PHP_EOL;
+            }
+            $content .= PHP_EOL . PHP_EOL;
+
+            $content .= "[size=5]原版图集下载链接：[url=http://show.lexiangtu.top/thread_views/{$articleId}.html][color=Blue]http://show.lexiangtu.top/thread_views/{$articleId}.html[/color][/url][/size]";
+
+            $content .= PHP_EOL . PHP_EOL . PHP_EOL;
+
+            $content .= '预览图：' . PHP_EOL . PHP_EOL;
+
+            $threadImages = model('thread_images')->where('article_id', $articleId)->select();
+            foreach ($threadImages as $item) {
+                $content .= "[img]http://show.lexiangtu.top/media/images/{$item['image']}[/img] " . PHP_EOL;
+            }
+
+            $content .= PHP_EOL . PHP_EOL . PHP_EOL;
+
+
+            $content .= "标签：" . str_replace(',', ' ',$article['ingredient_list']);
+
+            $content .= PHP_EOL . PHP_EOL . PHP_EOL;
+        }
+
+
+        file_put_contents('recommend.log', $content);
+    }
+
 }
