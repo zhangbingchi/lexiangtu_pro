@@ -11,7 +11,7 @@
 
 // 完整域名绑定到admin模块
 Route::domain('admin.lexiangtu.top', 'admin');
-Route::domain('test.lexiangtu.top', 'index');
+Route::domain('show.lexiangtu.top', 'index');
 
 // 文章列表
 Route::get('thread/:alias/:k_id', 'index/thread');
