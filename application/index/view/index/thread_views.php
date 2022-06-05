@@ -102,8 +102,10 @@
                 <span>预览效果：</span>
                 <a href="/" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">返回首页>></a>
                 <hr class="layui-border-red">
-                <div class="detail-body" style="min-height:15px; text-align:center">
-                    <?php echo $content; ?>
+                <div style="min-height:15px; text-align:center">
+                    <span style="color:red;font-size: 18px">注册7日内每日首次回复可免费下载</span>
+                    <br>
+                    <span><?php echo $content; ?></span>
                 </div>
                 <div class="photos">
                     <?php foreach ($thread_images as $value) { ?>
@@ -130,7 +132,7 @@
                                 <span>2000-01-01</span>
                             </div>
                         </div>
-                        <div class="detail-body reply-body photos" style="color: red">新注册用户7日内首次回复后可免费下载</div>
+                        <div class="detail-body reply-body" style="color: red">新注册用户7日内首次回复后可免费下载</div>
                     </li>
                     <?php if (!empty($lists_comment['total'])) { ?>
                         <?php
