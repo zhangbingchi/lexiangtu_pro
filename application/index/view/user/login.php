@@ -28,10 +28,16 @@
                                 <div class="layui-input-inline">
                                     <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input">
                                 </div>
-                                <div class="layui-form-mid" style="padding: 0!important;margin-left:30px;">
+                                <div class="layui-form-mid" style="padding: 0!important;margin-left:0px;">
                                   <img src="{:captcha_src()}" alt="验证码，点击图片可更换" style="cursor: pointer" onclick="this.src='{:captcha_src()}?r='+Math.random() " />
                                 </div>
                             </div>
+<!--                            <div class="layui-form-item">-->
+<!--                                <label class="layui-form-label" style="border-style: initial;background-color: initial;">自动登录：</label>-->
+<!--                                <div class="layui-input-block">-->
+<!--                                    <input type="checkbox" name="switch" lay-skin="switch" lay-text="ON|OFF" checked>-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <div class="layui-form-item">
                                 <button class="layui-btn" lay-filter="myform" lay-submit>立即登录</button>
                                 <span style="padding-left:20px;">

@@ -194,7 +194,7 @@ class Member extends Base {
         $data['email'] = $post['email'];
         $data['nickname'] = $post['nickname'];
         $data['password'] = my_md5($post['password']);
-        $post['avatar'] = '/static/phpfly/images/avatar/' . mt_rand(0,9) . '.jpg'; // 头像默认
+        $data['avatar'] = '/static/phpfly/images/avatar/' . mt_rand(0,9) . '.jpg'; // 头像默认
         $data['create_time'] = time();
         $data['update_time'] = time();
 

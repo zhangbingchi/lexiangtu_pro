@@ -160,6 +160,7 @@ layui.define(['laypage', 'fly', 'element', 'flow'], function (exports) {
         });
     }
 
+    /*
     //上传图片
     if ($('.upload-img')[0]) {
         layui.use('upload', function (upload) {
@@ -257,7 +258,8 @@ layui.define(['laypage', 'fly', 'element', 'flow'], function (exports) {
         effectShow();
 
     }
-
+*/
+    
     //提交成功后刷新
     fly.form['set-mine'] = function (data, required) {
         layer.msg('修改成功', {
@@ -268,7 +270,7 @@ layui.define(['laypage', 'fly', 'element', 'flow'], function (exports) {
             location.reload();
         });
     }
-
+/*
     //帐号绑定
     $('.acc-unbind').on('click', function () {
         var othis = $(this), type = othis.attr('type');
@@ -292,7 +294,7 @@ layui.define(['laypage', 'fly', 'element', 'flow'], function (exports) {
             });
         });
     });
-
+*/
 
     //我的消息
     gather.minemsg = function () {

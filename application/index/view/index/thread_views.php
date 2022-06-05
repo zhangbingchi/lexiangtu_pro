@@ -79,10 +79,10 @@
                                         </p>
                                     </div>
                                 <?php } else { ?>
-                                    <div class="layui-input-block">
-                                        <p>可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                               href="/vip_center" target="_blank">升级会员</a>或<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                                href="/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank">购买图集</a>下载
+                                    <div style="style="margin-left: 30px; padding-top:30px"">
+                                        <p>可 <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                               href="/vip_center" target="_blank"> 升级会员 </a> 或 <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
+                                                href="/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank"> 购买图集 </a> 下载
                                         </p>
                                     </div>
                                 <?php } ?>
@@ -90,16 +90,17 @@
                         </div>
                     <?php } else { ?>
                         <div class="layui-input-block" style="margin-left: 10px;">
-                            <p>可<a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                   href="/user/reg" target="_blank">注册</a> 或
-                                <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                   href="/user/login" target="_blank">登录</a>直接下载
+                            <p>可 <a class="layui-btn layui-btn-sm layui-btn-radius"
+                                   href="/user/reg" target="_blank"> 注册 </a> 或
+                                <a class="layui-btn layui-btn-sm layui-btn-radius"
+                                   href="/user/login" target="_blank"> 登录 </a> 直接下载
                             </p>
                         </div>
                     <?php } ?>
                 </p>
                 <br />
                 <span>预览效果：</span>
+                <a href="/" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">返回首页>></a>
                 <hr class="layui-border-red">
                 <div class="detail-body" style="min-height:15px; text-align:center">
                     <?php echo $content; ?>
@@ -147,7 +148,7 @@
                                         </a>
                                     </div>
                                     <div class="detail-hits">
-                                        <span><?php echo $value['create_time'] ?></span>
+                                        <span><?php echo date('Y-m-d H:i:s', $value['create_time']); ?></span>
                                     </div>
                                 </div>
                                 <div class="detail-body reply-body photos"><?php echo $value['content'] ?></div>
