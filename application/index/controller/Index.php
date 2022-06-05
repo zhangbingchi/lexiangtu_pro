@@ -81,7 +81,6 @@ class Index extends Base {
         $thread_column = db('thread_column')->where('id', $cid)->find();
         // 会员积分和VIP级别
         $member = member_is_login();
-        // print_r($member);
         if (!is_array($member)) {
             $vip = 0;
             $points = 0;
@@ -319,7 +318,6 @@ class Index extends Base {
     public function thread_comment_add() {
 
         if (is_array($member = member_is_login())) {
-
             $post = request()->post();
             if (empty($post['thread_id'])) {
                 $this->error('找不到帖子');
@@ -330,10 +328,24 @@ class Index extends Base {
 
             $msg = model('thread_comment')->thread_comment_add($post);
             if (is_numeric($msg) || empty($msg)) {
+                $articleId = $one['article_id'];
+                $memberId = $member['id'];
                 // 增加权重
                 model('thread')->where('id', $id)->setInc('weight', 200);
+
+                //判断是否是7日内注册回复
+                $memberInfo = model('member')->where('id', $memberId)->find()->toArray();
+                if ($memberInfo['create_time'] + 7 *86400  >= time()) {
+                    // 可免费下载一次
+                    $key = "new_user_reply_free_download:" . date('Ymd');
+                    if(!redis()->sIsMember($key, $memberId)) {
+                        redis()->sAdd($key,$memberId);
+                        // 设置文章可下载
+                        redis()->set("user_preview:{$memberId}:{$articleId}",1, 86400);
+                    }
+                }
                 // 发布成功 ，跳转到所属的帖子
-                $this->success('发布成功', url('/thread_views/' . $one['article_id']));
+                $this->success('发布成功', url('/thread_views/' . $articleId));
             } else {
                 $this->error($msg);
             }

@@ -190,8 +190,6 @@ class Member extends Base {
      * @title 收藏帖子
      */
     public function wish_add() {
-
-
         $thread_id = request()->post('thread_id');
         empty($thread_id) && $this->error('不存在的帖子');
 
