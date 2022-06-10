@@ -98,7 +98,7 @@
                 </ul>
                 <div style="text-align: center">
                     <div class="laypage-main">
-                        <a href="/index/thread/all/0/page/2.html" class="laypage-next">查看更多</a>
+                        <a href="/thread/all/0/page/2.html" class="laypage-next">查看更多</a>
                     </div>
                 </div>
             </div>
