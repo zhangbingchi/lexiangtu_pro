@@ -98,7 +98,7 @@
                 </ul>
                 <div style="text-align: center">
                     <div class="laypage-main">
-                        <a href="<?php echo url('index/thread/all/0/page/2') ?>" class="laypage-next">查看更多</a>
+                        <a href="/index/thread/all/0/page/2.html" class="laypage-next">查看更多</a>
                     </div>
                 </div>
             </div>
