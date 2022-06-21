@@ -5,7 +5,7 @@
     $week_hot_lists = db('thread')
             ->where('is_delete', 0)
             ->order('comment desc')
-            ->field('id,title,comment')
+            ->field('article_id,title,comment')
             ->limit(10)
             ->select();
     if ($week_hot_lists) {
