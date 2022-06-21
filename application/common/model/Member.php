@@ -239,9 +239,6 @@ class Member extends Base {
                 ->field('a.id,a.email,a.nickname,a.avatar,a.sex,a.vip,a.points,mi.identification')
                 ->find();
 
-        // 保存session
-        session('member_session_sign', data_auth_sign($member));
-        //
         session('member', $member);
         // 保存cookie
         cookie('member', authcode(json_encode($member), 'ENCODE', 'PHPFLY'), 315360000);

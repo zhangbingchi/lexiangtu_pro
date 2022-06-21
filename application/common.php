@@ -250,11 +250,7 @@ function member_is_login() {
 
     $member = authcode($member, 'DECODE', 'PHPFLY');
     $member = json_decode($member, true);
-
-    if (session('member_session_sign') != data_auth_sign($member)) {
-        return '';
-    }
-
+    
     return $member;
 }
 

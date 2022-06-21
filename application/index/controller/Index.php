@@ -420,7 +420,7 @@ class Index extends Base {
     public function echoHtml() {
 
         $content = '';
-        $lists = model('thread')->where('is_delete', 0)->order('id', 'desc')->limit(5)->select();
+        $lists = model('thread')->where('is_delete', 0)->order('id', 'desc')->limit(20)->select();
         foreach ($lists as $article) {
             $articleId = $article['article_id'];
             $title = $article['title'];
