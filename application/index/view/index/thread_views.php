@@ -207,7 +207,7 @@
                     诚邀入住
                 </div>
                 <div class="fly-panel-main">
-                    <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
+                    <a href="#" onclick="layer.alert('发送邮件至：1301976431@qq.com<br> 邮件标题为：申请乐享图社区友链', {title: '申请友链'});" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
                 </div>
             </div>
             <div class="fly-panel" >
