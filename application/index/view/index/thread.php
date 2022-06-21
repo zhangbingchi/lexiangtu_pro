@@ -78,6 +78,17 @@
                     <a href="#" onclick="layer.alert('发送邮件至：1301976431@qq.com<br> 邮件标题为：申请乐享图社区友链', {title: '申请友链'});" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
                 </div>
             </div>
+            <div class="fly-panel" >
+                <div class="fly-panel-title">
+                    扫码下载APP
+                </div>
+                <div class="fly-panel-main" style="padding: 20px 0; text-align: center;">
+                    <img src="__THEME__/images/erweima.png" style="max-width: 100%;" alt="乐享图">
+                </div>
+                <div class="fly-panel-main" style="text-align: center;">
+                    <a class="layui-btn layui-btn-radius layui-btn-danger" href="/media/download/lexiangtu/lexiangtu_v1.0.apk">点击下载APP</a>
+                </div>
+            </div>
             <div class="fly-panel fly-link">
                 <h3 class="fly-panel-title">友情链接</h3>
                 <dl class="fly-panel-main">
