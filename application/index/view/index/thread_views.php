@@ -217,7 +217,7 @@
                 <div class="fly-panel-main" style="padding: 20px 0; text-align: center;">
                     <img src="__THEME__/images/erweima.png" style="max-width: 100%;" alt="乐享图">
                 </div>
-                <div class="fly-panel-main">
+                <div class="fly-panel-main" style="text-align: center;">
                     <a class="layui-btn layui-btn-radius layui-btn-danger" href="/media/download/lexiangtu/lexiangtu_v1.0.apk">点击下载APP</a>
                 </div>
             </div>
