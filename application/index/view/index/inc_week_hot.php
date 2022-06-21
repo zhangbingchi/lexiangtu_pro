@@ -3,8 +3,7 @@
     <?php
     // 一周时间内评论数量排行
     $week_hot_lists = db('thread')
-            ->where('create_time', '>', time() - 604800)
-            ->where('delete_time', 'null')
+            ->where('is_delete', 0)
             ->order('comment desc')
             ->field('id,title,comment')
             ->limit(10)
