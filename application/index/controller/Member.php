@@ -42,6 +42,7 @@ class Member extends Base {
         return view();
     }
 
+    // 基本设置
     public function setting() {
 
         $member = model('member')->where('id', MID)->find()->toArray();
@@ -305,6 +306,7 @@ class Member extends Base {
         return view();
     }
 
+    // 重置密码
     public function password_reset() {
         if (request()->isPost()) {
 

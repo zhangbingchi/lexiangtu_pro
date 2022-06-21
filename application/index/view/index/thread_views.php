@@ -1,4 +1,9 @@
 {extend name="base:base" /}
+<style>
+    color-red: {
+        color: red;
+    }
+</style>
 {block name="body"}
 <!--导航 tap-->
 <div class="layui-container" style="padding-top: 30px">
@@ -27,8 +32,8 @@
                     <span class="fly-list-nums">
                         <i style="padding: 0 3px 0 10px;" class="layui-icon" title="人气">&#xe705;</i> <?php echo $hits ?>
                         <a href="#comment"><i style="padding: 0 3px 0 10px;" class="iconfont" title="回复">&#xe60c;</i> <?php echo $comment ?></a>
-                        <a href="#add_zan"><i style="padding: 0 3px 0 10px;" class="layui-icon" title="点赞">&#xe6c6;</i> <?php echo $comment ?></a>
-                        <a href="#add_like"><i style="padding: 0 3px 0 10px;" class="layui-icon" title="收藏">&#xe67a;</i> <?php echo $comment ?></a>
+                        <a href="#" ><i style="padding: 0 3px 0 10px;" class="layui-icon thread_zan" title="点赞">&#xe6c6;</i> <?php echo $like ?></a>
+                        <a href="#" ><i style="padding: 0 3px 0 10px;" class="layui-icon thread_wish" title="收藏">&#xe67a;</i> <?php echo $fav ?></a>
                     </span>
                 </div>
                 <span>更新日志：</span>

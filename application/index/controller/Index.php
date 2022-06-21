@@ -65,6 +65,7 @@ class Index extends Base {
         return view();
     }
 
+    // 菜单栏目
     public function tags() {
         $tags = model('tags')->whereIn('tag_type', [1,2,3])->select()->toArray();
         $tags = get_tree($tags);
@@ -113,6 +114,7 @@ class Index extends Base {
         $page = input('param.page', 1);
 
         $wheres = [['a.is_delete', '=', 0]];
+        $orderBy = 'a.top desc,a.id desc';
         switch ($alias) {
             // 精华
             case 'wonderful':
@@ -126,9 +128,11 @@ class Index extends Base {
                 break;
             case 'shipin':
                 $wheres[] = ['a.source_type', '=', 1];
+            case 'recommend':
+                $orderBy = 'a.weight DESC, a.id DESC';
         }
 
-        $lists = model('thread')->model_where($wheres)->paginate(15, false, ['query' => request()->get()]);
+        $lists = model('thread')->model_where($wheres, $orderBy)->paginate(15, false, ['query' => request()->get()]);
         $this->assign('lists', $lists);
 
         $count = model('thread')->model_where($wheres)->count();
@@ -354,6 +358,64 @@ class Index extends Base {
         }
     }
 
+    // 点赞
+    public function thread_zan() {
+        if($member = member_is_login()) {
+            $post = request()->post();
+            if (empty($post['thread_id']) || !isset($post['zan']) ) {
+                return ['code' => 1, 'message' => '请求异常～'];
+            }
+            $where = [
+                ['member_id', '=', $member['id']],
+                ['thread_id', '=', $post['thread_id']],
+            ];
+            if (!empty($post['zan'])) {
+                if (!$record = model('thread_hits_zan')->where($where)->find()) {
+                    $data = $where;
+                    $data['create_time'] = time();
+                    model('thread_hits_zan')->insert($data);
+                    // 文章点赞数+1
+                    model('thread')->where('id', $post['thread_id'])->setInc('like');
+                }
+            } else {
+                model('thread_hits_zan')->where($where)->delete();
+            }
+
+            return ['code' => 0, '点赞成功！'];
+
+        } else {
+            return ['code' => 1, 'message' => '请先登录～'];
+        }
+    }
+
+    public function thread_wish() {
+        if($member = member_is_login()) {
+            $post = request()->post();
+            if (empty($post['thread_id']) || !isset($post['wish']) ) {
+                return ['code' => 1, 'message' => '请求异常～'];
+            }
+            $where = [
+                ['member_id', '=', $member['id']],
+                ['thread_id', '=', $post['thread_id']],
+            ];
+            if (!empty($post['wish'])) {
+                if (!$record = model('thread_hits_wish')->where($where)->find()) {
+                    $data = $where;
+                    $data['create_time'] = time();
+                    model('thread_hits_wish')->insert($data);
+                    // 文章收藏数+1
+                    model('thread')->where('id', $post['thread_id'])->setInc('fav');
+                }
+            } else {
+                model('thread_hits_zan')->where($where)->delete();
+            }
+
+            return ['code' => 0, '点赞成功！'];
+
+        } else {
+            return ['code' => 1, 'message' => '请先登录～'];
+        }
+    }
 
     public function echoHtml() {
 

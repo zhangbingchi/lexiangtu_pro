@@ -244,7 +244,7 @@ class Member extends Base {
         //
         session('member', $member);
         // 保存cookie
-        cookie('member', authcode(json_encode($member), 'ENCODE', 'PHPFLY'), ['expire' => 30*86400]);
+        cookie('member', authcode(json_encode($member), 'ENCODE', 'PHPFLY'), 315360000);
         //
     }
 

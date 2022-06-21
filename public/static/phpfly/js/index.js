@@ -569,13 +569,28 @@
                 });
             }
 
-
+            fly.threadWish = function () {
+                fly.json(layui.baseUrl() + '/thread_wish', {member_id: $('.fly-sns').data('id')}, function (res) {
+                    if (res.code === 0) {
+                        if (res.data == 1){
+                            $('.thread_wish i').addClass('color-red')
+                        }else{
+                            $('.thread_wish i').removeClass('color-red')
+                        }
+                    }
+                });
+            }
+            // 发送消息
             $('.fly_message').on('click', function () {
                 fly.messageSend();
             });
-
-            $('.fly_follow').on('click', function () {
-                fly.followAdd();
+            // 关注
+            $('.thread_zan').on('click', function () {
+                fly.threadZan();
+            });
+            // 点赞
+            $('.thread_wish').on('click', function () {
+                fly.threadWish();
             });
 
 

@@ -179,16 +179,4 @@
 {/block}
 {block name="foot_js"}
 <link rel="stylesheet" href="__THEME__/css/calendar.css" />
-<script>
-//$('#LAY_signin').on('click', function(){
-//
-//
-//    //$(this).
-//
-//    alert('s');
-//
-//
-//
-//})
-</script>
 {/block}

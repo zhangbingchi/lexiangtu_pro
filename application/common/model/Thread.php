@@ -53,7 +53,7 @@ class Thread extends Base {
         return $insert_id;
     }
 
-    public function model_where($wheres = []) {
+    public function model_where($wheres = [], $orderBy='a.top desc,a.id desc') {
         $db = db('thread');
         foreach ($wheres as $key => $value) {
             $db->where($value[0], $value[1], $value[2]);
@@ -69,7 +69,7 @@ class Thread extends Base {
         }
         $db->alias('a');
 
-        $db->order('a.top desc,a.id desc');
+        $db->order($orderBy);
 
         $db->field('a.*,m.id as member_id,m.nickname,m.avatar,m.sex,m.vip,m.ident,mi.identification');
 
