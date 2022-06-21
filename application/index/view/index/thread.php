@@ -89,6 +89,89 @@
                     <a class="layui-btn layui-btn-radius layui-btn-danger" href="/media/download/lexiangtu/lexiangtu_v1.0.apk">点击下载APP</a>
                 </div>
             </div>
+            <div class="fly-panel layui-carousel" id="vip-carousel" lay-filter="vip-carousel">
+                <div carousel-item="">
+                    <?php if($user_level < 2) { ?>
+                        <div style="padding: 10px" class="pricing-wco-seven bg-blue">
+                            <div class="pricing-title">
+                                <div class="name">月费会员</div>
+                                <div class="pricing-price">
+                                    <span class="pricing-price-unit">￥</span>18
+                                    <span class="pricing-price-time">  / 月</span>
+                                </div>
+                                <div class="pricing-flow">免费在线预览所有图集</div>
+                                <div class="pricing-flow">原版图集：支持下载</div>
+                                <div class="pricing-flow">打包下载：否</div>
+                                <div class="pricing-flow">精彩视频：无权限</div>
+                                <div class="pricing-flow">私人定制：否</div>
+                                <div class="pricing-flow">每日可下载数：5 个</div>
+                            </div>
+                            <a target="_self" href="/order/purchase/2">
+                                <div class="pricing-btn pricing-btn-4">选择升级</div>
+                            </a>
+                        </div>
+                    <?php } ?>
+                    <?php if($user_level < 3) { ?>
+                        <div class="pricing-wco-senior">
+                            <div class="pricing-title">
+                                <div class="name">年费会员</div>
+                                <div class="pricing-price">
+                                    <span class="pricing-price-unit">￥</span>88
+                                    <span class="pricing-price-time">  / 年</span>
+                                </div>
+                                <div class="pricing-flow">免费在线预览所有图集</div>
+                                <div class="pricing-flow">原版图集：支持下载</div>
+                                <div class="pricing-flow">打包下载：否</div>
+                                <div class="pricing-flow">视频写真：支持下载</div>
+                                <div class="pricing-flow">私人定制：否</div>
+                                <div class="pricing-flow">每日可下载数：20 个</div>
+                            </div>
+                            <a target="_self" href="/order/purchase/3">
+                                <div class="pricing-btn pricing-btn-4">选择升级</div>
+                            </a>
+                        </div>
+                    <?php } ?>
+                    <?php if($user_level < 4) { ?>
+                        <div class="pricing-private">
+                            <div class="pricing-title">
+                                <div class="name">永久会员</div>
+                                <div class="pricing-price">
+                                    <span class="pricing-price-unit">￥</span>188
+                                    <span class="pricing-price-time">&nbsp; / 永久</span>
+                                </div>
+                                <div class="pricing-flow">免费在线预览所有图集</div>
+                                <div class="pricing-flow">原版图集下载：支持下载</div>
+                                <div class="pricing-flow">打包下载：否</div>
+                                <div class="pricing-flow">视频写真：支持下载</div>
+                                <div class="pricing-flow">私人定制：否</div>
+                                <div class="pricing-flow">每日可下载数：30 个</div>
+                            </div>
+                            <a target="_self" href="/order/purchase/4">
+                                <div class="pricing-btn pricing-btn-4">选择升级</div>
+                            </a>
+                        </div>
+                    <?php } ?>
+                    <?php if($user_level < 5) { ?>
+                        <div class="pricing-private">
+                            <div class="pricing-title">
+                                <div class="name">钻石会员</div>
+                                <div class="pricing-price">
+                                    <span class="pricing-price-unit">￥</span>288
+                                </div>
+                                <div class="pricing-flow">免费在线预览所有图集</div>
+                                <div class="pricing-flow">原版图集下载：支持下载</div>
+                                <div class="pricing-flow">打包下载：支持下载</div>
+                                <div class="pricing-flow">视频写真：支持下载</div>
+                                <div class="pricing-flow">私人定制：支持</div>
+                                <div class="pricing-flow">每日可下载数：50 个</div>
+                            </div>
+                            <a target="_self" href="/order/purchase/5">
+                                <div class="pricing-btn pricing-btn-4">选择升级</div>
+                            </a>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
             <div class="fly-panel fly-link">
                 <h3 class="fly-panel-title">友情链接</h3>
                 <dl class="fly-panel-main">
@@ -106,10 +189,23 @@
 </div>
 {/block}
 
+{block name="foot_js"}
+<link rel="stylesheet" href="__PUBLIC__/static/phpfly/css/vip_center.css">
+{/block}
+
 <script>
-    layui.use('flow', function(){
+    layui.use(['carousel', 'flow'], function () {
         var flow = layui.flow;
         //当你执行这样一个方法时，即对页面中的全部带有 lay-src 的 img 元素开启了懒加载（当然你也可以指定相关 img）
         flow.lazyimg();
+
+        //常规轮播
+        var carousel = layui.carousel;
+        carousel.render({
+            elem: '#vip-carousel'
+            ,width: '100%'
+            ,height: '440px'
+            ,interval: 2000
+        });
     });
 </script>

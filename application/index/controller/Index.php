@@ -39,7 +39,12 @@ class Index extends Base {
 
         // 加载签到的初始化状态
         $member = member_is_login();
-        $member_id = !empty($member) ? $member['id'] : -1;
+        $member_id = !empty($member) ? $member['id'] : 0;
+        if ($member_id) {
+            $member = model('member')->get($member_id);
+        }
+        $this->assign('user_level',  !empty($member['user_level'])?$member['user_level']:0);
+
 
         $sign_info = getSignTip($member_id);
         $sign_tip = $sign_info['tip'];
@@ -146,6 +151,12 @@ class Index extends Base {
 
         $this->assign('count', $count);
         $this->assign('pager', $pager->render());
+
+        if ($member =  member_is_login() ) {
+            $member = model('member')->get($member['id']);
+        }
+        $this->assign('user_level',  !empty($member['user_level'])?$member['user_level']:0);
+
         return view();
     }
 
@@ -177,6 +188,7 @@ class Index extends Base {
             $member_id = 0;
             $member = [];
         }
+        $this->assign('user_level',  !empty($member['user_level'])?$member['user_level']:0);
 
         // 文章详情
         $ingredients = model('thread_ingredients')->where('article_id', '=', $one['article_id'])->select();
