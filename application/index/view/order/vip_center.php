@@ -8,9 +8,9 @@
         <div class="layui-col-md3" style="padding: 10px">
             <div class="pricing-wco-seven bg-blue">
                 <div class="pricing-title">
-                    <div class="name">普通会员</div>
+                    <div class="name">月费会员</div>
                     <div class="pricing-price">
-                        <span class="pricing-price-unit">￥</span>15
+                        <span class="pricing-price-unit">￥</span>18
                         <span class="pricing-price-time">/ 月</span>
                     </div>
                     <div class="pricing-flow">免费在线预览所有图集</div>
@@ -34,7 +34,7 @@
                 <div class="pricing-title">
                     <div class="name">年费会员</div>
                     <div class="pricing-price">
-                        <span class="pricing-price-unit">￥</span>50
+                        <span class="pricing-price-unit">￥</span>88
                         <span class="pricing-price-time">/ 年</span>
                     </div>
                     <div class="pricing-flow">免费在线预览所有图集</div>
@@ -58,7 +58,7 @@
                 <div class="pricing-title">
                     <div class="name">永久会员</div>
                     <div class="pricing-price">
-                        <span class="pricing-price-unit">￥</span>100
+                        <span class="pricing-price-unit">￥</span>188
                         <span class="pricing-price-time">&nbsp; / 永久</span>
                     </div>
                     <div class="pricing-flow">免费在线预览所有图集</div>
@@ -82,7 +82,7 @@
                 <div class="pricing-title">
                     <div class="name">钻石会员</div>
                     <div class="pricing-price">
-                        <span class="pricing-price-unit">￥</span>200
+                        <span class="pricing-price-unit">￥</span>288
                     </div>
                     <div class="pricing-flow">免费在线预览所有图集</div>
                     <div class="pricing-flow">原版图集下载：支持下载</div>
