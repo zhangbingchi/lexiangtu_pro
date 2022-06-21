@@ -92,7 +92,7 @@
             <div class="fly-panel layui-carousel" id="vip-carousel" lay-filter="vip-carousel">
                 <div carousel-item="">
                     <?php if($user_level < 2) { ?>
-                        <div style="padding: 10px" class="pricing-wco-seven bg-blue">
+                        <div style="padding: 0" class="pricing-wco-seven bg-blue">
                             <div class="pricing-title">
                                 <div class="name">月费会员</div>
                                 <div class="pricing-price">
@@ -112,7 +112,7 @@
                         </div>
                     <?php } ?>
                     <?php if($user_level < 3) { ?>
-                        <div class="pricing-wco-senior">
+                        <div style="padding: 0" class="pricing-wco-senior">
                             <div class="pricing-title">
                                 <div class="name">年费会员</div>
                                 <div class="pricing-price">
@@ -132,7 +132,7 @@
                         </div>
                     <?php } ?>
                     <?php if($user_level < 4) { ?>
-                        <div class="pricing-private">
+                        <div style="padding: 0" class="pricing-private">
                             <div class="pricing-title">
                                 <div class="name">永久会员</div>
                                 <div class="pricing-price">
@@ -152,7 +152,7 @@
                         </div>
                     <?php } ?>
                     <?php if($user_level < 5) { ?>
-                        <div class="pricing-private">
+                        <div style="padding: 0" class="pricing-private">
                             <div class="pricing-title">
                                 <div class="name">钻石会员</div>
                                 <div class="pricing-price">
@@ -191,21 +191,16 @@
 
 {block name="foot_js"}
 <link rel="stylesheet" href="__PUBLIC__/static/phpfly/css/vip_center.css">
-{/block}
-
 <script>
-    layui.use(['carousel', 'flow'], function () {
-        var flow = layui.flow;
-        //当你执行这样一个方法时，即对页面中的全部带有 lay-src 的 img 元素开启了懒加载（当然你也可以指定相关 img）
-        flow.lazyimg();
-
+    layui.use(['carousel'], function () {
         //常规轮播
         var carousel = layui.carousel;
         carousel.render({
             elem: '#vip-carousel'
             ,width: '100%'
             ,height: '440px'
-            ,interval: 2000
+            ,interval: 3000
         });
     });
 </script>
+{/block}
