@@ -12,7 +12,7 @@
         foreach ($week_hot_lists as $key => $value) {
             ?>
             <dd>
-                <a href="<?php echo url('/thread/' . $value['id']) ?>"><?php echo $value['title'] ?></a>
+                <a href="<?php echo url('/thread_view/' . $value['article_id']) ?>"><?php echo $value['title'] ?></a>
                 <span><i class="iconfont icon-pinglun1"></i> <?php echo $value['comment'] ?></span>
             </dd>
             <?php
