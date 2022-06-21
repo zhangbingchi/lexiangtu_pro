@@ -26,3 +26,5 @@ Route::get('tags', 'index/tags');
 Route::get('vip_center', 'order/vip_center');
 // 下订单
 Route::get('order/purchase/:id', 'order/purchase');
+// 回调
+Route::post('order/order_pay_callback', 'index/order/order_pay_callback');
