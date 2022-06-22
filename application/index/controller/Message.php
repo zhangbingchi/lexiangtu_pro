@@ -94,6 +94,9 @@ class Message extends Base {
         $message = request()->post('message');
         $recv_id = request()->post('recv_id');
 
+        // 过滤非法
+
+
         $msg = model('message')->send($message, MID, $recv_id);
         if (empty($msg)) {
 
