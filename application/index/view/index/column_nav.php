@@ -13,7 +13,6 @@
             <li style="display: inline-block;"><a href="/thread/shipin" target="_blank">精彩视频</a></li>
         </ul>
         <div class="layui-tab-content" style="padding:10px 15px 0px 10px">
-            <div class="layui-tab-item layui-btn-container"></div>
             <!--        秀人摄影-->
             <div class="layui-tab-item layui-btn-container layui-show"><?php
                 $columns = db('tags')->where('pid', '=', 18)->select();
