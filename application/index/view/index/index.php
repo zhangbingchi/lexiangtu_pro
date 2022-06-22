@@ -7,7 +7,11 @@
             <div class="fly-panel">
                 <div class="fly-panel-title fly-filter">
                     <a>推荐</a>
-                    <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin" style="color: #FF5722;">去签到</a>
+                    <?php if ($sign_info['num'] > 0) { ?>
+                    <button class="layui-btn layui-btn-disabled" id="LAY_signin">今日已签到</button>
+                    <?php } else { ?>
+                    <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_signin" style="color: #FF5722;">去签到</a>
+                    <?php } ?>
                 </div>
                 <ul class="fly-list">
                     <?php
