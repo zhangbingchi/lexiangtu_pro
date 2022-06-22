@@ -34,7 +34,7 @@
         echo 'layui-this';
     }
     ?> ">
-        <a href="<?php echo url('index/member/message') ?>">
+        <a href="<?php echo url('/member/message') ?>">
             <i class="layui-icon">&#xe611;</i>
             我的消息
         </a>

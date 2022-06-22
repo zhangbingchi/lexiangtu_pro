@@ -302,7 +302,6 @@ class Member extends Base {
      * @title 我的消息 
      */
     public function message() {
-
         return view();
     }
 

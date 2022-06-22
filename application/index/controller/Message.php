@@ -9,9 +9,17 @@
 namespace app\index\controller;
 
 use app\common\controller\Base;
+use think\App;
 use think\Session;
 
 class Message extends Base {
+
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+
+        $this->_initialize();
+    }
 
     protected function _initialize() {
         parent::_initialize();
