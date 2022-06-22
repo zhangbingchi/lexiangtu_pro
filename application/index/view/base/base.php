@@ -8,6 +8,8 @@
         <meta name="description" content="首页｜乐享图 lexiangtu——最新最全的丽人写真视频馆">
         <link rel="stylesheet" href="__PUBLIC__/libs/layui/2.4.5/css/layui.css">
         <link rel="stylesheet" href="__THEME__/css/global.css">
+        <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+        <script>LA.init({id: "JjE7LFuC6v6gk2tQ",ck: "JjE7LFuC6v6gk2tQ"})</script>
         {block name="head"}{/block}
     </head>
     <body style="width: 100%;overflow-x: hidden;">
