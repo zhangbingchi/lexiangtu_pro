@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>乐享图 lexiangtu——最新最全的丽人写真视频馆</title>
+        <title><?php echo !empty($title) ? $title :'乐享图 lexiangtu——最新最全的丽人写真视频馆'?></title>
         <meta name="baidu-site-verification" content="code-oDRlbPF4Za" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="keywords" content="乐享图,写真,丽人,最新,女神,杨晨晨,陆萱萱">
-        <meta name="description" content="首页｜乐享图 lexiangtu——最新最全的丽人写真视频馆">
+        <meta name="description" content="<?php echo !empty($title)  ? $title :'首页｜乐享图 lexiangtu——最新最全的丽人写真视频馆'?>">
         <link rel="stylesheet" href="__PUBLIC__/libs/layui/2.4.5/css/layui.css">
         <link rel="stylesheet" href="__THEME__/css/global.css">
         <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
