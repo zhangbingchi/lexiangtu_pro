@@ -74,10 +74,10 @@ class ThreadComment extends Base {
 
         $db->join('member m', 'm.id = a.member_id', 'LEFT');
         $db->join('thread t', 't.id = a.thread_id', 'LEFT');
-        $db->where('t.delete_time', 'null');
+        $db->where('t.is_delete', '0');
         $db->alias('a');
         $db->order('a.is_take desc,a.id desc');
-        $db->field('a.*,m.id as member_id,m.nickname,m.avatar,m.sex,t.title,t.id as thread_id');
+        $db->field('a.*,m.id as member_id,m.nickname,m.avatar,m.sex,t.title,t.article_id');
         return $db;
     }
 

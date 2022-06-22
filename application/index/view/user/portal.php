@@ -1,12 +1,7 @@
 {extend name="base:base" /}
 {block name="body"}
 <div class="fly-home fly-panel" style="background-image: url();">
-    <img src="<?php
-    if ($avatar)
-        echo res_http($avatar);
-    else
-        echo res_http('sex' . $sex . '.png');
-    ?>" alt="<?php echo $nickname ?>">
+    <img src="<?php echo $avatar ?>" alt="<?php echo $nickname ?>">
     {notempty name="identification"}
     <i class="iconfont icon-renzheng" title="{$identification}"></i>
     {/notempty}
@@ -17,8 +12,8 @@
         {else/}      
         <i class="iconfont icon-nan"></i>
         {/eq}
-        {gt name="vip" value="0"}
-        <i class="layui-badge fly-badge-vip">VIP{$vip}</i>
+        {gt name="user_level" value="1"}
+        <i class="layui-badge fly-badge-vip">VIP{$user_level}</i>
         {/gt}
         <!--
         <span style="color:#c00;">（管理员）</span>
@@ -30,7 +25,7 @@
     {/notempty}
     <p class="fly-home-info">
         <i class="layui-icon layui-icon-snowflake" title="积分"></i><span style="color: #FF7200;"><?php echo $points ?> 积分</span>
-        <i class="iconfont icon-shijian"></i><span><?php echo substr($create_time, 0, 10) ?> 加入</span>
+        <i class="iconfont icon-shijian"></i><span><?php echo date('Y-m-d H:i:s', $create_time) ?> 加入</span>
         <?php if ($city) { ?>
             <i class="iconfont icon-chengshi"></i><span>来自<?php echo $city ?></span>
         <?php } ?>
@@ -63,34 +58,9 @@
 </div>
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-md6 fly-home-jie">
-            <div class="fly-panel">
-                <h3 class="fly-panel-title"><?php echo $nickname ?> 最近的提问</h3>
-                <ul class="jie-row">
-                    <?php
-                    if (count($recent_thread_lists) > 0) {
-                        foreach ($recent_thread_lists as $key => $value) {
-                            ?>
-                            <li>
-                                {eq name="$value.status" value="1"}
-                                <span class="fly-jing">精</span>
-                                {/eq}
-                                <a href="<?php echo url('/thread/' . $value['id']) ?>" class="jie-title"> <?php echo $value['title'] ?></a>
-                                <i><?php echo $value['create_time'] ?></i>
-                                <em class="layui-hide-xs"><?php echo $value['hits'] ?>阅/<?php echo $value['comment'] ?>答</em>
-                            </li>
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何帖子</i></div>
-                    <?php } ?>
-                </ul>
-            </div>
-        </div>
         <div class="layui-col-md6 fly-home-da">
             <div class="fly-panel">
-                <h3 class="fly-panel-title"><?php echo $nickname ?> 最近的回答</h3>
+                <h3 class="fly-panel-title"><?php echo $nickname ?> 最近的回复</h3>
                 <ul class="home-jieda">
                     <?php
                     if (count($recent_comment_lists) > 0) {
@@ -98,8 +68,8 @@
                             ?>
                             <li>
                                 <p>
-                                    <span><?php echo $value['create_time'] ?></span>
-                                    在<a href="<?php echo url('/thread/' . $value['thread_id']) ?>" target="_blank"><?php echo $value['title'] ?></a>中回复：
+                                    <span><?php echo date('Y-m-d H:i:s', $value['create_time']) ?></span>
+                                    在<a href="<?php echo url('/thread_views/' . $value['article_id']) ?>" target="_blank"><?php echo $value['title'] ?></a>中回复：
                                 </p>
                                 <div class="home-dacontent"><?php echo $value['content'] ?></div>
                             </li>

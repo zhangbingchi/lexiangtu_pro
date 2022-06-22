@@ -96,17 +96,12 @@ class User extends Base {
 
         $this->assign($one);
 
-
-        // 加载最近的帖子
-        $recent_thread_lists = model('thread')->where('member_id', $id)->limit(20)->select();
-        $this->assign('recent_thread_lists', $recent_thread_lists);
-
-
         // 加载最近的回答
         $where = [
                 ['a.member_id', '=', $id]
         ];
         $recent_comment_lists = model('thread_comment')->model_where($where)->limit(10)->select();
+
         $this->assign('recent_comment_lists', $recent_comment_lists);
 
 
