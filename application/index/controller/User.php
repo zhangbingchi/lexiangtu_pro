@@ -90,7 +90,7 @@ class User extends Base {
         }
 
         $wheres[] = ['a.id', '=', $id];
-        $one = model('member')->model_where($wheres)->find()->toArray();
+        $one = model('member')->model_where($wheres)->find();
 
         $one['follow_type'] = model('member_follow')->follow_type($one['id'], $member_id);
 

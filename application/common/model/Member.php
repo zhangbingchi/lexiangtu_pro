@@ -82,8 +82,6 @@ class Member extends Base {
             $affect_rows = model('member_follow')->where($wheres)->delete();
 
             if ($affect_rows) {
-
-
                 //粉丝的关注数 -1
                 $this->_reduce('follows', $member_id_who);
                 //偶像的粉丝数 -1
