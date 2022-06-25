@@ -10,7 +10,7 @@
                     <?php if ($sign_info['num'] > 0) { ?>
                         <a href="#" class="layui-hide-sm layui-show-xs-block fly-right" >已签到</a>
                     <?php } else { ?>
-                        <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_signin" style="color: #FF5722;">去签到</a>
+                        <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_gosignin" style="color: #FF5722;">去签到</a>
                     <?php } ?>
                 </div>
                 <ul class="fly-list">
