@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="baidu-site-verification" content="code-2zEpEA1NZu" />
         <title><?php echo !empty($title) ? $title :'乐享图 lexiangtu——最新最全的丽人写真视频馆'?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="keywords" content="乐享图,写真,丽人,最新,女神,杨晨晨,陆萱萱">
