@@ -476,7 +476,7 @@ class Index extends Base {
             $content = "http://show.lexiangtu.top/thread_views/{$item['article_id']}.html" . PHP_EOL;
             file_put_contents('sitemaps.txt', $content, FILE_APPEND);
         }
-        echo file_get_contents('sitemaps.txt');
+        echo file_get_contents('sitemaps.txt');die;
     }
 
 }
