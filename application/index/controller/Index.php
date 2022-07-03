@@ -471,12 +471,26 @@ class Index extends Base {
     }
 
     public function sitemaps() {
+        echo '<!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="utf-8">
+                    <meta name="baidu-site-verification" content="code-2zEpEA1NZu" />
+                    <title>乐享图 lexiangtu——最新最全的丽人写真视频馆</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+                    <meta name="keywords" content="乐享图,写真,丽人,最新,女神,杨晨晨,陆萱萱">
+                    <meta name="description" content="首页｜乐享图 lexiangtu——最新最全的丽人写真视频馆">
+                </head>
+                <body style="width: 100%;overflow-x: hidden;">';
         $lists = model('thread')->where('is_delete', 0)->limit(100)->order('id', 'desc')->select();
         foreach ($lists as $item) {
             $content = "http://show.lexiangtu.top/thread_views/{$item['article_id']}.html" . PHP_EOL;
             file_put_contents('sitemaps.txt', $content, FILE_APPEND);
             echo "<a href='$content?is_recommend=1'>$content</a>" . PHP_EOL;
         }
+
+        echo '</body>
+            </html>';
     }
 
 }
