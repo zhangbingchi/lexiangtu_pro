@@ -54,7 +54,7 @@ if (is_array($member)) {
         });
     });
     layui.config({
-        version: "3.0.0"
+        version: "3.0.1"
         , base: '__THEME__/js/' //这里实际使用时，建议改成绝对路径
     }).extend({
         fly: 'index'
