@@ -475,8 +475,8 @@ class Index extends Base {
         foreach ($lists as $item) {
             $content = "http://show.lexiangtu.top/thread_views/{$item['article_id']}.html" . PHP_EOL;
             file_put_contents('sitemaps.txt', $content, FILE_APPEND);
+            echo "<a href='$content?is_recommend=1'>$content</a>" . PHP_EOL;
         }
-        echo file_get_contents('sitemaps.txt');die;
     }
 
 }
