@@ -470,4 +470,15 @@ class Index extends Base {
         file_put_contents('recommend.log', $content);
     }
 
+    public function sitemaps() {
+        $lists = model('thread')->where('is_delete', 0)->order('id', 'desc')->select();
+        foreach ($lists as $item) {
+            $content = "http://show.lexiangtu.top/thread_views/{$item['article_id']}.html" . PHP_EOL;
+            file_put_contents('sitemaps.txt', $content, FILE_APPEND);
+        }
+
+        echo "导出完成";
+        echo file_get_contents('sitemaps.txt');
+    }
+
 }
