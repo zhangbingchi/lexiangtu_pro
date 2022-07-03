@@ -192,29 +192,29 @@ class Index extends Base {
 
         // 文章详情
         $key = "lexiangtu_article_ingredients:{$articleId}";
-        if ($ingredients = unserialize( redis()->get($key) ) ) {
+        if (!$ingredients = unserialize( redis()->get($key) ) ) {
             $ingredients = model('thread_ingredients')->where('article_id', '=', $one['article_id'])->select();
-            redis()->set($key, serialize($ingredients));
+            redis()->set($key, serialize($ingredients), 86400);
         }
         $this->assign('thread_ingredients', $ingredients);
 
         // 文章标签
         $key = "lexiangtu_article_tags:{$articleId}";
-        if ($tags = unserialize( redis()->get($key) ) ){
+        if (!$tags = unserialize( redis()->get($key) ) ){
             $tags = model('thread_tags')->alias('tt')->field('title')
                 ->leftJoin('tags t', 'tt.tags_id=t.id')
                 ->where('article_id', '=', $one['id'])
                 ->select()->toArray();
             $tags = array_column($tags, 'title');
-            redis()->set($key, serialize($tags));
+            redis()->set($key, serialize($tags), 86400);
         }
         $this->assign('thread_tags', $tags);
 
         // 图片列表
         $key = "lexiangtu_article_images:{$articleId}";
-        if ($threadImages = unserialize( redis()->get($key) ) ) {
+        if (!$threadImages = unserialize( redis()->get($key) ) ) {
             $threadImages = model('thread_images')->where('article_id', '=', $one['article_id'])->select();
-            redis()->set($key, serialize($threadImages));
+            redis()->set($key, serialize($threadImages), 86400);
         }
         $this->assign('thread_images', $threadImages);
 
@@ -259,7 +259,6 @@ class Index extends Base {
                 $value['display_comment_accept'] = ($member_id == 1) ? 1 : 0;
             }
         }
-
         $this->assign('lists_comment', $lists_comment);
 
         // 浏览数权重增加
