@@ -28,7 +28,7 @@
                 <br>
                 <p>解压密码：<?php echo $unzip_password; ?></p>
                 <br>
-                <p style=" color: #E62129;">备注：请先复制提取码，保存解压密码后再点击下载</p>
+                <p style=" color: #E62129;">备注：复制解压密码，下载完成后删除后缀001解压</p>
             </div>
         <?php } else { ?>
             <h4 style="border-bottom: 1px solid #eaeaea;padding: 10px 0;">
@@ -46,7 +46,7 @@
             </p>
             <p>3、下载文件若出现任何问题可以直接在留言区反馈</p>
             <p>4、下载文件为压缩包，请留意文章中的解压密码</p>
-            <p style=" color: #E62129;">5、<span style="font-weight:800">请勿在百度云网盘在线解压，谢谢支持！</span></p>
+            <p style=" color: #E62129;">5、<span style="font-weight:800">请勿~请勿~请勿在百度云网盘在线解压，谢谢支持！</span></p>
         </div>
         <h4 style="padding-top:15px;border-bottom: 1px solid #eaeaea;padding: 10px 0;">
             <span>免责声明：</span>
