@@ -118,7 +118,7 @@
                 <div class="photos">
                     <?php foreach ($thread_images as $value) { ?>
                         <div class="layui-layer-phimg" style="padding: auto auto">
-                            <img style="max-width: 90%;max-height:90%;padding-top: 10px" src="__MEDIA_URL__/<?php echo $value['image']; ?>">
+                            <img style="max-width: 90%;max-height:90%;padding-top: 10px" src="/static/phpfly/images/loadding.gif" lay-src="__MEDIA_URL__/<?php echo $value['image']; ?>">
                         </div>
                     <?php } ?>
                 </div>
@@ -314,7 +314,7 @@
 {/block}
 {block name="foot_js"}
 <script>
-    layui.use(['fly', 'face', 'reply', 'carousel'], function () {
+    layui.use(['fly', 'face', 'reply', 'carousel', 'flow'], function () {
         var $ = layui.$
                 , reply = layui.reply
                 , fly = layui.fly;
@@ -322,6 +322,10 @@
             var othis = $(this), html = othis.html();
             othis.html(fly.content(html));
         });
+
+        //当你执行这样一个方法时，即对页面中的全部带有lay-src的img元素开启了懒加载（当然你也可以指定相关img）
+        var flow = layui.flow;
+        flow.lazyimg();
 
         //常规轮播
         var carousel = layui.carousel;

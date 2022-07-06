@@ -191,19 +191,31 @@ class Index extends Base {
         $this->assign('user_level',  !empty($member['user_level'])?$member['user_level']:0);
 
         // 文章详情
-        $ingredients = model('thread_ingredients')->where('article_id', '=', $one['article_id'])->select();
+        $key = "lexiangtu_article_ingredients:{$articleId}";
+        if (!$ingredients = unserialize( redis()->get($key) ) ) {
+            $ingredients = model('thread_ingredients')->where('article_id', '=', $one['article_id'])->select();
+            redis()->set($key, serialize($ingredients), 86400);
+        }
         $this->assign('thread_ingredients', $ingredients);
 
         // 文章标签
-        $tags = model('thread_tags')->alias('tt')->field('title')
-            ->leftJoin('tags t', 'tt.tags_id=t.id')
-            ->where('article_id', '=', $one['id'])
-            ->select()->toArray();
-        $tags = array_column($tags, 'title');
+        $key = "lexiangtu_article_tags:{$articleId}";
+        if (!$tags = unserialize( redis()->get($key) ) ){
+            $tags = model('thread_tags')->alias('tt')->field('title')
+                ->leftJoin('tags t', 'tt.tags_id=t.id')
+                ->where('article_id', '=', $one['id'])
+                ->select()->toArray();
+            $tags = array_column($tags, 'title');
+            redis()->set($key, serialize($tags), 86400);
+        }
         $this->assign('thread_tags', $tags);
 
         // 图片列表
-        $threadImages = model('thread_images')->where('article_id', '=', $one['article_id'])->select();
+        $key = "lexiangtu_article_images:{$articleId}";
+        if (!$threadImages = unserialize( redis()->get($key) ) ) {
+            $threadImages = model('thread_images')->where('article_id', '=', $one['article_id'])->select();
+            redis()->set($key, serialize($threadImages), 86400);
+        }
         $this->assign('thread_images', $threadImages);
 
         // 下载权限
@@ -247,7 +259,6 @@ class Index extends Base {
                 $value['display_comment_accept'] = ($member_id == 1) ? 1 : 0;
             }
         }
-
         $this->assign('lists_comment', $lists_comment);
 
         // 浏览数权重增加
@@ -470,24 +481,26 @@ class Index extends Base {
         file_put_contents('recommend.log', $content);
     }
 
-    public function baiduRename() {
+
+    public function baiduRename()
+    {
         //[{"path":"/解密图集/摄影专栏/秀人网/XR.2901-3000/朱可儿FlowerNo.2953.zip","newname":"朱可儿FlowerNo.2953.zip_001"}]
 
         $rename = [];
-        $where = [
+        $where  = [
             ['id', '>=', 7714],
             ['id', '<=', 7635],
         ];
-        $lists = model('thread')->where($where)->order('id', 'desc')->limit(20)->select();
-        foreach ($lists as $item ) {
+        $lists  = model('thread')->where($where)->order('id', 'desc')->limit(20)->select();
+        foreach ($lists as $item) {
             $rename[] = [
                 "path" => "/解密图集/摄影专栏/秀人网/XR.2901-3000/{$item['cover_number']}.zip",
                 "newname" => "{$item['cover_number']}.zip_001"
             ];
         }
 
-        echo json_encode($rename);die;
+        echo json_encode($rename);
+        die;
 
     }
-
 }

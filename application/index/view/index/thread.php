@@ -32,7 +32,7 @@
                             ?>
                             <li>
                                 <a href="<?php echo url('/thread_views/' . $value['article_id']) ?>" class="fly-avatar">
-                                    <img style="width:75px;height:110px" src="__MEDIA_URL__<?php echo $value['image']; ?>">
+                                    <img style="width:75px;height:110px" src="/static/phpfly/images/loadding.gif" lay-src="__MEDIA_URL__<?php echo $value['image']; ?>">
                                 </a>
                                 <h2>
                                     <a href="<?php echo url('/thread_views/' . $value['article_id']) ?>"><?php echo $value['title'] ?></a>
@@ -192,7 +192,10 @@
 {block name="foot_js"}
 <link rel="stylesheet" href="__PUBLIC__/static/phpfly/css/vip_center.css">
 <script>
-    layui.use(['carousel'], function () {
+    layui.use(['carousel', 'flow'], function () {
+        var flow = layui.flow;
+        //当你执行这样一个方法时，即对页面中的全部带有lay-src的img元素开启了懒加载（当然你也可以指定相关img）
+        flow.lazyimg();
         //常规轮播
         var carousel = layui.carousel;
         carousel.render({
