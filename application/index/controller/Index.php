@@ -432,7 +432,7 @@ class Index extends Base {
     public function echoHtml() {
 
         $content = '';
-        $lists = model('thread')->where('is_delete', 0)->order('id', 'desc')->limit(20)->select();
+        $lists = model('thread')->where('is_delete', 0)->order('top', 'desc')->limit(20)->select();
         foreach ($lists as $article) {
             $articleId = $article['article_id'];
             $title = $article['title'];
@@ -468,6 +468,26 @@ class Index extends Base {
 
 
         file_put_contents('recommend.log', $content);
+    }
+
+    public function baiduRename() {
+        //[{"path":"/解密图集/摄影专栏/秀人网/XR.2901-3000/朱可儿FlowerNo.2953.zip","newname":"朱可儿FlowerNo.2953.zip_001"}]
+
+        $rename = [];
+        $where = [
+            ['id', '>=', 7714],
+            ['id', '<=', 7635],
+        ];
+        $lists = model('thread')->where($where)->order('id', 'desc')->limit(20)->select();
+        foreach ($lists as $item ) {
+            $rename[] = [
+                "path" => "/解密图集/摄影专栏/秀人网/XR.2901-3000/{$item['cover_number']}.zip",
+                "newname" => "{$item['cover_number']}.zip_001"
+            ];
+        }
+
+        echo json_encode($rename);die;
+
     }
 
 }
