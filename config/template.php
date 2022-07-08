@@ -36,6 +36,6 @@ return [
     'tpl_replace_string'       => [
         '__PUBLIC__' => APP_URL,
         '__THEME__' => APP_URL . '/static/' . APP_THEME,
-        '__MEDIA_URL__' => 'http://www.lexiangtu.top/media/images/',
+        '__MEDIA_URL__' => 'http://static.lexiangtu.top/media/images/',
     ]
 ];
