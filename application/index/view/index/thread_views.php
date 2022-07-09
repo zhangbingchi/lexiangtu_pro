@@ -111,7 +111,7 @@
                 </p>
                 <br />
                 <span>预览效果：</span>
-                <a href="/" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" style="float:right;margin-bottom: 5px;">返回首页>></a>
+                <a href="/" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" style="float:right;margin-bottom: 5px;">去签到>></a>
                 <hr class="layui-border-red">
                 <div style="min-height:15px; text-align:center">
                     <a href="#comment" style="color:red;font-size: 18px">注册7日内每日首次回复可免费下载</a>

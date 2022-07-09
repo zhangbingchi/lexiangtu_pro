@@ -8,7 +8,7 @@
                 <div class="fly-panel-title fly-filter">
                     <a>推荐</a>
                     <?php if ($sign_info['num'] > 0) { ?>
-                        <a href="#" class="layui-hide-sm layui-show-xs-block fly-right" >已签到</a>
+                        <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" >已签到</a>
                     <?php } else { ?>
                         <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_gosignin" style="color: #FF5722;">去签到</a>
                     <?php } ?>
@@ -120,7 +120,7 @@
             </div>
             <div class="fly-panel fly-signin">
                 <div class="fly-panel-title">
-                    签到
+                    <a href="#" name="signin"></a>签到
                     <i class="fly-mid"></i> 
                     <a href="javascript:;" class="fly-link" id="LAY_signinHelp">说明</a>
                     <i class="fly-mid"></i> 
