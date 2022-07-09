@@ -101,10 +101,10 @@
                                 </div>
                                 <div class="pricing-flow">免费在线预览所有图集</div>
                                 <div class="pricing-flow">原版图集：支持下载</div>
+                                <div class="pricing-flow">微博网红：无权限</div>
                                 <div class="pricing-flow">打包下载：否</div>
-                                <div class="pricing-flow">精彩视频：无权限</div>
                                 <div class="pricing-flow">私人定制：否</div>
-                                <div class="pricing-flow">每日可下载数：5 个</div>
+                                <div class="pricing-flow">每日赠送150积分，(可兑换下载数：3个)</div>
                             </div>
                             <a target="_self" href="/order/purchase/2">
                                 <div class="pricing-btn pricing-btn-4">选择升级</div>
@@ -116,15 +116,15 @@
                             <div class="pricing-title">
                                 <div class="name">年费会员</div>
                                 <div class="pricing-price">
-                                    <span class="pricing-price-unit">￥</span>88
+                                    <span class="pricing-price-unit">￥</span>108
                                     <span class="pricing-price-time">  / 年</span>
                                 </div>
                                 <div class="pricing-flow">免费在线预览所有图集</div>
                                 <div class="pricing-flow">原版图集：支持下载</div>
+                                <div class="pricing-flow">微博网红：支持下载</div>
                                 <div class="pricing-flow">打包下载：否</div>
-                                <div class="pricing-flow">视频写真：支持下载</div>
                                 <div class="pricing-flow">私人定制：否</div>
-                                <div class="pricing-flow">每日可下载数：20 个</div>
+                                <div class="pricing-flow">每日赠送500积分，(可兑换下载数：10个)</div>
                             </div>
                             <a target="_self" href="/order/purchase/3">
                                 <div class="pricing-btn pricing-btn-4">选择升级</div>
@@ -141,10 +141,10 @@
                                 </div>
                                 <div class="pricing-flow">免费在线预览所有图集</div>
                                 <div class="pricing-flow">原版图集下载：支持下载</div>
+                                <div class="pricing-flow">微博网红：支持下载</div>
                                 <div class="pricing-flow">打包下载：否</div>
-                                <div class="pricing-flow">视频写真：支持下载</div>
                                 <div class="pricing-flow">私人定制：否</div>
-                                <div class="pricing-flow">每日可下载数：30 个</div>
+                                <div class="pricing-flow">每日赠送1000积分，(可兑换下载数：20个)</div>
                             </div>
                             <a target="_self" href="/order/purchase/4">
                                 <div class="pricing-btn pricing-btn-4">选择升级</div>
@@ -160,10 +160,10 @@
                                 </div>
                                 <div class="pricing-flow">免费在线预览所有图集</div>
                                 <div class="pricing-flow">原版图集下载：支持下载</div>
+                                <div class="pricing-flow">微博网红：支持下载</div>
                                 <div class="pricing-flow">打包下载：支持下载</div>
-                                <div class="pricing-flow">视频写真：支持下载</div>
                                 <div class="pricing-flow">私人定制：支持</div>
-                                <div class="pricing-flow">每日可下载数：50 个</div>
+                                <div class="pricing-flow">每日赠送2500积分，(可兑换下载数：50个)</div>
                             </div>
                             <a target="_self" href="/order/purchase/5">
                                 <div class="pricing-btn pricing-btn-4">选择升级</div>

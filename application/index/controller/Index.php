@@ -189,6 +189,7 @@ class Index extends Base {
             $member = [];
         }
         $this->assign('user_level',  !empty($member['user_level'])?$member['user_level']:0);
+        $this->assign('user_points',  $member['points']);
 
         // 文章详情
         $key = "lexiangtu_article_ingredients:{$articleId}";
@@ -222,25 +223,36 @@ class Index extends Base {
         $levelAuth['member_id'] = $member_id;
         $levelAuth['is_down_auth'] = 0;
         $levelAuth['user_level'] = '未注册';
-        $allowCount = 0;
+        $allowCount = floor($member['points'] / 50);
         if ($member_id) {
             $levelAuth['is_down_auth'] = !!(redis()->get("user_preview:{$member_id}:{$articleId}"));
+
             // 用户等级
             $levelAuth['user_level'] = '普通会员';
-            if ($member['user_level'] >= 2 && !empty($member['level_expire']) && $member['level_expire'] > time()) {
-                $goodsInfo = model('goods')->where('id', '=', $member['user_level'])->find();
-                $levelAuth['user_level'] = $goodsInfo['name'];
-                $count = redis()->hlen("user_download:{$member_id}:" . date('Ymd'));
-                $allowCount = $goodsInfo['day_down_count'] - $count;
-                if ($allowCount > 0) {
+            if ($member['user_level'] >= 2) {
+                $goods_info = model('goods')->where('id', '=', $member['user_level'])->find();
+                $levelAuth['user_level'] = $goods_info['name'];
+            }
+            // 检查会员权限
+            if (!$levelAuth['is_down_auth']) {
+                // 检查用户当日是否下载过这个文件
+                $key = "user_download:{$member_id}:" . date('Ymd');
+                if (!redis()->hExists($key,$articleId)) {
+                    if ($one['source_type'] == 1) {
+                        // 微博网红年费可下载
+                        if ($member['user_level'] >= 3) {
+                            $levelAuth['is_down_auth'] = 1;
+                        }
+                    } else {
+                        // 积分足够可下载
+                        if($member['points'] >= 50) {
+                            $levelAuth['is_down_auth'] = 1;
+                        }
+                    }
+
+                } else {
                     $levelAuth['is_down_auth'] = 1;
                 }
-
-                // 视频累年费会员可下载
-                if ($one['source_type'] == 1 && $member['user_level'] < 3) {
-                    $levelAuth['is_down_auth'] = 0;
-                }
-
             }
         }
         $levelAuth['allow_count'] = $allowCount; // 剩余下载次数
@@ -282,32 +294,30 @@ class Index extends Base {
         }
         $member_id = $member['id'];
         $member_info = model('member')->where('id', '=', $member_id)->find();
-
-        // 预览权限
-        $is_down_auth = 0;
-        if ($article_id) {
-            if (redis()->get("user_preview:{$member_id}:{$article_id}")) {
-                $is_down_auth = 1;
-            }
-        }
-
-        // 检查权限
+        // 用户等级
         $user_level = '普通会员';
         if ($member_info['user_level'] >= 2) {
-            if ($member_info['level_expire'] > time()) {
-                $goods_info = model('goods')->where('id', '=', $member_info['user_level'])->find();
-                if (!empty($goods_info)) {
-                    $user_level = $goods_info['name'];
-                    $day_down_count = $goods_info['day_down_count'];
+            $goods_info = model('goods')->where('id', '=', $member_info['user_level'])->find();
+            $user_level = $goods_info['name'];
+        }
 
-                    $key = "user_download:{$member_id}:" . date('Ymd');
-                    $allow_down_count = $day_down_count - intval(redis()->hLen($key));
-                    if ($allow_down_count > 0) {
-                        $is_down_auth = true;
-                        redis()->hSet($key, $article_id, 1);
-                        redis()->expire($key, 86400);
-                    }
+        // 预览权限
+        $is_down_auth = redis()->get("user_preview:{$member_id}:{$article_id}") ? 1 : 0;
+        // 检查会员权限
+        if (!$is_down_auth) {
+            // 检查用户当日是否下载过这个文件
+            $key = "user_download:{$member_id}:" . date('Ymd');
+            if (!redis()->hExists($key,$article_id)) {
+                // 判断当前用户积分是否足够
+                if($member_info['points'] >= 50) {
+                    $is_down_auth = 1;
+                    redis()->hSet($key, $article_id, time());
+                    redis()->expire($key, 86400);
+                    // 扣除积分
+                    model('member')->where('id', $member_id)->setInc('points', -50);
                 }
+            } else {
+                $is_down_auth = 1;
             }
         }
 
@@ -322,20 +332,18 @@ class Index extends Base {
                 'is_down_auth' => $is_down_auth,
                 'user_level' => $user_level
             ];
+
+            // 浏览数权重增加
+            model('thread')->where('article_id', $article_id)->setInc('down_count');
+            model('thread')->where('article_id', $article_id)->setInc('weight', 100);
+
+            $this->assign($data);
+
+            return view();
+
         } else {
-            $data = [
-                'is_down_auth' => $is_down_auth,
-                "desc" => "您的每日下载次数已经用完，升级会员或者购买图集，下载更多原版图集哦！",
-            ];
+            $this->success('当前积分不足，可升级会员获取更多积分～', '/vip_center');
         }
-
-        // 浏览数权重增加
-        model('thread')->where('article_id', $article_id)->setInc('down_count');
-        model('thread')->where('article_id', $article_id)->setInc('weight', 100);
-
-        $this->assign($data);
-
-        return view();
     }
 
     /**
@@ -443,7 +451,7 @@ class Index extends Base {
     public function echoHtml() {
 
         $content = '';
-        $lists = model('thread')->where('is_delete', 0)->order('top', 'desc')->limit(20)->select();
+        $lists = model('thread')->where('id', '<=', 7733)->order('id', 'desc')->limit(20)->select();
         foreach ($lists as $article) {
             $articleId = $article['article_id'];
             $title = $article['title'];
@@ -458,7 +466,7 @@ class Index extends Base {
             }
             $content .= PHP_EOL . PHP_EOL;
 
-            $content .= "[size=5]原版图集下载链接：[url=http://show.lexiangtu.top/thread_views/{$articleId}.html][color=Blue]http://show.lexiangtu.top/thread_views/{$articleId}.html[/color][/url][/size]";
+            $content .= "[size=5]原版图集下载链接：[url=http://show.lexiangtu.top/thread_views/{$articleId}.html?is_recommend=1][color=Blue]http://show.lexiangtu.top/thread_views/{$articleId}.html[/color][/url][/size]";
 
             $content .= PHP_EOL . PHP_EOL . PHP_EOL;
 
@@ -466,7 +474,7 @@ class Index extends Base {
 
             $threadImages = model('thread_images')->where('article_id', $articleId)->select();
             foreach ($threadImages as $item) {
-                $content .= "[img]http://show.lexiangtu.top/media/images/{$item['image']}[/img] " . PHP_EOL;
+                $content .= "[img]http://static.lexiangtu.top/media/images/{$item['image']}[/img] " . PHP_EOL;
             }
 
             $content .= PHP_EOL . PHP_EOL . PHP_EOL;
@@ -488,13 +496,13 @@ class Index extends Base {
 
         $rename = [];
         $where  = [
-            ['id', '>=', 7714],
-            ['id', '<=', 7635],
+            ['id', '>=', 8265],
+            ['id', '<=', 8311],
         ];
         $lists  = model('thread')->where($where)->order('id', 'desc')->limit(20)->select();
         foreach ($lists as $item) {
             $rename[] = [
-                "path" => "/解密图集/摄影专栏/秀人网/XR.2901-3000/{$item['cover_number']}.zip",
+                "path" => "/解密图集/摄影专栏/模范学院/MF.001-450/{$item['cover_number']}.zip",
                 "newname" => "{$item['cover_number']}.zip_001"
             ];
         }

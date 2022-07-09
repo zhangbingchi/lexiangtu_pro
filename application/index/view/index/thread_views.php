@@ -60,7 +60,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label" style="width: auto;"><b>权限说明：</b></label>
                             <div class="layui-input-block">
-                                今日剩余下载：<span class="downimgp show_text"><?php echo $level_auth['allow_count'] ?></span>次
+                                剩余下载：<span class="downimgp show_text"><?php echo $level_auth['allow_count'] ?></span>次，可用积分 <cite style="color:red;font-size: 18px"><?php echo $user_points ?></cite> 分
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -80,7 +80,7 @@
                             <?php } else { ?>
                                 <?php if ($source_type == 1) { ?>
                                     <div class="layui-input-block">
-                                        <p><span class="show_text">视频资源</span>仅支持限<span class="show_text">年费会员</span>以上权限下载，
+                                        <p><span class="show_text">微博网红</span>仅支持限<span class="show_text">年度会员</span>以上权限下载，
                                             您可 <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
                                                  href="/order/purchase/3?article_id=<?php echo $article_id ?>" target="_blank">点击此处</a>
                                             升级会员
@@ -90,7 +90,7 @@
                                     <div style="style="margin-left: 30px; padding-top:30px"">
                                         <p>可 <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
                                                href="/vip_center" target="_blank"> 升级会员 </a> 或 <a class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"
-                                                href="/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank"> 购买图集 </a> 下载
+                                                href="/order/purchase/1?article_id=<?php echo $article_id ?>" target="_blank"> 赞助支持 </a> 下载
                                         </p>
                                     </div>
                                 <?php } ?>
@@ -105,6 +105,9 @@
                             </p>
                         </div>
                     <?php } ?>
+                    <div class="sm">
+                        <p style=" color: #E62129; ">注：每50积分可兑换下载一套图集，可通过升级会员、签到、点赞、评论、收藏等获取不同积分</p>
+                    </div>
                 </p>
                 <br />
                 <span>预览效果：</span>
@@ -237,10 +240,10 @@
                                 </div>
                                 <div class="pricing-flow">免费在线预览所有图集</div>
                                 <div class="pricing-flow">原版图集：支持下载</div>
+                                <div class="pricing-flow">微博网红：无权限</div>
                                 <div class="pricing-flow">打包下载：否</div>
-                                <div class="pricing-flow">精彩视频：无权限</div>
                                 <div class="pricing-flow">私人定制：否</div>
-                                <div class="pricing-flow">每日可下载数：5 个</div>
+                                <div class="pricing-flow">每日赠送150积分，(可兑换下载数：3个)</div>
                             </div>
                             <a target="_self" href="/order/purchase/2">
                                 <div class="pricing-btn pricing-btn-4">选择升级</div>
@@ -252,15 +255,15 @@
                         <div class="pricing-title">
                             <div class="name">年费会员</div>
                             <div class="pricing-price">
-                                <span class="pricing-price-unit">￥</span>88
+                                <span class="pricing-price-unit">￥</span>108
                                 <span class="pricing-price-time">  / 年</span>
                             </div>
                             <div class="pricing-flow">免费在线预览所有图集</div>
                             <div class="pricing-flow">原版图集：支持下载</div>
+                            <div class="pricing-flow">微博网红：支持下载</div>
                             <div class="pricing-flow">打包下载：否</div>
-                            <div class="pricing-flow">视频写真：支持下载</div>
                             <div class="pricing-flow">私人定制：否</div>
-                            <div class="pricing-flow">每日可下载数：20 个</div>
+                            <div class="pricing-flow">每日赠送1000积分，(可兑换下载数：10个)</div>
                         </div>
                         <a target="_self" href="/order/purchase/3">
                             <div class="pricing-btn pricing-btn-4">选择升级</div>
@@ -277,10 +280,10 @@
                             </div>
                             <div class="pricing-flow">免费在线预览所有图集</div>
                             <div class="pricing-flow">原版图集下载：支持下载</div>
+                            <div class="pricing-flow">微博网红：支持下载</div>
                             <div class="pricing-flow">打包下载：否</div>
-                            <div class="pricing-flow">视频写真：支持下载</div>
                             <div class="pricing-flow">私人定制：否</div>
-                            <div class="pricing-flow">每日可下载数：30 个</div>
+                            <div class="pricing-flow">每日赠送1000积分，(可兑换下载数：20个)</div>
                         </div>
                         <a target="_self" href="/order/purchase/4">
                             <div class="pricing-btn pricing-btn-4">选择升级</div>
@@ -296,10 +299,10 @@
                             </div>
                             <div class="pricing-flow">免费在线预览所有图集</div>
                             <div class="pricing-flow">原版图集下载：支持下载</div>
+                            <div class="pricing-flow">微博网红：支持下载</div>
                             <div class="pricing-flow">打包下载：支持下载</div>
-                            <div class="pricing-flow">视频写真：支持下载</div>
                             <div class="pricing-flow">私人定制：支持</div>
-                            <div class="pricing-flow">每日可下载数：50 个</div>
+                            <div class="pricing-flow">每日赠送2500积分，(可兑换下载数：50个)</div>
                         </div>
                         <a target="_self" href="/order/purchase/5">
                             <div class="pricing-btn pricing-btn-4">选择升级</div>

@@ -250,7 +250,32 @@ function member_is_login() {
 
     $member = authcode($member, 'DECODE', 'PHPFLY');
     $member = json_decode($member, true);
-    
+
+    if ($memberId = $member['id']) {
+        $memberInfo =  model('member')->get($memberId);
+        // 检查会员是否过期
+        if ($memberInfo['level_expire'] >= time()) {
+            // VIP用户登录增加签到积分
+            $recordKey = 'day_vip_add_points_records_' . date('Ymd');
+            if (!redis()->sIsMember($recordKey, $memberId)) { // 是否已经增加积分
+                if ($memberInfo['user_level'] == 2) { // 月度会员每日下载3套
+                    db('member')->where('id', $memberId)->setField('points', 150);
+                } else if ($memberInfo['user_level'] == 3) { // 年度会员每日下载10套
+                    db('member')->where('id', $memberId)->setField('points', 500);
+                } else if ($memberInfo['user_level'] == 4) { // 永久会员每日下载20套
+                    db('member')->where('id', $memberId)->setField('points', 1000);
+                } else if ($memberInfo['user_level'] == 5) { // 钻石会员每日下载50套
+                    db('member')->where('id', $memberId)->setField('points', 2500);
+                }
+
+                redis()->sAdd($recordKey, $memberId);
+            }
+        } else {
+            // 过期，重置用户等级
+            model('member')->where('id', $memberId)->setField('user_level', 1);
+        }
+    }
+
     return $member;
 }
 

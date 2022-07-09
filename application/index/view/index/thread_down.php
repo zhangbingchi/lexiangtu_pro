@@ -47,6 +47,7 @@
             <p>3、下载文件若出现任何问题可以直接在留言区反馈</p>
             <p>4、下载文件为压缩包，请留意文章中的解压密码</p>
             <p style=" color: #E62129;">5、<span style="font-weight:800">请勿~请勿~请勿在百度云网盘在线解压，谢谢支持！</span></p>
+            <p style=" color: #E62129;">6、<span style="font-weight:800">钻石会员打包、定制下载请站内私信管理员</span></p>
         </div>
         <h4 style="padding-top:15px;border-bottom: 1px solid #eaeaea;padding: 10px 0;">
             <span>免责声明：</span>

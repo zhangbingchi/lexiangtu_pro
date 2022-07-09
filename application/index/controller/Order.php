@@ -136,6 +136,17 @@ class Order extends Base {
 
                     $update['user_level'] = $goodsId;
 
+                    // 开通首日增加积分
+                    redis()->sAdd('day_vip_add_points_records_' . date('Ymd'), $userId);
+
+                    // 开通首日增加积分
+                    switch ($goodsId) {
+                        case 2: $update['points'] = 150; break;
+                        case 3: $update['points'] = 500; break;
+                        case 4: $update['points'] = 1000; break;
+                        case 5: $update['points'] = 2500; break;
+                    }
+
                     model('member')->save($update, ['id' => $userId]);
                 }
             }

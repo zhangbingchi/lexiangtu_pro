@@ -15,10 +15,10 @@
                     </div>
                     <div class="pricing-flow">免费在线预览所有图集</div>
                     <div class="pricing-flow">原版图集：支持下载</div>
+                    <div class="pricing-flow">微博网红：无权限</div>
                     <div class="pricing-flow">打包下载：否</div>
-                    <div class="pricing-flow">精彩视频：无权限</div>
                     <div class="pricing-flow">私人定制：否</div>
-                    <div class="pricing-flow">每日可下载数：5 个</div>
+                    <div class="pricing-flow">每日赠送150积分，（可兑换下载数：3个）</div>
                 </div>
                 <?php if($user_level < 2) { ?>
                     <a target="_self" href="/order/purchase/2">
@@ -34,15 +34,15 @@
                 <div class="pricing-title">
                     <div class="name">年费会员</div>
                     <div class="pricing-price">
-                        <span class="pricing-price-unit">￥</span>88
+                        <span class="pricing-price-unit">￥</span>108
                         <span class="pricing-price-time">/ 年</span>
                     </div>
                     <div class="pricing-flow">免费在线预览所有图集</div>
                     <div class="pricing-flow">原版图集：支持下载</div>
+                    <div class="pricing-flow">微博网红：支持预览</div>
                     <div class="pricing-flow">打包下载：否</div>
-                    <div class="pricing-flow">视频写真：支持下载</div>
                     <div class="pricing-flow">私人定制：否</div>
-                    <div class="pricing-flow">每日可下载数：20 个</div>
+                    <div class="pricing-flow">每日赠送500积分，(可兑换下载数：10个)</div>
                 </div>
                 <?php if($user_level < 3) { ?>
                     <a target="_self" href="/order/purchase/3">
@@ -63,10 +63,10 @@
                     </div>
                     <div class="pricing-flow">免费在线预览所有图集</div>
                     <div class="pricing-flow">原版图集下载：支持下载</div>
+                    <div class="pricing-flow">微博网红：支持下载</div>
                     <div class="pricing-flow">打包下载：否</div>
-                    <div class="pricing-flow">视频写真：支持下载</div>
                     <div class="pricing-flow">私人定制：否</div>
-                    <div class="pricing-flow">每日可下载数：30 个</div>
+                    <div class="pricing-flow">每日赠送1000积分，(可兑换下载数：20个)</div>
                 </div>
                 <?php if($user_level < 4) { ?>
                     <a target="_self" href="/order/purchase/4">
@@ -86,10 +86,10 @@
                     </div>
                     <div class="pricing-flow">免费在线预览所有图集</div>
                     <div class="pricing-flow">原版图集下载：支持下载</div>
+                    <div class="pricing-flow">微博网红：支持下载</div>
                     <div class="pricing-flow">打包下载：支持下载</div>
-                    <div class="pricing-flow">视频写真：支持下载</div>
                     <div class="pricing-flow">私人定制：支持</div>
-                    <div class="pricing-flow">每日可下载数：50 个</div>
+                    <div class="pricing-flow">每日赠送2500积分，(可兑换下载数：50个)</div>
                 </div>
                 <?php if($user_level < 5) { ?>
                     <a target="_self" href="/order/purchase/5">
@@ -110,13 +110,14 @@
             <br>
         </div>
         <div style=" padding-bottom: 10px; " class="sm">
-            <p>1、为了避免用户恶意下载，月度会员每天最多可以下载5个资源 、年费赞助20个资源、永久赞助30个资源、钻石会员50个资源！</p>
+            <p>1、为了避免用户恶意下载，每50积分可兑换一套图集，月度会员每日可兑换3次 、年费赞助10次、永久赞助20次、钻石会员50次！</p>
             <p style=" color: #E62129;">
                 2、<span style="font-weight:800">禁止网站用户以任何形式将写真资源发布出去，违者将永久封禁用户账号！</span>
             </p>
             <p>3、下载文件若出现任何问题可以直接在留言区反馈</p>
             <p>4、下载文件为压缩包，请留意文章中的解压密码</p>
             <p style=" color: #E62129;">5、<span style="font-weight:800">请勿在百度云网盘在线解压，谢谢支持！</span></p>
+            <p style=" color: #E62129;">6、<span style="font-weight:800">钻石会员打包、定制下载请站内私信管理员</span></p>
         </div>
     </div>
 </div>
