@@ -60,7 +60,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label" style="width: auto;"><b>权限说明：</b></label>
                             <div class="layui-input-block">
-                                剩余下载：<span class="downimgp show_text"><?php echo $level_auth['allow_count'] ?></span>次，可用积分 <cite style="color:red;font-size: 18px"><?php echo $user_points ?></cite> 分
+                                剩余下载：<span class="downimgp show_text"><?php echo $level_auth['allow_count'] ?></span>次，可用 <cite style="color:red;font-size: 18px"><?php echo $user_points ?></cite> 积分
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -116,7 +116,7 @@
                 <div style="min-height:15px; text-align:center">
                     <a href="#comment" style="color:red;font-size: 18px">注册7日内每日首次回复可免费下载</a>
                     <br>
-                    <span><?php echo $content; ?></span>
+<!--                    <span>简介</span>-->
                 </div>
                 <div class="photos">
                     <?php foreach ($thread_images as $value) { ?>
