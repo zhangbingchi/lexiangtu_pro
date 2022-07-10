@@ -233,14 +233,27 @@ class Index extends Base {
                 $goods_info = model('goods')->where('id', '=', $member['user_level'])->find();
                 $levelAuth['user_level'] = $goods_info['name'];
             }
+            // 微博网红年度可预览、永久可下载
+            $levelAuth['is_view_auth'] = 0;
+            if ($one['source_type'] == 2) {
+                if ($member['user_level'] >= 3 ) {
+                    $levelAuth['is_view_auth'] = 1;
+                }
+            }
+
             // 检查会员权限
             if (!$levelAuth['is_down_auth']) {
                 // 检查用户当日是否下载过这个文件
                 $key = "user_download:{$member_id}:" . date('Ymd');
                 if (!redis()->hExists($key,$articleId)) {
                     if ($one['source_type'] == 1) {
-                        // 微博网红年费可下载
-                        if ($member['user_level'] >= 3) {
+                        // 视频钻石会员下载
+                        if ($member['user_level'] == 5) {
+                            $levelAuth['is_down_auth'] = 1;
+                        }
+                    } else if ($one['source_type'] == 2) {
+                        // 微博网红永久会员下载
+                        if ($member['user_level'] >= 4) {
                             $levelAuth['is_down_auth'] = 1;
                         }
                     } else {
@@ -308,13 +321,30 @@ class Index extends Base {
             // 检查用户当日是否下载过这个文件
             $key = "user_download:{$member_id}:" . date('Ymd');
             if (!redis()->hExists($key,$article_id)) {
-                // 判断当前用户积分是否足够
-                if($member_info['points'] >= 50) {
-                    $is_down_auth = 1;
-                    redis()->hSet($key, $article_id, time());
-                    redis()->expire($key, 86400);
-                    // 扣除积分
-                    model('member')->where('id', $member_id)->setInc('points', -50);
+                $thread = model('thread')->get($article_id);
+                if(!$thread) {
+                    return $this->redirect('/');
+                } else {
+                    if ($thread['source_type'] == 1) {
+                        // 视频类
+                        if ($member_info['user_level'] == 5) {
+                            $is_down_auth = 1;
+                        }
+                    } else if ($thread['source_type'] == 2) {
+                        // 微博网红
+                        if ($member_info['user_level'] >= 4) {
+                            $is_down_auth = 1;
+                        }
+                    } else {
+                        $is_down_auth = 1;
+                    }
+                    // 判断当前用户积分是否足够
+                    if($is_down_auth && $member_info['points'] >= 50) {
+                        redis()->hSet($key, $article_id, time());
+                        redis()->expire($key, 86400);
+                        // 扣除积分
+                        model('member')->where('id', $member_id)->setInc('points', -50);
+                    }
                 }
             } else {
                 $is_down_auth = 1;
@@ -342,7 +372,7 @@ class Index extends Base {
             return view();
 
         } else {
-            $this->success('当前积分不足，可升级会员获取更多积分～', '/vip_center');
+            $this->success('当前积分、权限不足，可升级会员获取更多积分～', '/vip_center');
         }
     }
 
