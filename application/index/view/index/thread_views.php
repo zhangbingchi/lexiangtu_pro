@@ -60,8 +60,8 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label" style="width: auto;"><b>权限说明：</b></label>
                             <div class="layui-input-block">
-                                剩余下载：<span class="downimgp show_text"><?php echo $level_auth['allow_count'] ?></span>次，可用 <cite style="color:red;font-size: 18px"><?php echo $user_points ?></cite> 积分
-                            </div>
+                                剩余下载：<cite style="color:red;font-size: 18px"><?php echo $user_points ?></cite> 积分 / <?php echo $level_auth['allow_count'] ?>次
+                        </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label" style="width: auto;"><b>下载链接：</b></label>
