@@ -50,21 +50,23 @@
             </div>
             <div class="fly-panel" style="margin-bottom: 0;">
                 <div class="fly-panel-title fly-filter">
-                    <a href="<?php
-                    echo url('/thread/' . request()->param('alias'));
-                    ?>" <?php
-                       if (empty(request()->param('type'))) {
+                    <a href='/thread/all.html' <?php
+                       if (empty(request()->param('alias'))) {
                            echo ' class="layui-this" ';
                        }
                        ?>>综合</a>                    
                     <span class="fly-mid"></span>
-                    <a href="<?php
-                    echo url('/thread/all/wonderful');
-                    ?>" <?php
-                       if (request()->param('type') == 'wonderful') {
+                    <a href='/thread/wonderful.html' <?php
+                       if (request()->param('alias') == 'wonderful') {
                            echo ' class="layui-this" ';
                        }
-                       ?>>精华</a>                    
+                       ?>>精华</a>
+                    <span class="fly-mid"></span>
+                    <a href='/thread/shipin.html' <?php
+                    if (request()->param('alias') == 'shipin') {
+                        echo ' class="layui-this" ';
+                    }
+                    ?>>视频</a>
                 </div>
                 <ul class="fly-list"> 
                     <?php

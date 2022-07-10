@@ -6,23 +6,29 @@
         <div class="layui-col-md8">
             <div class="fly-panel" style="margin-bottom: 0;">
                 <div class="fly-panel-title fly-filter">
-                    <a href="/thread/all" <?php
+                    <a href="/thread/all.html" <?php
                        if (empty(request()->param('alisa')) || request()->param('alisa') == 'all') {
                            echo ' class="layui-this" ';
                        }
                        ?>>最新</a>
                     <span class="fly-mid"></span>
-                    <a href="/thread/wonderful" <?php
+                    <a href="/thread/wonderful.html" <?php
                        if (request()->param('alisa') == 'wonderful') {
                            echo ' class="layui-this" ';
                        }
                        ?>>精华</a>
                     <span class="fly-mid"></span>
-                    <a href="/thread/recommend" <?php
+                    <a href="/thread/recommend.html" <?php
                     if (request()->param('alisa') == 'recommend') {
                         echo ' class="layui-this" ';
                     }
                     ?>>推荐</a>
+                    <span class="fly-mid"></span>
+                    <a href="/thread/shipin.html" <?php
+                    if (request()->param('alisa') == 'shipin') {
+                        echo ' class="layui-this" ';
+                    }
+                    ?>>视频</a>
                 </div>
 
                 <?php if ($count) { ?>
