@@ -106,7 +106,12 @@
                         </div>
                     <?php } ?>
                     <div class="sm">
-                        <p style=" color: #E62129; ">注：每50积分可兑换下载一套图集，可通过升级会员、签到、点赞、评论、收藏等获取不同积分</p>
+                        <p>注：每50积分可兑换下载原版图集，更多积分可通过
+                            <a href="/vip_center.html" style="color:blue;text-decoration:underline;">升级会员</a>、
+                            <a href="/" style="color:blue;text-decoration:underline;">签到</a>、
+                            <a href="#" style="color:blue;text-decoration:underline;">点赞</a>、
+                            <a href="#comment" style="color:blue;text-decoration:underline;">评论</a>、
+                            <a href="#" style="color:blue;text-decoration:underline;">收藏</a> 等获取</p>
                     </div>
                 </p>
                 <br />
