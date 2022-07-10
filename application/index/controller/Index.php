@@ -214,7 +214,7 @@ class Index extends Base {
         // 图片列表
         $key = "lexiangtu_article_images:{$articleId}";
         if (!$threadImages = unserialize( redis()->get($key) ) ) {
-            $threadImages = model('thread_images')->where('article_id', '=', $one['article_id'])->select();
+            $threadImages = model('thread_images')->where('article_id', '=', $one['article_id'])->limit(100)->select();
             redis()->set($key, serialize($threadImages), 86400);
         }
         $this->assign('thread_images', $threadImages);

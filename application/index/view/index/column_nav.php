@@ -10,7 +10,7 @@
             <li class="layui-this" style="display: inline-block;"><a href="#">秀人摄影</a></li>
             <li style="display: inline-block;"><a href="#">精品影集</a></li>
             <li style="display: inline-block;"><a href="#">次元少女</a></li>
-            <li style="display: inline-block;"><a href="#">微博网红</a></li>
+            <li style="display: inline-block;"><a href="/thread/tags/2.html">微博网红</a></li>
         </ul>
         <div class="layui-tab-content" style="padding:10px 15px 0px 10px">
             <!--        秀人摄影-->
