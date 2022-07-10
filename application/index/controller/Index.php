@@ -215,7 +215,7 @@ class Index extends Base {
         // 图片列表
         $key = "lexiangtu_article_images:{$articleId}";
         if (!$threadImages = unserialize( redis()->get($key) ) ) {
-            $threadImages = model('thread_images')->where('article_id', '=', $one['article_id'])->limit(100)->select();
+            $threadImages = model('thread_images')->where('article_id', '=', $one['article_id'])->limit(20)->select();
             redis()->set($key, serialize($threadImages), 86400);
         }
         $this->assign('thread_images', $threadImages);
@@ -224,6 +224,8 @@ class Index extends Base {
         $levelAuth['member_id'] = $member_id;
         $levelAuth['is_down_auth'] = 0;
         $levelAuth['user_level'] = '未注册';
+        // 微博网红默认只能产看3张
+        $levelAuth['is_view_auth'] = $one['source_type'] == 2 ? 0 : 1;
         $allowCount = floor($member['points'] / 50);
         if ($member_id) {
             $levelAuth['is_down_auth'] = !!(redis()->get("user_preview:{$member_id}:{$articleId}"));
@@ -235,7 +237,6 @@ class Index extends Base {
                 $levelAuth['user_level'] = $goods_info['name'];
             }
             // 微博网红年度可预览、永久可下载
-            $levelAuth['is_view_auth'] = 0;
             if ($one['source_type'] == 2) {
                 if ($member['user_level'] >= 3 ) {
                     $levelAuth['is_view_auth'] = 1;
