@@ -118,11 +118,13 @@
                 <span>预览效果：</span>
                 <a href="/" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" style="float:right;margin-bottom: 5px;">去签到>></a>
                 <hr class="layui-border-red">
+                <?php if ($source_type == 0) { ?>
                 <div style="min-height:15px; text-align:center">
                     <a href="#comment" style="color:red;font-size: 18px">注册7日内每日首次回复可免费下载</a>
                     <br>
 <!--                    <span>简介</span>-->
                 </div>
+                <?php } ?>
                 <div class="photos">
                     <?php foreach ($thread_images as $value) { ?>
                         <div class="layui-layer-phimg" style="padding: auto auto">

@@ -190,7 +190,7 @@ class Index extends Base {
             $member = [];
         }
         $this->assign('user_level',  !empty($member['user_level'])?$member['user_level']:0);
-        $this->assign('user_points',  $member['points']);
+        $this->assign('user_points',  !empty($member['points'])?$member['points']:0);
 
         // 文章详情
         $key = "lexiangtu_article_ingredients:{$articleId}";
@@ -226,8 +226,10 @@ class Index extends Base {
         $levelAuth['user_level'] = '未注册';
         // 微博网红默认只能产看3张
         $levelAuth['is_view_auth'] = $one['source_type'] == 2 ? 0 : 1;
-        $allowCount = floor($member['points'] / 50);
+        $allowCount = 0;
         if ($member_id) {
+            $allowCount = floor($member['points'] / 50);
+
             $levelAuth['is_down_auth'] = !!(redis()->get("user_preview:{$member_id}:{$articleId}"));
 
             // 用户等级
@@ -487,7 +489,7 @@ class Index extends Base {
     public function echoHtml() {
 
         $content = '';
-        $lists = model('thread')->where('id', '<=', 7733)->order('id', 'desc')->limit(20)->select();
+        $lists = model('thread')->where('is_delete',0)->order('id', 'desc')->limit(22)->select();
         foreach ($lists as $article) {
             $articleId = $article['article_id'];
             $title = $article['title'];
@@ -508,7 +510,7 @@ class Index extends Base {
 
             $content .= '预览图：' . PHP_EOL . PHP_EOL;
 
-            $threadImages = model('thread_images')->where('article_id', $articleId)->select();
+            $threadImages = model('thread_images')->where('article_id', $articleId)->limit(20)->select();
             foreach ($threadImages as $item) {
                 $content .= "[img]http://static.lexiangtu.top/media/images/{$item['image']}[/img] " . PHP_EOL;
             }
