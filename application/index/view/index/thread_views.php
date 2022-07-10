@@ -132,7 +132,8 @@
                 </div>
             </div>
             <!--回复区-->
-            <div class="fly-panel detail-box" id="flyReply">
+            <?php if ($source_type == 0 ) { ?>
+                <div class="fly-panel detail-box" id="flyReply">
                 <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
                     <legend>回帖</legend>
                 </fieldset>
@@ -210,6 +211,7 @@
                     </form>
                 </div>
             </div>
+            <?php } ?>
         </div>
         <div class="layui-col-md4">
             {include file="index/inc_week_hot" /}

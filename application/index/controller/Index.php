@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use app\common\controller\Base;
 use think\Request;
+use think\response\Json;
 use utils\Page;
 
 class Index extends Base {
@@ -390,6 +391,10 @@ class Index extends Base {
             $id = $post['thread_id'];
             $wheres = [['a.id', '=', $id],['a.is_delete', '=', 0]];
             $one = model('thread')->model_where($wheres)->find();
+            //  微博网红无评论
+            if ($one['source_type'] != 0){
+                return json([], 200);
+            }
 
             $msg = model('thread_comment')->thread_comment_add($post);
             if (is_numeric($msg) || empty($msg)) {
