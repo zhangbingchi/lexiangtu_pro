@@ -325,7 +325,7 @@ class Index extends Base {
             // 检查用户当日是否下载过这个文件
             $key = "user_download:{$member_id}:" . date('Ymd');
             if (!redis()->hExists($key,$article_id)) {
-                $thread = model('thread')->get($article_id);
+                $thread = model('thread')->where('article_id', $article_id)->find();
                 if(!$thread) {
                     return $this->redirect('/');
                 } else {
